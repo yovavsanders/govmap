@@ -1,1 +1,241 @@
 
+{
+    "groups": [
+        { 
+            "group_icon": "human-male-female-child",
+            "group_name": "חברה וכלכלה",
+            "sub_groups":[
+
+                  {
+                    "sub_group_icon": "account-group",
+                    "sub_group_name": "צפיפות האוכלוסייה",
+                    "selected": [],
+                    "sub_group_layers":[
+                      {
+                        "text": "צפיפות אוכלוסיה לפי אזורים טבעיים",
+                        "layer_name": "sites_density_2020_prod"
+                      }
+                    ]
+                  },
+                  {
+                    "sub_group_icon": "chart-box-outline",
+                    "sub_group_name": "אוכלוסיית ישראל - מאפיינים דמוגרפיים",
+                    "selected": [],
+                    "sub_group_layers":[
+                      {
+                        "text": "בני 0-17 מכלל האוכלוסייה לפי אזורים טבעיים",
+                        "layer_name": "sites_age_group_0_17_prod",
+                        "lsymbol_field": "F0_10_per",
+                        "sub_group_name": "אוכלוסיית ישראל - מאפיינים דמוגרפיים"
+                      },
+                      {
+                        "text": "בני 18-64 מכלל האוכלוסייה לפי אזורים טבעיים",
+                        "layer_name": "sites_age_group_18_64_prod",
+                        "lsymbol_field": "F18_64_per",
+                        "sub_group_name": "אוכלוסיית ישראל - מאפיינים דמוגרפיים"
+                      },
+                      {
+                        "text": "בני 65-90 מכלל האוכלוסייה לפי אזורים טבעיים",
+                        "layer_name": "sites_age_group_65_90_prod",
+                        "lsymbol_field": "F65_90_per",
+                        "sub_group_name": "אוכלוסיית ישראל - מאפיינים דמוגרפיים"
+                      }
+                    ]
+                  },
+                  {
+                    "sub_group_icon": "account-school",
+                    "sub_group_name": "רמת השכלה",
+                    "selected": [],
+                    "sub_group_layers":[ 
+                      {
+                        
+                        "text": "אחוז אוכלוסייה עם 0-4 שנות לימוד",
+                        "layer_name": "sites_education_group_0_4_prod",
+                        "lsymbol_field": "F0_4"
+                      },
+                      {
+                        "text": "אחוז אוכלוסייה עם 5-9 שנות לימוד",
+                        "layer_name": "sites_education_group_5_9_prod",
+                        "lsymbol_field": "F5_9_percent"
+                      },
+                      {
+                        "text": "אחוז אוכלוסייה עם 10-12 שנות לימוד",
+                        "layer_name": "sites_education_group_10_12_prod",
+                        "lsymbol_field": "F10_12_percent"
+                      },
+                      {
+                        "text": "אחוז אוכלוסייה עם 13-15 שנות לימוד",
+                        "layer_name": "sites_education_group_13_15_prod",
+                        "lsymbol_field": "F13-15_percent"
+                      },
+                      {
+                        "text": "אחוז אוכלוסייה עם 16 ויותר שנות לימוד",
+                        "layer_name": "sites_education_group_16_prod",
+                        "lsymbol_field": "F16_percent"
+                      }
+                    ]
+                  }
+                ]
+          },
+          
+          {
+            "group_icon": "train-car",
+            "group_name": "התפתחות התחבורה",
+            "sub_groups":[
+            {
+                "sub_group_icon": "road-variant",
+                "sub_group_name": "כבישים",
+                "selected": [],
+                "sub_group_layers":[ 
+                {
+                  "text": "תפקוד כבישים",
+                  "layer_name": "sites_roads_2020_prod",
+                  "lsymbol_field": "FUNC"
+                },
+                {
+                  "text":  "כבישים שנסללו עד 2020",
+                  "layer_name": "sites_roads_2020_all_prod"
+                },
+                {
+                  "text":  "כבישים שנסללו עד 2006",
+                  "layer_name": "sites_roads_1968_2006_prod"
+                },
+                {
+                  "text":  "כבישים שנסללו עד 1967",
+                  "layer_name": "sites_roads_1948_1967_prod"
+                },
+                {
+                  "text":  "כבישים שנסללו עד 1947",
+                  "layer_name": "sites_roads_1937_1947_prod"
+                },
+                {
+                  "text":  "כביש או דרך שנסללו לפני 1937",
+                  "layer_name": "sites_roads_1937_prod",
+                  "lsymbol_field": "condition_1937"
+                }]
+            },
+            {
+              "sub_group_icon": "train",
+              "sub_group_name": "מסילות ברזל",
+              "selected": [],
+              "sub_group_layers":[ 
+                {
+                  "text": "מסילות ברזל 2020",
+                  "layer_name": "sites_mesilot_barzel_2020_prod"
+                },
+                {
+                  "text": "מסילות ברזל 1918",
+                  "layer_name": "sites_mesilot_barzel_1918_prod",
+                  "lsymbol_field": "rail_type"
+                }
+              ]
+            }
+            ]
+          },
+          
+          {
+            "group_icon": "earth",
+            "group_name": "נושאים פיזיים",
+            "sub_groups":[
+              {
+                "sub_group_icon": "image-filter-hdr",
+                "sub_group_name": "גיאולוגיה",
+                "selected": [],
+                "sub_group_layers":[
+                  {
+                    "text": "גיאולוגיה",
+                    "layer_name": "geo_formation",
+                    "lsymbol_field": "Symbol"
+                  },
+                  {
+                    "text": "העתקים",
+                    "layer_name": "geo_faults"
+                  },
+                  {
+                    "text": "דייקים",
+                    "layer_name": "geo_plutonics"
+                  },
+                  {
+                    "text": "גלישות",
+                    "layer_name": "geo_scars"
+                  },
+                  {
+                    "text": "מגעים",
+                    "layer_name": "geo_contact",
+                    "lsymbol_field": "Lines_Contact_geo"
+                  },
+                  {
+                    "text": "רעידות אדמה",
+                    "layer_name": "earthquakes",
+                    "lsymbol_field": "Mw"
+                  }
+
+                ]
+              },
+              {
+                "sub_group_icon": "weather-partly-rainy",
+                "sub_group_name": "טמפרטורה ואזורי אקלים",
+                "selected": [],
+                "sub_group_layers":[
+                  {
+                    "text": "עומס חום בינוני וכבד באוגוסט",
+                    "layer_name": "HEAT",
+                    "lsymbol_field": "TEMPS"
+                  }
+
+                ]
+              }
+
+            ]
+          },
+          
+          {
+            "group_icon": "nature-people",
+            "group_name": "סביבה ומרחב",
+            "sub_groups":[
+              {
+                "sub_group_icon":"recycle",
+                "sub_group_name": "איכות הסביבה",
+                "selected": [],
+                "sub_group_layers":[
+
+                  {
+                    "text": "מפת רעש מטוסים",
+                    "layer_name": "AP5",
+                    "lsymbol_field": "LND"
+                  },
+                  {
+                    "text": "מפת המאספים של מפעל שפכי דן",
+                    "layer_name": "IGUDAN_PIPEX"
+                  },
+                  {
+                    "text": "זיהום מנחלים, 2020",
+                    "layer_name": "sites_river_pollution_prod"
+                  }
+                ]
+              }
+            ]
+          },
+          
+            
+            {
+              "group_icon":"domain",
+              "group_name": "הערים הגדולות",
+              "sub_groups":[
+                {
+                  "sub_group_icon": "map-clock",
+                  "sub_group_name": "תקופת בניה",
+                  "selected": [],
+                  "sub_group_layers":[
+                    {
+                      "text": "תקופת בניה",
+                      "layer_name": "sites_tkufat_bniya_prod",
+                      "lsymbol_field": "rule_id"
+                    }
+                  ]
+                }
+              ]
+            }
+    ]
+}
+

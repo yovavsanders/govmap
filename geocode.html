@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Govmap Geocoder</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script language="javascript" type="text/javascript" src="https://www.govmap.gov.il/govmap/api/govmap.api.js" ></script>
+  <script type="text/javascript">
+
+		//var my_token = "5a4b8472-b95b-4687-8179-0ccb621c7990"; // localhost
+    		var my_token ='aafedfe5-8dfa-4fd5-9af9-8b95759447bd'; // my github
+		
+		$(document).ready(function ()
+        {
+	            govmap.createMap('map_div',
+	                {
+                    token: my_token,
+					//user_token: "ca2048da-bece-44d6-8576-ea35ddfa2f76",
+                    //visibleLayers: ["KALPI_NEGISHUT", "GASSTATIONS", "DIVUCHIM2017"],
+					visibleLayers: ["NEIGHBORHOODS_AREA"],
+					layers: ["NEIGHBORHOODS_AREA"],
+					layersMode: 2,
+					//isEmbeddedToggle: false,
+					showXY: true,
+					center: {x: 217009, y: 708689},// {x: 180996, y: 663402},
+					level: 5,
+                    identifyOnClick: true
+					});
+
+		});
+		//var token = "34280469-d493-4041-95e5-664f7fec6daf";
+		var reader = new FileReader();
+		var li = [];
+		function readText(that){
+
+			if(that.files && that.files[0]){
+				var reader = new FileReader();
+				reader.onload = function (e) {  
+					var output=e.target.result;
+				
+					//process text to show only lines with "@":				
+					//output=output.split("\n").filter(/./.test, /\@/).join("\n");
+					var output=output.split("\n");
+					
+					for (i in output)
+					{
+						li.push(output[i]);
+					}
+
+					//document.getElementById('main').innerHTML= output;
+				};//end onload()
+				reader.readAsText(that.files[0]);
+			}//end if html5 filelist support
+		} 
+		
+			var a=0;
+			var addr = "";
+			var res;
+			var status = true;
+			function Geocoding()
+			{
+				var table = document.getElementById("myTable");
+				if (a < li.length - 1)
+				{
+					console.log(li[a]);
+					govmap.geocode({keyword: li[a]},govmap.geocodeType.FullResult)
+					.then(function(response){
+						
+						try {
+							a++;
+							res = response;
+							var table = document.getElementById("myTable");
+							var row = table.insertRow(a);
+							var cell1 = row.insertCell(0);
+							var cell2 = row.insertCell(1);
+							var cell3 = row.insertCell(2);
+							var cell4 = row.insertCell(3);
+							var cell5 = row.insertCell(4);
+							
+							cell1.innerHTML = a;
+							cell2.innerHTML = li[a-1];
+							
+						
+							if (res.status == 0){
+								console.log(response.data[0].X + " " + response.data[0].Y);
+								cell3.innerHTML = response.data[0].X;
+								cell4.innerHTML = response.data[0].Y;
+								cell5.innerHTML = response.data[0].ResultLable;
+								setTimeout(Geocoding(), 100000000);
+							}
+							else{
+								console.log("0 0");
+								cell3.innerHTML = "0";
+								cell4.innerHTML = "0";
+								setTimeout(Geocoding(), 100000000);
+							}
+						}
+						catch { 
+							console.log("err!!");
+							if (res.status == 0){
+								console.log(response.data[0].X + " " + response.data[0].Y);
+								cell3.innerHTML = response.data[0].X;
+								cell4.innerHTML = response.data[0].Y;
+								cell5.innerHTML = response.data[0].ResultLable;
+								setTimeout(Geocoding(), 500000000);
+							}
+							else{
+								console.log("0 0");
+								cell3.innerHTML = "0";
+								cell4.innerHTML = "0";
+								setTimeout(Geocoding(), 500000000);
+							}
+							
+						}
+						if (a == (li.length))
+						{
+							fnExcelReport();
+						}
+					})
+					.fail(function(response){
+						console.log("fail!");
+						setTimeout(Geocoding(), 5000000000);
+						
+					})
+				}
+					
+			}
+			
+			
+			
+			function fnExcelReport()
+			{
+				var tab_text="<table><tr>";
+				var textRange; var j=0;
+				tab = document.getElementById('myTable'); // id of table
+
+				for(j = 0 ; j < tab.rows.length ; j++)
+				{
+					tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+					//tab_text=tab_text+"</tr>";
+				}
+
+				tab_text=tab_text+"</table>";
+				tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+				tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+				tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+				var ua = window.navigator.userAgent;
+				var msie = ua.indexOf("MSIE ");
+
+				if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+				{
+					txtArea1.document.open("txt/html","replace");
+					txtArea1.document.write(tab_text);
+					txtArea1.document.close();
+					txtArea1.focus();
+					sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
+				}
+				else                 //other browser not tested on IE 11
+					sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+
+				return (sa);
+			}
+			
+			
+</script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Govmap Geocoder</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><input type="file" class="btn btn-default btn-file" type="file" name="foo" accept="text/plain" onchange='readText(this)' /></li>
+      <li><input id="button" type="button" class="btn btn-success" value="Gecocode My Text File!" OnClick="setTimeout(Geocoding(), 10000);"></a></li>
+    </ul>
+  </div>
+</nav>
+  
+<div class="container">
+		 <div name="form" id="map_div"> 
+		 </div> 
+		 <table id="myTable", class="table table-bordered">
+		  <tr style="font-weight:bold">
+			<td>ID</td>
+			<td>ADDRESS</td>
+			<td>X</td>
+			<td>Y</td>
+			<td>GEO LEVEL</td>
+		  </tr>
+		</table>
+		<br>
+</div>
+
+</body>
+</html>

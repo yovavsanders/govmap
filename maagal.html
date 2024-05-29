@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מחשבון כתובות מעג"ל</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <style>
+
+    #header {
+            color: #000000;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+        }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        direction: rtl;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+    /* Center the container horizontally */
+
+    .map-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 20px; /* To separate the two components */
+    }
+
+
+    .autocomplete-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 20px; /* To separate the two components */
+    }
+
+    .autocomplete {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      max-width: 500px;
+      border: 1px solid transparent;
+    }
+    
+    .autocomplete2 {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      max-width: 500px;
+      border: 1px solid transparent;
+    }
+
+    .autocomplete input {
+      border: 1px solid transparent;
+      background-color: white;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid transparent;
+      background-color: #f1f1f1;
+      width: 100%;
+    }
+    .autocomplete2 input {
+      border: 1px solid transparent;
+      background-color: white;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid transparent;
+      background-color: #f1f1f1;
+      width: 100%;
+    }
+
+    .autocomplete-items {
+      font-size: 14px !important;
+      position: absolute;
+      border: 1px solid #d4d4d4;
+      border-top: none;
+      z-index: 99;
+      top: 100%;
+      width: 100%;
+      overflow-y: auto;
+      max-height: calc(100vh - 200px);
+    }
+
+    .autocomplete-items2 {
+      font-size: 14px !important;
+      position: absolute;
+      border: 1px solid #d4d4d4;
+      border-top: none;
+      z-index: 99;
+      top: 100%;
+      width: 100%;
+      overflow-y: auto;
+      height: 300px;
+    }
+
+    .autocomplete-items::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .autocomplete-items2::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    .autocomplete-items div {
+      padding: 5px;
+      cursor: pointer;
+      background-color: #fff;
+    }
+
+    /* When hovering an item */
+    .autocomplete-items div:hover {
+      background-color: #e9e9e9;
+    }
+
+    .autocomplete-items2 div {
+      padding: 5px;
+      cursor: pointer;
+      background-color: #fff;
+    }
+
+    /* When hovering an item */
+    .autocomplete-items2 div:hover {
+      background-color: #e9e9e9;
+    }
+
+    /* When navigating through the items using the arrow keys */
+    .autocomplete-active {
+      background-color: DodgerBlue !important;
+      color: #ffffff;
+    }
+
+    .autocomplete-error-msg {
+      display: block;
+      position: absolute;
+      top: 100%;
+      right: 0px;
+      z-index: 10;
+      width: 100%;
+      color: #ff5959;
+      font-size: 20px;
+      background: rgba(228, 228, 228, 0.77);
+      text-align: center;
+      margin-top: 5px;
+    }
+
+    .autocomplete-error-msg.show {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .autocomplete-error-msg.hide {
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s 2s, opacity 2s linear;
+    }
+
+    .autocomplete-badge {
+      font-size: 14px !important;
+      position: absolute;
+      left: 2px;
+      font-weight: 400;
+      border-radius: 50%;
+      display: inline-block;
+      text-align: center;
+      padding-left: 8px;
+      padding-right: 8px;
+      opacity: 0.4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    input[type="text"] {
+      width: 100%;
+    }
+
+    input[type="submit"] {
+      background-color: DodgerBlue;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    input {
+      border: 1px solid transparent;
+      background-color: #f1f1f1;
+      padding: 10px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+<div id="header">
+    <h1>מחשבון כתובות מעג"ל</h1>
+</div>
+
+  <div class="autocomplete-container">
+    <div class="autocomplete2">
+      <input type="text" v-model="setl_query" @focus="showAllSetlItems" @input="filterSetlList" placeholder='ישובים'>
+      <div v-if="filteredSetlItems.length" class="autocomplete-items2">
+        <div v-for="item in filteredSetlItems" :key="item" @click="selectSetlItem(item)">
+          {{ item }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="autocomplete-container">
+    <div class="autocomplete2" v-show="loading == false">
+      <input type="text" v-model="query" @focus="showAllItems" @input="filterList" :placeholder='maagal_placeholder'>
+      <div v-if="filteredItems.length" class="autocomplete-items2">
+        <div v-for="item in filteredItems" :key="item" @click="selectItem(item)">
+          {{ item }}
+        </div>
+      </div>
+    </div>
+    <div v-show="loading == true"> <p>טוען נתונים...</p> </div>
+  </div>
+
+
+
+  <div class="autocomplete-container">
+    <div v-show="x > 0 && y > 0">
+        <a> X {{ x }}</a>   /   <a> Y {{ y }}</a>
+    </div>
+  </div>
+
+
+
+    <div class="map-container">
+        <div id="map" style="min-width:70%;height:600px"></div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+<script src="https://www.govmap.gov.il/govmap/api/govmap.api.js"></script>
+<!-- Include Terraformer, WKT parser, and ArcGIS parser script tags -->
+<script src="https://cdn.jsdelivr.net/npm/terraformer@1.0.7"></script>
+<script src="https://cdn.jsdelivr.net/npm/terraformer-wkt-parser@1.0.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/terraformer-arcgis-parser@1.0.0"></script>
+<!-- Include Turf.js script tag -->
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js"></script>
+<!-- Include Proj4.js script tag -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
+
+<script>
+  // var my_token = "5a4b8472-b95b-4687-8179-0ccb621c7990"; //for localhost domain
+  var my_token ='aafedfe5-8dfa-4fd5-9af9-8b95759447bd'; // my github
+  new Vue({
+    el: '#app',
+    data: {
+        maagal_placeholder: 'מספרי מעגל',
+        setl_areas: {},
+        loading: false,
+        x: 0,
+        y: 0,
+        query: '',
+        setl_query: '',
+        items: [],
+        setl_items: [],
+        items_wkts: {},
+        filteredItems: [],
+        filteredSetlItems: [],
+        map: null,
+        input: {
+            id: "setl_input",
+            model: "city",
+            placeholder: "עיר",
+            searchCode: 8,
+        },
+        entries: [],
+        city: "",
+        searchCodes: {
+            NEIGHBORHOOD: 4,
+            STREET: 2,
+            ADDRESS: 1,
+            SETTLEMENT: 8,
+            KPARCEL_ALL: 16384,
+        },
+        searchSetlCode: 0,
+    },
+    methods: {
+      showAllItems() {
+        this.filteredItems = this.items;
+      },
+      showAllSetlItems() {
+        this.filteredSetlItems = this.setl_items;
+      },
+      filterList() {
+        if (this.query) {
+          this.filteredItems = this.items.filter(item =>
+            item.toLowerCase().includes(this.query.toLowerCase())
+          );
+        } else {
+          this.filteredItems = this.items;
+        }
+      },
+      filterSetlList() {
+        if (this.setl_query) {
+          this.filteredSetlItems = this.setl_items.filter(item =>
+            item.toLowerCase().includes(this.setl_query.toLowerCase())
+          );
+        } else {
+          this.filteredSetlItems = this.setl_items;
+        }
+      },
+      selectSetlItem(item) {
+        this.setl_query = item;
+        this.filteredSetlItems = [];
+        this.city = item;
+        this.searchSetlCode = this.setl_areas[item].SETL_CODE;
+      },
+      selectItem(item) {
+        this.query = item;
+        this.filteredItems = [];
+
+        console.log("Selected item:", item);
+        //get the wkt for the selected item
+        var wkt = this.items_wkts[item];
+        console.log("wkt", wkt);
+       //POINT  ( 188518.40540000 678451.87560000)
+       var geojson = Terraformer.WKT.parse(wkt);
+        var coords = geojson.coordinates;
+        var x = parseFloat(coords[0]);
+        var y = parseFloat(coords[1]);
+        console.log("x", x);
+        console.log("y", y);
+        // zoom to the selected item
+
+        govmap.zoomToXY({ x: x, y: y, level: 10, marker: true });
+
+        // convert the coordinates from ITM to WGS84
+
+        var fromProjection = '+proj=tmerc +lat_0=31.73439361111111 +lon_0=35.20451694444445 +k=1.0000067 +x_0=219529.584 +y_0=626907.39 +ellps=GRS80 +towgs84=-24.0024,-17.1032,-17.8444,-0.33077,-1.85269,1.66969,5.4248 +units=m +no_defs';
+        var toProjection = '+proj=longlat +datum=WGS84 +no_defs';
+
+        // Convert the coordinates to WGS84
+        var convertedCoords = proj4(fromProjection, toProjection, [x, y]);
+        console.log("convertedCoords", convertedCoords);
+
+        this.x = convertedCoords[0];
+        this.y = convertedCoords[1];
+      },
+     
+
+    async getSetlMaagalNums(setlCode) {
+
+        this.maagal_placeholder = 'טוען נתונים...'
+        this.query = "";
+        this.x = 0;
+        this.y = 0;
+
+        var setlData = await govmap.intersectFeaturesByWhereClause({
+          layerName: 'KSHTANN_SETL_AREA',
+          fields: ['OBJECTID'],
+          getShapes: true,
+          whereClause: "SETL_CODE = " + setlCode
+        });
+
+        // get the maagal numbers from the setlData WKT polygon
+        var maagalNums = [];
+        var wkt = setlData.data[0].Values[0];
+        // buffer the wkt polygon
+        // Parse the WKT geometry using Terraformer
+        var terraformerGeometry = Terraformer.WKT.parse(wkt);
+        var geoJSONFeature = Terraformer.ArcGIS.convert(terraformerGeometry);
+        const turfFeature = turf.polygon(geoJSONFeature.rings);
+
+        // Buffer the Turf.js feature
+        // Define the Israel TM Grid projection
+        var fromProjection = '+proj=tmerc +lat_0=31.73439361111111 +lon_0=35.20451694444445 +k=1.0000067 +x_0=219529.584 +y_0=626907.39 +ellps=GRS80 +towgs84=-24.0024,-17.1032,-17.8444,-0.33077,-1.85269,1.66969,5.4248 +units=m +no_defs';
+        var toProjection = '+proj=longlat +datum=WGS84 +no_defs';
+
+        // Project the feature to ITM Grid
+        var projectedCoords = turfFeature.geometry.coordinates[0].map(coord => proj4(fromProjection, toProjection, coord));
+
+        // Create a new feature with projected coordinates
+        var projectedFeature = {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [projectedCoords]
+            }
+        };
+
+        // Buffer the projected feature
+        const bufferedFeature = turf.buffer(projectedFeature, 100, {units: 'meters'});
+
+        // Output the buffered feature
+        console.log(bufferedFeature);
+
+        fromProjection = '+proj=longlat +datum=WGS84 +no_defs';
+        toProjection = '+proj=tmerc +lat_0=31.73439361111111 +lon_0=35.20451694444445 +k=1.0000067 +x_0=219529.584 +y_0=626907.39 +ellps=GRS80 +towgs84=-24.0024,-17.1032,-17.8444,-0.33077,-1.85269,1.66969,5.4248 +units=m +no_defs';
+
+        // Convert the buffered polygon coordinates back to ITM Grid
+        projectedCoords = bufferedFeature.geometry.coordinates[0].map(coord => proj4(fromProjection, toProjection, coord));
+
+        // Create a new feature with projected coordinates
+        var projectedFeatureITM = {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [projectedCoords]
+            }
+        };
+
+        // Output the projected feature
+        console.log('projectedFeature itm', projectedFeatureITM);
+
+        // convert the buffered polygon to WKT
+        var geom = projectedFeatureITM.geometry;
+
+        // Convert the projected feature to WKT format
+        const wktString  = Terraformer.WKT.convert(geom);
+
+        var maagalNums = await govmap.intersectFeaturesLongGeom({
+                            'geometry': wktString.replace("Z", "").replaceAll(' 0.00000000', ''),
+                            'layerName': 'MAAGALBLDG',
+                            'fields': ["OBJECTID", "label"],
+                            'getShapes': true,
+                            'maxResults': 500
+                        });
+
+        return maagalNums;
+    },
+
+    async fetchData() {
+        const data = fetch('https://raw.githubusercontent.com/yovavsanders/govmap/main/setl_index.json');  
+        return data;
+    },
+},
+    mounted() {
+        this.fetchData().then((data) => {
+            //read as json
+            data.json().then((jsonData) => {
+                console.log("jsonData", jsonData);
+                this.setl_areas = jsonData;
+                this.setl_items = Object.keys(jsonData);
+            });
+        });
+        govmap.createMap('map', 
+        {
+            token: my_token,
+            visibleLayers: ["KSHTANN_SETL_AREA", "MAAGALBLDG"],
+            layers: ["KSHTANN_SETL_AREA", "MAAGALBLDG"],
+            showXY: true,
+            identifyOnClick: true,
+            isEmbeddedToggle: false,
+            background: 0,
+            layersMode: 1,
+            zoomButtons:false
+        });
+
+
+
+    },
+    watch: {
+        city: function (newVal, oldVal) {
+            console.log("city", newVal);
+            if (newVal == "") {
+                this.items = [];
+                this.items_wkts = {};
+                this.query = "";
+                return;
+            }
+
+        },
+        searchSetlCode: function (newVal, oldVal) {
+            var appVue = this;
+            //console.log("searchSetlCode", newVal);
+            // clear vue items
+            appVue.items = [];
+            var params = {
+                layerName: 'KSHTANN_SETL_AREA',
+                whereClause: "SETL_CODE = " + newVal,
+                zoomToExtent: true
+            }
+            govmap.filterLayers(params)
+            
+            // get the maagal numbers for the selected settlement
+            var maagalNums = this.getSetlMaagalNums(newVal);
+            maagalNums.then((e) => {
+                //console.log("maagalNums", e);
+                if (e.data == null || e.data.length == 0) {
+                    console.log("No maagal numbers found for the selected settlement");
+                    appVue.maagal_placeholder = 'לא נמצאו מספרי מעגל';
+                    return;
+                }
+                appVue.items_wkts = {};
+                appVue.loading = true;
+                e.data.forEach((maagal) => {
+                    //console.log("maagal", maagal);
+                    appVue.loading = true;
+                    var number = maagal.Values[0];
+                    // if number is empty, skip
+                    if (number == null || number == "" || number ==  " ") {
+                        return;
+                    }
+                    appVue.items.push(number);
+                    appVue.items_wkts[number] = maagal.Values[1];
+                });
+                appVue.loading = false;
+                appVue.items.sort();
+                this.maagal_placeholder = 'מספרי מעגל';
+            });
+            //console.log("appVue.items", appVue.items);
+        },
+    },  
+  });
+
+</script>
+</body>
+</html>

@@ -264,7 +264,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
 
 <script>
-  // var my_token = "5a4b8472-b95b-4687-8179-0ccb621c7990"; //for localhost domain
+  //var my_token = "5a4b8472-b95b-4687-8179-0ccb621c7990"; //for localhost domain
   var my_token ='aafedfe5-8dfa-4fd5-9af9-8b95759447bd'; // my github
   new Vue({
     el: '#app',
@@ -452,7 +452,21 @@
     },
 },
     mounted() {
+      var appVue = this;
         this.fetchData().then((data) => {
+          govmap.createMap('map', 
+          {
+              token: my_token,
+              visibleLayers: ["KSHTANN_SETL_AREA", "MAAGALBLDG"],
+              layers: ["KSHTANN_SETL_AREA", "MAAGALBLDG"],
+              showXY: true,
+              identifyOnClick: true,
+              isEmbeddedToggle: false,
+              background: 0,
+              layersMode: 1,
+              zoomButtons:false
+          });
+
             //read as json
             data.json().then((jsonData) => {
                 console.log("jsonData", jsonData);
@@ -460,20 +474,6 @@
                 this.setl_items = Object.keys(jsonData);
             });
         });
-        govmap.createMap('map', 
-        {
-            token: my_token,
-            visibleLayers: ["KSHTANN_SETL_AREA", "MAAGALBLDG"],
-            layers: ["KSHTANN_SETL_AREA", "MAAGALBLDG"],
-            showXY: true,
-            identifyOnClick: true,
-            isEmbeddedToggle: false,
-            background: 0,
-            layersMode: 1,
-            zoomButtons:false
-        });
-
-
 
     },
     watch: {
@@ -523,9 +523,62 @@
                 });
                 appVue.loading = false;
                 appVue.items.sort();
+
+                
+                var fromProjection = '+proj=tmerc +lat_0=31.73439361111111 +lon_0=35.20451694444445 +k=1.0000067 +x_0=219529.584 +y_0=626907.39 +ellps=GRS80 +towgs84=-24.0024,-17.1032,-17.8444,-0.33077,-1.85269,1.66969,5.4248 +units=m +no_defs';
+                var toProjection = '+proj=longlat +datum=WGS84 +no_defs';
+
+                var newItems_xys = {};
+                // save items (+ appVue.items_wkts[number] x & y as json file!
+                var csv = "maagal,setl_code,setl_name,x,y,lat,lon\n";
+                appVue.items.forEach((item) => {
+                    console.log("item", item);
+                    // get the wkt for the selected item
+                    var wkt = appVue.items_wkts[item];
+                    console.log("wkt", wkt);
+                    //POINT  ( 188518.40540000 678451.87560000)
+                    var geojson = Terraformer.WKT.parse(wkt);
+                    var coords = geojson.coordinates;
+                    var x = parseFloat(coords[0]);
+                    var y = parseFloat(coords[1]);
+                    console.log("x", x);
+                    console.log("y", y);
+                    // convert the coordinates from ITM to WGS84
+
+                    // Convert the coordinates to WGS84
+                    var convertedCoords = proj4(fromProjection, toProjection, [x, y]);
+                    console.log("convertedCoords", convertedCoords);
+
+                    var lat = convertedCoords[0];
+                    var lon = convertedCoords[1];
+
+                    // set a newly object for the item
+                    newItems_xys[item] = {
+                        "x": x,
+                        "y": y,
+                        "lat": lat,
+                        "lon": lon
+                    };
+
+                    var setl_code = newVal;
+                    var setl_name = appVue.city;
+                    var x = newItems_xys[item].x;
+                    var y = newItems_xys[item].y;
+                    var lat = newItems_xys[item].lat;
+                    var lon = newItems_xys[item].lon;
+                    csv += item + "," + setl_code + "," + setl_name + "," + x + "," + y + "," + lat + "," + lon + "\n";
+
+                });
+
+                var csvBlob = new Blob([csv], {type: "text/csv"});
+                var csvUrl  = URL.createObjectURL(csvBlob);
+                var csvA = document.createElement('a');
+                csvA.download    = "maagal_numbers_"+newVal+".csv";
+                csvA.href        = csvUrl;
+                csvA.click();
+
                 this.maagal_placeholder = 'מספרי מעגל';
             });
-            //console.log("appVue.items", appVue.items);
         },
     },  
   });

@@ -297,7 +297,7 @@
         width: 72px;
         height: 72px;
         background-repeat: no-repeat;
-        background-image: url(../MapArea.png);
+        background-image: url(MapArea.png);
         border: none;
         cursor: pointer; /* Add this line */
     }
@@ -313,11 +313,11 @@
 
     .BgDiv{
         position: absolute;
-        bottom: 120px;
+        bottom: 90px;
         left: 2px;
     }
     .MapStyle{
-        height:calc(80vh)
+        height:calc(100vh - 91px - 88px)
     }
 
     .disclaimer_mobile{
@@ -353,11 +353,11 @@
             }
 
             .MapStyle{
-                height:calc(80vh);
+                height:calc(100vh - 260px);
             }
             .BgDiv{
                 position: absolute;
-                bottom: -20px;
+                bottom: 5px;
                 left: 2px;
             }
             .display-none {
@@ -535,7 +535,7 @@
     </header>
 
     <div name="form" id="mapForm" class="MapStyle">
-        <div id="map_div" style="height: 100%;">
+        <div id="map_div" class="MapStyle">
         </div>
     </div>
 

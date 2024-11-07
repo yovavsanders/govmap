@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -18,7 +19,8 @@
         .navbar-header {
             width: 100%;
             background: white;
-            padding: 1rem;
+            padding-right: 1rem;
+            padding-left: 1rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
@@ -28,6 +30,14 @@
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
+        }
+        .header-content1 {
+            /* margin: 0 auto; */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
         }
 
         .navbar-brand {
@@ -74,7 +84,7 @@
         }
 
         .action-button:hover {
-            background-color: #f5f5f5;
+            /* background-color: #f5f5f5; */
             border-radius: 4px;
         }
         .mobile-action-button{
@@ -247,6 +257,7 @@
     }
 
     .font{
+        caret-color: transparent;
         font-family: "Alef Hebrew",
         "Helvetica Neue",
         Helvetica,
@@ -258,6 +269,7 @@
     .search-input-container {
         position: relative;
         width: 100%;
+        caret-color:black;
     }
 
     .clear-button {
@@ -313,11 +325,14 @@
 
     .BgDiv{
         position: absolute;
-        bottom: 90px;
-        left: 2px;
+        bottom: 145px;
+        left: 15px;
     }
     .MapStyle{
-        height:calc(100vh - 91px - 88px)
+        height:calc(100vh - 139px);
+        /* position: absolute; */
+        /* top:160px; */
+        
     }
 
     .disclaimer_mobile{
@@ -330,8 +345,65 @@
 
     }
 
+        @media (min-width: 768px) {
+            #mobile-header{
+                display: none;
+            }
+            #floating_scale_bar_desktop{
+                padding-top: 10px;
+                padding-bottom: 10px;
+                /* width: 500px; */
+                margin: 0 auto;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
+            }
+            #floating_scale_bar_mobile{
+                display: none;
+            }
+        }
+
 
         @media (max-width: 768px) {
+            .legend_text_mobile{
+                rotate:-90deg;
+                font-weight: bold;
+                text-shadow: 
+                    1px 1px 0px #ffffffab, 
+                    -1px -1px 0px #ffffffab, 
+                    1px -1px 0px #ffffffab, 
+                    -1px 1px 0px #ffffffab; /* Stroke effect */
+                
+                color: black;
+                -webkit-background-clip: text;
+                background-clip: text;
+            }
+            #floating_scale_bar_desktop{
+                display: none;
+            }
+            #floating_scale_bar_mobile{
+                right: calc(-50% + 20px);
+                transform: translateY(-50%) rotate(90deg);  
+                /* width: 100px; */
+                bottom: 50%;
+                position:absolute;
+                margin: 0 auto;
+                width: 100%;
+                display: flex;
+                justify-content: right;
+                /* rotate: 90deg; */
+            }
+            .navbar-header {
+                width: 100%;
+                background: white;
+                padding: 1.1rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            #desktop-header{
+                display: none;
+            }
             .footer{
                 display: none;
             }
@@ -348,12 +420,12 @@
             }
 
             .mobile-action-button:hover {
-                background-color: #f5f5f5;
+                /* background-color: #f5f5f5; */
                 border-radius: 4px;
             }
 
             .MapStyle{
-                height:calc(100vh - 260px);
+                /* height:calc(100vh - 260px); */
             }
             .BgDiv{
                 position: absolute;
@@ -387,8 +459,8 @@
             .search-container {
                 order: 1;
                 max-width: none;
-                width: 100%;
-                margin-bottom: 1rem;
+                width: 50%;
+                /* margin-bottom: 1rem; */
             }
 
             .actions-container {
@@ -412,9 +484,10 @@
 </head>
 
 <body class="font">
-    <div id="app">
-    <header class="navbar-header">
-        <div class="header-content">
+<div id="app">
+    <header id="desktop-header" class="navbar-header">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+         
             <!-- Hamburger button for mobile view -->
             <button class="mobile-action-button" @click="toggleDrawer">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
@@ -520,6 +593,142 @@
             </button> -->
             <p class="disclaimer_mobile" >
                 מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת פליטות גזי חממה)
+            <a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">  בקישור</a>
+            </p>
+            <p class="disclaimer_mobile" >
+                אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות
+            </p>
+            <p class="disclaimer_mobile">
+                    עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
+            </p>
+            <p class="disclaimer_mobile" >
+                    ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע
+            </p>
+        </div>
+    </header>
+    <header id="mobile-header" class="navbar-header">
+        <div class=" header-content">
+            <a href="#" class="navbar-brand">
+              פוצנציאל ייצור אנרגיה מתחדשת
+            </a>
+        </div>   
+
+        <div class="header-content">
+            <!-- Hamburger button for mobile view -->
+            <div  class="header-content1">
+             <button class="mobile-action-button" @click="showSearch">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M781.69-136.92 530.46-388.16q-30 24.77-69 38.77-39 14-80.69 14-102.55 0-173.58-71.01-71.03-71.01-71.03-173.54 0-102.52 71.01-173.6 71.01-71.07 173.54-71.07 102.52 0 173.6 71.03 71.07 71.03 71.07 173.58 0 42.85-14.38 81.85-14.39 39-38.39 67.84l251.23 251.23-42.15 42.16ZM380.77-395.38q77.31 0 130.96-53.66 53.66-53.65 53.66-130.96t-53.66-130.96q-53.65-53.66-130.96-53.66t-130.96 53.66Q196.15-657.31 196.15-580t53.66 130.96q53.65 53.66 130.96 53.66Z"/></svg>
+                <span>חיפוש</span>
+            </button>
+
+            <div class="search-container" v-if="isSearchVisible == true">
+                
+                <div class="autocomplete">
+                    <div class="search-input-container">
+                        <input 
+                            type="text" 
+                            v-model="query" 
+                            @focus="showAllItems" 
+                            @input="filterList"
+                            @keydown="handleKeyDown"
+                            placeholder='הקלד כתובת / שם רחוב / שם ישוב'>
+                        <button 
+                            v-if="showClear" 
+                            class="clear-button" 
+                            @click="clearSearch"
+                            type="button"
+                            aria-label="נקה חיפוש">
+                            ✕
+                        </button>
+                    </div>
+                    <div v-if="items.length" class="autocomplete-items">
+                        <div 
+                            v-for="(item, index) in items" 
+                            :key="item.id"
+                            @click="selectItem(item)"
+                            :class="{ 'autocomplete-active': index === selectedIndex }">
+                            <div>
+                                {{ item.text }}
+                                <input 
+                                    type="hidden" 
+                                    :value="item.text" 
+                                    :data-key="item.id" 
+                                    :data-lyr="item.type">
+                                <span class="autocomplete-badge">{{ types[item.type] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <div class="actions-container display-none">
+                    <button class="action-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#5f6368">
+                            <path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/>
+                        </svg>
+                        <span>שכבות</span>
+                    </button>
+                </div> -->
+            </div>
+
+                           
+                <button @click="govmap.showMeasure();" class="mobile-action-button" v-if="isSearchVisible != true">
+                    <svg width="24" height="24" viewBox="0 0 40 26">
+                        <g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
+                            <path d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"/>
+                            <path d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"/>
+                        </g>
+                    </svg>
+                    <span>מדוד</span>
+                </button>
+                <button @click="shareContent" class="mobile-action-button" style="margin-top: 5px" v-if="isSearchVisible != true">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" width="18px" viewBox="0 -960 960 960"  fill="#5f6368">
+                        <path d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"/>
+                    </svg>
+                    <span>שיתוף</span>
+                </button>
+                <button class="mobile-action-button" @click="toggleDrawer" v-if="isSearchVisible != true">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
+                    <span>אודות</span>
+                </button>
+                <img class="mobile-menu-logo" src="energyLOGO.png" style="height: 50px;" v-if="isSearchVisible != true" />
+
+
+            </div>
+         
+
+  
+
+
+            <div class="actions-container display-none">
+                <button @click="govmap.showMeasure();" class="action-button">
+                    <svg width="24" height="24" viewBox="0 0 40 26">
+                        <g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
+                            <path d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"/>
+                            <path d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"/>
+                        </g>
+                    </svg>
+                    <span>מדוד</span>
+                </button>
+                <button @click="shareContent" class="action-button" style="margin-top: 5px">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" width="18px" viewBox="0 -960 960 960"  fill="#5f6368">
+                        <path d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"/>
+                    </svg>
+                    <span>שיתוף</span>
+                </button>
+                <image src="energyLOGO.png" style="height: 30px;"/>
+            </div>
+        </div>
+
+        <!-- Drawer for mobile menu -->
+        <div class="drawer" :class="{ open: showDrawer }">
+            <!-- Close button for drawer -->
+            <button class="close-btn" @click="toggleDrawer">✕</button>
+            <!-- <button class="action-button" @click="toggleDrawer">
+                <span>שכבות</span>
+            </button> -->
+            <p class="disclaimer_mobile" >
+                מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת פליטות גזי חממה)
            <a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">  בקישור</a>
            </p>
            <p class="disclaimer_mobile" >
@@ -553,6 +762,11 @@
             style="position:relative;
             height: 2%;
             background: white; border-color: #0044cc #0044cc #002a80; background-repeat: repeat-x; text-align: right;">
+            <div id="floating_scale_bar_desktop">
+                גבוה
+                <img src="scale_bar.jpeg" alt="" style="margin-left: 5px; margin-right: 5px; height: 15px;">
+                נמוך
+            </div>
             <p class="disclaimer">
                  מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת פליטות גזי חממה)
             <a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">  בקישור</a>
@@ -567,6 +781,17 @@
                 	ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע
             </p>
     </footer>
+
+
+    <div id="floating_scale_bar_mobile">
+        <div class="legend_text_mobile">
+            גבוה
+        </div>
+        <img src="scale_bar.jpeg" alt="" style="height: 15px;">
+        <div class="legend_text_mobile">
+            נמוך
+        </div>
+    </div>
 
 
 </div>
@@ -589,6 +814,7 @@
         new Vue({
             el: '#app',
             data: {
+                isSearchVisible: false, // Add this new property
                 currentBg: 29,
                 searchQuery: '',
                 showDrawer: false,
@@ -623,6 +849,28 @@
                 }
             },
             methods: {
+                showSearch() {
+                    this.isSearchVisible = !this.isSearchVisible;
+                    if (this.isSearchVisible) {
+                        // Focus the search input when showing
+                        setTimeout(() => {
+                            const searchInput = document.querySelector('.search-container input');
+                            if (searchInput) {
+                                searchInput.focus();
+                            }
+                        }, 100);
+                    }
+                },
+                // Modify the clearSearch method to also hide the search on mobile
+                clearSearch() {
+                    this.query = '';
+                    this.items = [];
+                    this.selectedIndex = -1;
+                    this.showClear = false;
+                    if (window.innerWidth <= 768) {
+                        this.isSearchVisible = false;
+                    }
+                },
                 async shareContent() {
                     if (navigator.share) {
                         try {
@@ -782,6 +1030,10 @@
                     
                     // zoom to the selected item
                     govmap.zoomToXY({ x: this.x , y: this.y, level: 10, marker: true });
+
+                    if (window.innerWidth <= 768) {
+                        this.isSearchVisible = false;
+                    }
                 },
 
                 // Handle keyboard navigation
@@ -853,7 +1105,7 @@
                     token: my_token,
                     visibleLayers: [],
                     layers:["parcel_all", "sub_gush_all", "NEIGHBORHOODS_AREA"],  
-                    showXY: true,
+                    showXY: false,
                     identifyOnClick: false,
                     background: 0,
                     layersMode: 2,

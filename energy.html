@@ -1113,25 +1113,25 @@
                     bgButton:false,
                     level: 5,
                     center:{x:219545,y:631555},
-                    onClick: function (e)
-                    {
-                        var lyrs = ["parcel_all", "sub_gush_all", "NEIGHBORHOODS_AREA"];
-                        var x = e.mapPoint.x;
-                        var y = e.mapPoint.y;
+                    // onClick: function (e)
+                    // {
+                    //     var lyrs = ["parcel_all", "sub_gush_all", "NEIGHBORHOODS_AREA"];
+                    //     var x = e.mapPoint.x;
+                    //     var y = e.mapPoint.y;
                         
-                        govmap.identifyByXYAndLayer(x, y, lyrs).then(function(result){
-                            if (result && result.data && result.data.length > 0) {
-                            var params = {
-                            "coord":{"x":x,"y":y},
-                            data:result.data
-                            };
-                            //result.data["requestParams"]={"x":x,"y":y};
-                                    govmap.showBubble(params);
-                        	} 
-                        });
+                    //     // govmap.identifyByXYAndLayer(x, y, lyrs).then(function(result){
+                    //     //     if (result && result.data && result.data.length > 0) {
+                    //     //     var params = {
+                    //     //     "coord":{"x":x,"y":y},
+                    //     //     data:result.data
+                    //     //     };
+                    //     //     //result.data["requestParams"]={"x":x,"y":y};
+                    //     //             govmap.showBubble(params);
+                    //     // 	} 
+                    //     // });
                         
                             
-                    },
+                    // },
                     isEmbeddedToggle: false
                 });
                 govmap.setBackground(this.currentBg);

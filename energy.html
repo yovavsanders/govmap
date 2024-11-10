@@ -905,7 +905,7 @@
 					text-align: right;
 				"
 			>
-				<div id="floating_scale_bar_desktop">
+				<div v-if="currentBg == 41" id="floating_scale_bar_desktop">
 					גבוה
 					<img
 						src="scale_bar.jpeg"
@@ -914,6 +914,9 @@
 					/>
 					נמוך
 				</div>
+                <div style="height: 38.67px" v-else>
+
+                </div>
 				<p class="disclaimer">
 					מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע
 					במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת פליטות
@@ -930,7 +933,7 @@
 				<p class="disclaimer">ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע</p>
 			</footer>
 
-			<div id="floating_scale_bar_mobile">
+			<div v-if="currentBg == 41" id="floating_scale_bar_mobile">
 				<div class="esriLabelMask" style="rotate: -90deg">גבוה</div>
 				<img
 					src="scale_bar.jpeg"

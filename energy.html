@@ -1,556 +1,612 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="he" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="font-awesome.min.css" rel="stylesheet">
-  <title> פוטנציאל ייצור אנרגיה מתחדשת</title>
-    <!-- Add Vue 2 CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <style>
-        @import url(https://fonts.googleapis.com/earlyaccess/alefhebrew.css);
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .navbar-header {
-            width: 100%;
-            background: white;
-            padding-right: 1rem;
-            padding-left: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .header-content {
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-        }
-        .header-content1 {
-            /* margin: 0 auto; */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            width: 100%;
-        }
-
-        .navbar-brand {
-            font-size: 1.5rem;
-            color: #006dcc;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .search-container {
-            position: relative;
-            flex-grow: 1;
-            max-width: 300px;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .searchInput {
-            width: 100%;
-            height: 2.5rem;
-            padding: 0.5rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        .actions-container {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .action-button {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.5rem;
-            border: none;
-            background: none;
-            cursor: pointer;
-            color: #5f6368;
-        }
-
-        .action-button:hover {
-            /* background-color: #f5f5f5; */
-            border-radius: 4px;
-        }
-        .mobile-action-button{
-            display: none;
-        }
-        .mobile-menu-button {
-            display: none;
-            background: none;
-            border: none;
-            padding: 0.5rem;
-            cursor: pointer;
-        }
-
-        .mobile-menu-logo {
-            display: none;
-            background: none;
-            border: none;
-            padding: 0.5rem;
-            cursor: pointer;
-        }
-
-        .drawer {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 100%;
-            background: white;
-            box-shadow: -2px 0 4px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            padding: 1rem;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-
-        .drawer.open {
-            transform: translateX(0);
-        }
-
-
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="font-awesome.min.css" rel="stylesheet" />
+		<title>פוטנציאל ייצור אנרגיה מתחדשת</title>
+		<!-- Add Vue 2 CDN -->
+		<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
         
-    .autocomplete-container {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      margin-bottom: 20px; /* To separate the two components */
-    }
+        <script src="vue@2.js"></script>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+			@import url(https://fonts.googleapis.com/earlyaccess/alefhebrew.css);
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
 
-    .autocomplete {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-      max-width: 500px;
-      border: 1px solid transparent;
-    }
-    
+			.navbar-header {
+				width: 100%;
+				background: white;
+				padding-right: 1rem;
+				padding-left: 1rem;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			}
 
-    .autocomplete input {
-        border: 1px solid transparent;
-        background-color: white;
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid transparent;
-        background-color: #f1f1f1;
-        width: 100%;
-        font-family: "Alef Hebrew",
-        "Helvetica Neue",
-        Helvetica,
-        Arial,
-        sans-serif;
+			.header-content {
+				margin: 0 auto;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 1rem;
+			}
+			.header-content1 {
+				/* margin: 0 auto; */
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 1rem;
+				width: 100%;
+			}
 
-    }
+			.navbar-brand {
+				font-size: 1.5rem;
+				color: #006dcc;
+				text-decoration: none;
+				text-align: center;
+			}
 
+			.search-container {
+				position: relative;
+				flex-grow: 1;
+				max-width: 300px;
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+			}
 
-    .autocomplete-items {
-      font-size: 14px !important;
-      position: absolute;
-      border: 1px solid #d4d4d4;
-      border-top: none;
-      z-index: 99;
-      top: 100%;
-      width: 100%;
-      overflow-y: auto;
-      max-height: calc(100vh - 200px);
-    }
+			.searchInput {
+				width: 100%;
+				height: 2.5rem;
+				padding: 0.5rem 1rem;
+				border: 1px solid #ddd;
+				border-radius: 4px;
+				font-size: 1rem;
+			}
 
+			.actions-container {
+				display: flex;
+				gap: 1rem;
+				align-items: center;
+			}
 
+			.action-button {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 0.25rem;
+				padding: 0.5rem;
+				border: none;
+				background: none;
+				cursor: pointer;
+				color: #5f6368;
+			}
 
-    .autocomplete-items::-webkit-scrollbar {
-      width: 10px;
-    }
+			.action-button:hover {
+				/* background-color: #f5f5f5; */
+				border-radius: 4px;
+			}
+			.mobile-action-button {
+				display: none;
+			}
+			.mobile-menu-button {
+				display: none;
+				background: none;
+				border: none;
+				padding: 0.5rem;
+				cursor: pointer;
+			}
 
+			.mobile-menu-logo {
+				display: none;
+				background: none;
+				border: none;
+				padding: 0.5rem;
+				cursor: pointer;
+			}
 
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
+			.drawer {
+				position: fixed;
+				top: 0;
+				right: 0;
+				width: 200px;
+				height: 100%;
+				background: white;
+				box-shadow: -2px 0 4px rgba(0, 0, 0, 0.2);
+				display: flex;
+				flex-direction: column;
+				padding: 1rem;
+				transform: translateX(100%);
+				transition: transform 0.3s ease;
+				z-index: 1000;
+			}
 
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: #888;
-    }
+			.drawer.open {
+				transform: translateX(0);
+			}
 
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: #555;
-    }
+			.autocomplete-container {
+				display: flex;
+				justify-content: center;
+				width: 100%;
+				margin-bottom: 20px; /* To separate the two components */
+			}
 
-    .autocomplete-items div {
-      padding: 5px;
-      cursor: pointer;
-      background-color: #fff;
-    }
+			.autocomplete {
+				position: relative;
+				display: inline-block;
+				width: 100%;
+				max-width: 500px;
+				border: 1px solid transparent;
+			}
 
-    /* When hovering an item */
-    .autocomplete-items div:hover {
-      background-color: #e9e9e9;
-    }
+			.autocomplete input {
+				border: 1px solid transparent;
+				background-color: white;
+				padding: 10px;
+				font-size: 16px;
+				border: 1px solid transparent;
+				background-color: #f1f1f1;
+				width: 100%;
+				font-family: "Alef Hebrew", "Helvetica Neue", Helvetica, Arial,
+					sans-serif;
+			}
 
-    .autocomplete-items2 div {
-      padding: 5px;
-      cursor: pointer;
-      background-color: #fff;
-    }
+			.autocomplete-items {
+				font-size: 14px !important;
+				position: absolute;
+				border: 1px solid #d4d4d4;
+				border-top: none;
+				z-index: 99;
+				top: 100%;
+				width: 100%;
+				overflow-y: auto;
+				max-height: calc(100vh - 200px);
+			}
 
-    /* When hovering an item */
-    .autocomplete-items2 div:hover {
-      background-color: #e9e9e9;
-    }
+			.autocomplete-items::-webkit-scrollbar {
+				width: 10px;
+			}
 
+			/* Track */
+			::-webkit-scrollbar-track {
+				background: #f1f1f1;
+			}
 
-    .autocomplete-error-msg {
-      display: block;
-      position: absolute;
-      top: 100%;
-      right: 0px;
-      z-index: 10;
-      width: 100%;
-      color: #ff5959;
-      font-size: 20px;
-      background: rgba(228, 228, 228, 0.77);
-      text-align: center;
-      margin-top: 5px;
-    }
+			/* Handle */
+			::-webkit-scrollbar-thumb {
+				background: #888;
+			}
 
-    .autocomplete-error-msg.show {
-      visibility: visible;
-      opacity: 1;
-    }
+			/* Handle on hover */
+			::-webkit-scrollbar-thumb:hover {
+				background: #555;
+			}
 
-    .autocomplete-error-msg.hide {
-      visibility: hidden;
-      opacity: 0;
-      transition: visibility 0s 2s, opacity 2s linear;
-    }
+			.autocomplete-items div {
+				padding: 5px;
+				cursor: pointer;
+				background-color: #fff;
+			}
 
-    .autocomplete-badge {
-      font-size: 14px !important;
-      position: absolute;
-      left: 2px;
-      font-weight: 400;
-      border-radius: 50%;
-      display: inline-block;
-      text-align: center;
-      padding-left: 8px;
-      padding-right: 8px;
-      opacity: 0.4;
-    }
+			/* When hovering an item */
+			.autocomplete-items div:hover {
+				background-color: #e9e9e9;
+			}
 
-    .font{
-        caret-color: transparent;
-        font-family: "Alef Hebrew",
-        "Helvetica Neue",
-        Helvetica,
-        Arial,
-        sans-serif;
-    }
+			.autocomplete-items2 div {
+				padding: 5px;
+				cursor: pointer;
+				background-color: #fff;
+			}
 
+			/* When hovering an item */
+			.autocomplete-items2 div:hover {
+				background-color: #e9e9e9;
+			}
 
-    .search-input-container {
-        position: relative;
-        width: 100%;
-        caret-color:black;
-    }
+			.autocomplete-error-msg {
+				display: block;
+				position: absolute;
+				top: 100%;
+				right: 0px;
+				z-index: 10;
+				width: 100%;
+				color: #ff5959;
+				font-size: 20px;
+				background: rgba(228, 228, 228, 0.77);
+				text-align: center;
+				margin-top: 5px;
+			}
 
-    .clear-button {
-        position: absolute;
-        left: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 5px;
-        color: #666;
-        font-size: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-    }
+			.autocomplete-error-msg.show {
+				visibility: visible;
+				opacity: 1;
+			}
 
-    .clear-button:hover {
-        background-color: rgba(0, 0, 0, 0.1);
-    }
+			.autocomplete-error-msg.hide {
+				visibility: hidden;
+				opacity: 0;
+				transition:
+					visibility 0s 2s,
+					opacity 2s linear;
+			}
 
-    .autocomplete input {
-        padding-left: 35px; /* Make room for clear button */
-    }
+			.autocomplete-badge {
+				font-size: 14px !important;
+				position: absolute;
+				left: 2px;
+				font-weight: 400;
+				border-radius: 50%;
+				display: inline-block;
+				text-align: center;
+				padding-left: 8px;
+				padding-right: 8px;
+				opacity: 0.4;
+			}
 
-    /* Style for keyboard-selected item */
-    .autocomplete-active {
-        background-color: DodgerBlue !important;
-        color: #000;
-    }
+			.font {
+				caret-color: transparent;
+				font-family: "Alef Hebrew", "Helvetica Neue", Helvetica, Arial,
+					sans-serif;
+			}
 
-    .bgBtn{
-        width: 72px;
-        height: 72px;
-        background-repeat: no-repeat;
-        background-image: url(MapArea.png);
-        border: none;
-        cursor: pointer; /* Add this line */
-    }
+			.search-input-container {
+				position: relative;
+				width: 100%;
+				caret-color: black;
+			}
 
-    .orthoImg{
-        background-position-x: -1px;
-        background-position-y: -1px;
-    }
-    .mapCacheImg{
-        background-position-x: -74px;
-        background-position-y: -1px;
-    }
+			.clear-button {
+				position: absolute;
+				left: 10px;
+				top: 50%;
+				transform: translateY(-50%);
+				background: none;
+				border: none;
+				cursor: pointer;
+				padding: 5px;
+				color: #666;
+				font-size: 14px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 50%;
+				width: 20px;
+				height: 20px;
+			}
 
-    .BgDiv{
-        position: absolute;
-        bottom: 145px;
-        left: 15px;
-    }
-    .MapStyle{
-        height:calc(100vh - 139px);
-        /* position: absolute; */
-        /* top:160px; */
-        
-    }
+			.clear-button:hover {
+				background-color: rgba(0, 0, 0, 0.1);
+			}
 
-    .disclaimer_mobile{
-        font-weight: bold; font-size: 100%; margin-bottom: 20px; width: 100%; text-align: right;padding-right: 5px;
+			.autocomplete input {
+				padding-left: 35px; /* Make room for clear button */
+			}
 
-    }
+			/* Style for keyboard-selected item */
+			.autocomplete-active {
+				background-color: DodgerBlue !important;
+				color: #000;
+			}
 
-    .disclaimer{
-        font-weight: bold; font-size: 100%;margin: auto; width: 100%; height: 100%; text-align: right;padding-right: 5px;
+			.bgBtn {
+				width: 72px;
+				height: 72px;
+				background-size: cover;
+				/* background-repeat: no-repeat;
+        background-image: url(MapArea.png); */
+				border: none;
+				cursor: pointer; /* Add this line */
+				border: 1px solid #878787;
+				border-radius: 3px;
+			}
 
-    }
+			.orthoImg1 {
+				background-position-x: -1px;
+				background-position-y: -1px;
+			}
+			.orthoImg {
+				background-image: url(ortho.jpg);
+			}
+			.mapCacheImg1 {
+				background-position-x: -74px;
+				background-position-y: -1px;
+			}
+			.mapCacheImg {
+				background-image: url(streets.png);
+			}
+			.solarImg {
+				background-image: url(solar.jpg);
+			}
 
-        @media (min-width: 768px) {
-            #mobile-header{
-                display: none;
-            }
-            #floating_scale_bar_desktop{
-                padding-top: 10px;
-                padding-bottom: 10px;
-                /* width: 500px; */
-                margin: 0 auto;
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                
-            }
-            #floating_scale_bar_mobile{
-                display: none;
-            }
-        }
+			.BgDiv {
+				position: absolute;
+				bottom: 145px;
+				left: 15px;
+			}
+			.MapStyle {
+				height: calc(100vh - 139px);
+				/* position: absolute; */
+				/* top:160px; */
+			}
 
+			.disclaimer_mobile {
+				font-weight: bold;
+				font-size: 100%;
+				margin-bottom: 20px;
+				width: 100%;
+				text-align: right;
+				padding-right: 5px;
+			}
 
-        @media (max-width: 768px) {
-            .legend_text_mobile{
-                rotate:-90deg;
-                font-weight: bold;
-                text-shadow: 
-                    1px 1px 0px #ffffffab, 
-                    -1px -1px 0px #ffffffab, 
-                    1px -1px 0px #ffffffab, 
-                    -1px 1px 0px #ffffffab; /* Stroke effect */
-                
-                color: black;
-                -webkit-background-clip: text;
-                background-clip: text;
-            }
-            #floating_scale_bar_desktop{
-                display: none;
-            }
-            #floating_scale_bar_mobile{
-                right: calc(-50% + 20px);
-                transform: translateY(-50%) rotate(90deg);  
-                /* width: 100px; */
-                bottom: 50%;
-                position:absolute;
-                margin: 0 auto;
-                width: 100%;
-                display: flex;
-                justify-content: right;
-                /* rotate: 90deg; */
-            }
-            .navbar-header {
-                width: 100%;
-                background: white;
-                padding: 1.1rem;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-            #desktop-header{
-                display: none;
-            }
-            .footer{
-                display: none;
-            }
-            .mobile-action-button {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 0.25rem;
-                padding: 0.5rem;
-                border: none;
-                background: none;
-                cursor: pointer;
-                color: #5f6368;
-            }
+			.disclaimer {
+				font-weight: bold;
+				font-size: 100%;
+				margin: auto;
+				width: 100%;
+				height: 100%;
+				text-align: right;
+				padding-right: 5px;
+			}
 
-            .mobile-action-button:hover {
-                /* background-color: #f5f5f5; */
-                border-radius: 4px;
-            }
+			@media (min-width: 768px) {
+				#mobile-header {
+					display: none;
+				}
+				#floating_scale_bar_desktop {
+					padding-top: 10px;
+					padding-bottom: 10px;
+					/* width: 500px; */
+					margin: 0 auto;
+					width: 100%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+				#floating_scale_bar_mobile {
+					display: none;
+				}
+			}
 
-            .MapStyle{
-                /* height:calc(100vh - 260px); */
-            }
-            .BgDiv{
-                position: absolute;
-                bottom: 5px;
-                left: 2px;
-            }
-            .display-none {
-                display: none;
-            }
-            .header-content {
-                flex-wrap: wrap;
-            }
+			.esriLabelMask {
+				paint-order: stroke fill;
+				text-wrap: wrap;
+				font-weight: bold;
+				color: black;
+				-webkit-text-stroke: 2.5px white;
+				text-shadow: 0px 0px 18px #ffffff;
+			}
 
-            .mobile-menu-button {
-                display: block;
-            }
+			@media (max-width: 768px) {
+				.legend_text_mobile {
+					rotate: -90deg;
+					font-weight: bold;
+					text-shadow:
+						1px 1px 0px #ffffffab,
+						-1px -1px 0px #ffffffab,
+						1px -1px 0px #ffffffab,
+						-1px 1px 0px #ffffffab; /* Stroke effect */
 
-            .mobile-menu-logo {
-                display: block;
-            }
+					color: black;
+					-webkit-background-clip: text;
+					background-clip: text;
+				}
+				#floating_scale_bar_desktop {
+					display: none;
+				}
+				#floating_scale_bar_mobile {
+					right: calc(-50% + 20px);
+					transform: translateY(-50%) rotate(90deg);
+					/* width: 100px; */
+					bottom: 50%;
+					position: absolute;
+					margin: 0 auto;
+					width: 100%;
+					display: flex;
+					justify-content: right;
+					/* rotate: 90deg; */
+				}
+				.navbar-header {
+					width: 100%;
+					background: white;
+					padding: 1.1rem;
+					box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+				}
+				#desktop-header {
+					display: none;
+				}
+				.footer {
+					display: none;
+				}
+				.mobile-action-button {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					gap: 0.25rem;
+					padding: 0.5rem;
+					border: none;
+					background: none;
+					cursor: pointer;
+					color: #5f6368;
+				}
 
+				.mobile-action-button:hover {
+					/* background-color: #f5f5f5; */
+					border-radius: 4px;
+				}
 
-            .navbar-brand {
-                font-size: 1.2rem;
-                order: -1;
-                width: 100%;
-                text-align: center;
-                margin-bottom: 1rem;
-            }
+				.MapStyle {
+					/* height:calc(100vh - 260px); */
+				}
+				.BgDiv {
+					position: absolute;
+					bottom: 10px;
+					left: 2px;
+				}
+				.display-none {
+					display: none;
+				}
+				.header-content {
+					flex-wrap: wrap;
+				}
 
-            .search-container {
-                order: 1;
-                max-width: none;
-                width: 50%;
-                /* margin-bottom: 1rem; */
-            }
+				.mobile-menu-button {
+					display: block;
+				}
 
-            .actions-container {
-                display: none; /* Hide main action buttons */
-            }
-            .close-btn {
-                align-self: flex-end;
-                background: none;
-                border: none;
-                font-size: 1rem;
-                cursor: pointer;
-                color: #333;
-                margin-bottom: 1rem;
-            }
+				.mobile-menu-logo {
+					display: block;
+				}
 
-            .navButton {
-                display: none !important;
-            }
-        }
-    </style>
-</head>
+				.navbar-brand {
+					font-size: 1.2rem;
+					order: -1;
+					width: 100%;
+					text-align: center;
+					margin-bottom: 1rem;
+				}
 
-<body class="font">
-<div id="app">
-    <header id="desktop-header" class="navbar-header">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-         
-            <!-- Hamburger button for mobile view -->
-            <button class="mobile-action-button" @click="toggleDrawer">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
-                <span>אודות</span>
-            </button>
-            <button @click="govmap.showMeasure();" class="mobile-action-button">
-                <svg width="24" height="24" viewBox="0 0 40 26">
-                    <g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
-                        <path d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"/>
-                        <path d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"/>
-                    </g>
-                </svg>
-                <span>מדוד</span>
-            </button>
-            <button @click="shareContent" class="mobile-action-button" style="margin-top: 5px">
-                <svg xmlns="http://www.w3.org/2000/svg" height="18px" width="18px" viewBox="0 -960 960 960"  fill="#5f6368">
-                    <path d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"/>
-                </svg>
-                <span>שיתוף</span>
-            </button>
+				.search-container {
+					order: 1;
+					max-width: none;
+					width: 50%;
+					/* margin-bottom: 1rem; */
+				}
 
-            <img class="mobile-menu-logo" src="energyLOGO.png" style="height: 50px;"/>
+				.actions-container {
+					display: none; /* Hide main action buttons */
+				}
+				.close-btn {
+					align-self: flex-end;
+					background: none;
+					border: none;
+					font-size: 1rem;
+					cursor: pointer;
+					color: #333;
+					margin-bottom: 1rem;
+				}
 
-            <div class="search-container">
-                <div class="autocomplete">
-                    <div class="search-input-container">
-                        <input 
-                            type="text" 
-                            v-model="query" 
-                            @focus="showAllItems" 
-                            @input="filterList"
-                            @keydown="handleKeyDown"
-                            placeholder='הקלד כתובת / שם רחוב / שם ישוב'>
-                        <button 
-                            v-if="showClear" 
-                            class="clear-button" 
-                            @click="clearSearch"
-                            type="button"
-                            aria-label="נקה חיפוש">
-                            ✕
-                        </button>
-                    </div>
-                    <div v-if="items.length" class="autocomplete-items">
-                        <div 
-                            v-for="(item, index) in items" 
-                            :key="item.id"
-                            @click="selectItem(item)"
-                            :class="{ 'autocomplete-active': index === selectedIndex }">
-                            <div>
-                                {{ item.text }}
-                                <input 
-                                    type="hidden" 
-                                    :value="item.text" 
-                                    :data-key="item.id" 
-                                    :data-lyr="item.type">
-                                <span class="autocomplete-badge">{{ types[item.type] }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				.navButton {
+					display: none !important;
+				}
+			}
+		</style>
+	</head>
 
+	<body class="font">
+		<div id="app" v-cloak>
+			<header id="desktop-header" class="navbar-header">
+				<div
+					style="
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+					"
+				>
+					<!-- Hamburger button for mobile view -->
+					<button class="mobile-action-button" @click="toggleDrawer">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							height="24px"
+							viewBox="0 -960 960 960"
+							width="24px"
+							fill="#5f6368"
+						>
+							<path
+								d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+							/>
+						</svg>
+						<span>אודות</span>
+					</button>
+					<button @click="govmap.showMeasure()" class="mobile-action-button">
+						<svg width="24" height="24" viewBox="0 0 40 26">
+							<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
+								<path
+									d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"
+								/>
+								<path
+									d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"
+								/>
+							</g>
+						</svg>
+						<span>מדוד</span>
+					</button>
+					<button
+						@click="shareContent"
+						class="mobile-action-button"
+						style="margin-top: 5px"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							height="18px"
+							width="18px"
+							viewBox="0 -960 960 960"
+							fill="#5f6368"
+						>
+							<path
+								d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"
+							/>
+						</svg>
+						<span>שיתוף</span>
+					</button>
 
-                <!-- <div class="actions-container display-none">
+					<img
+						class="mobile-menu-logo"
+						src="energyLOGO.png"
+						style="height: 50px"
+					/>
+
+					<div class="search-container">
+						<div class="autocomplete">
+							<div class="search-input-container">
+								<input
+									type="text"
+									v-model="query"
+									@focus="showAllItems"
+									@input="filterList"
+									@keydown="handleKeyDown"
+									placeholder="הקלד כתובת / שם רחוב / שם ישוב"
+								/>
+								<button
+									v-if="showClear"
+									class="clear-button"
+									@click="clearSearch"
+									type="button"
+									aria-label="נקה חיפוש"
+								>
+									✕
+								</button>
+							</div>
+							<div v-if="items.length" class="autocomplete-items">
+								<div
+									v-for="(item, index) in items"
+									:key="item.id"
+									@click="selectItem(item)"
+									:class="{ 'autocomplete-active': index === selectedIndex }"
+								>
+									<div>
+										{{ item.text }}
+										<input
+											type="hidden"
+											:value="item.text"
+											:data-key="item.id"
+											:data-lyr="item.type"
+										/>
+										<span class="autocomplete-badge">{{
+											types[item.type]
+										}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- <div class="actions-container display-none">
                     <button class="action-button">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#5f6368">
                             <path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/>
@@ -558,110 +614,141 @@
                         <span>שכבות</span>
                     </button>
                 </div> -->
-            </div>
+					</div>
 
-            <a href="#" class="navbar-brand">
-                פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים
-            </a>
+					<a href="#" class="navbar-brand">
+						פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים
+					</a>
 
-            <div class="actions-container display-none">
-                <button @click="govmap.showMeasure();" class="action-button">
-                    <svg width="24" height="24" viewBox="0 0 40 26">
-                        <g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
-                            <path d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"/>
-                            <path d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"/>
-                        </g>
-                    </svg>
-                    <span>מדוד</span>
-                </button>
-                <button @click="shareContent" class="action-button" style="margin-top: 5px">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" width="18px" viewBox="0 -960 960 960"  fill="#5f6368">
-                        <path d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"/>
-                    </svg>
-                    <span>שיתוף</span>
-                </button>
-                <image src="energyLOGO.png" style="height: 30px;"/>
-            </div>
-        </div>
+					<div class="actions-container display-none">
+						<button @click="govmap.showMeasure()" class="action-button">
+							<svg width="24" height="24" viewBox="0 0 40 26">
+								<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
+									<path
+										d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"
+									/>
+									<path
+										d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"
+									/>
+								</g>
+							</svg>
+							<span>מדוד</span>
+						</button>
+						<button
+							@click="shareContent"
+							class="action-button"
+							style="margin-top: 5px"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								height="18px"
+								width="18px"
+								viewBox="0 -960 960 960"
+								fill="#5f6368"
+							>
+								<path
+									d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"
+								/>
+							</svg>
+							<span>שיתוף</span>
+						</button>
+						<image src="energyLOGO.png" style="height: 30px" />
+					</div>
+				</div>
 
-        <!-- Drawer for mobile menu -->
-        <div class="drawer" :class="{ open: showDrawer }">
-            <!-- Close button for drawer -->
-            <button class="close-btn" @click="toggleDrawer">✕</button>
-            <!-- <button class="action-button" @click="toggleDrawer">
+				<!-- Drawer for mobile menu -->
+				<div class="drawer" :class="{ open: showDrawer }">
+					<!-- Close button for drawer -->
+					<button class="close-btn" @click="toggleDrawer">✕</button>
+					<!-- <button class="action-button" @click="toggleDrawer">
                 <span>שכבות</span>
             </button> -->
-            <p class="disclaimer_mobile" >
-                מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת פליטות גזי חממה)
-            <a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">  בקישור</a>
-            </p>
-            <p class="disclaimer_mobile" >
-                אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות
-            </p>
-            <p class="disclaimer_mobile">
-                    עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
-            </p>
-            <p class="disclaimer_mobile" >
-                    ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע
-            </p>
-        </div>
-    </header>
-    <header id="mobile-header" class="navbar-header">
-        <div class=" header-content">
-            <a href="#" class="navbar-brand">
-              פוצנציאל ייצור אנרגיה מתחדשת
-            </a>
-        </div>   
+					<p class="disclaimer_mobile">
+						מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע
+						במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת
+						פליטות גזי חממה)
+						<a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">
+							בקישור</a>
+					</p>
+					<p class="disclaimer_mobile">
+						אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות
+					</p>
+					<p class="disclaimer_mobile">
+						עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
+					</p>
+					<p class="disclaimer_mobile">
+						ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע
+					</p>
+				</div>
+			</header>
+			<header id="mobile-header" class="navbar-header">
+				<div class="header-content">
+					<a href="#" class="navbar-brand"> פוצנציאל ייצור אנרגיה מתחדשת </a>
+				</div>
 
-        <div class="header-content">
-            <!-- Hamburger button for mobile view -->
-            <div  class="header-content1">
-             <button class="mobile-action-button" @click="showSearch">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M781.69-136.92 530.46-388.16q-30 24.77-69 38.77-39 14-80.69 14-102.55 0-173.58-71.01-71.03-71.01-71.03-173.54 0-102.52 71.01-173.6 71.01-71.07 173.54-71.07 102.52 0 173.6 71.03 71.07 71.03 71.07 173.58 0 42.85-14.38 81.85-14.39 39-38.39 67.84l251.23 251.23-42.15 42.16ZM380.77-395.38q77.31 0 130.96-53.66 53.66-53.65 53.66-130.96t-53.66-130.96q-53.65-53.66-130.96-53.66t-130.96 53.66Q196.15-657.31 196.15-580t53.66 130.96q53.65 53.66 130.96 53.66Z"/></svg>
-                <span>חיפוש</span>
-            </button>
+				<div class="header-content">
+					<!-- Hamburger button for mobile view -->
+					<div class="header-content1">
+						<button class="mobile-action-button" @click="showSearch">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								height="24px"
+								viewBox="0 -960 960 960"
+								width="24px"
+								fill="#5f6368"
+							>
+								<path
+									d="M781.69-136.92 530.46-388.16q-30 24.77-69 38.77-39 14-80.69 14-102.55 0-173.58-71.01-71.03-71.01-71.03-173.54 0-102.52 71.01-173.6 71.01-71.07 173.54-71.07 102.52 0 173.6 71.03 71.07 71.03 71.07 173.58 0 42.85-14.38 81.85-14.39 39-38.39 67.84l251.23 251.23-42.15 42.16ZM380.77-395.38q77.31 0 130.96-53.66 53.66-53.65 53.66-130.96t-53.66-130.96q-53.65-53.66-130.96-53.66t-130.96 53.66Q196.15-657.31 196.15-580t53.66 130.96q53.65 53.66 130.96 53.66Z"
+								/>
+							</svg>
+							<span>חיפוש</span>
+						</button>
 
-            <div class="search-container" v-if="isSearchVisible == true">
-                
-                <div class="autocomplete">
-                    <div class="search-input-container">
-                        <input 
-                            type="text" 
-                            v-model="query" 
-                            @focus="showAllItems" 
-                            @input="filterList"
-                            @keydown="handleKeyDown"
-                            placeholder='הקלד כתובת / שם רחוב / שם ישוב'>
-                        <button 
-                            v-if="showClear" 
-                            class="clear-button" 
-                            @click="clearSearch"
-                            type="button"
-                            aria-label="נקה חיפוש">
-                            ✕
-                        </button>
-                    </div>
-                    <div v-if="items.length" class="autocomplete-items">
-                        <div 
-                            v-for="(item, index) in items" 
-                            :key="item.id"
-                            @click="selectItem(item)"
-                            :class="{ 'autocomplete-active': index === selectedIndex }">
-                            <div>
-                                {{ item.text }}
-                                <input 
-                                    type="hidden" 
-                                    :value="item.text" 
-                                    :data-key="item.id" 
-                                    :data-lyr="item.type">
-                                <span class="autocomplete-badge">{{ types[item.type] }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+						<div class="search-container" v-if="isSearchVisible == true">
+							<div class="autocomplete">
+								<div class="search-input-container">
+									<input
+										type="text"
+										v-model="query"
+										@focus="showAllItems"
+										@input="filterList"
+										@keydown="handleKeyDown"
+										placeholder="הקלד כתובת / שם רחוב / שם ישוב"
+									/>
+									<button
+										v-if="showClear"
+										class="clear-button"
+										@click="clearSearch"
+										type="button"
+										aria-label="נקה חיפוש"
+									>
+										✕
+									</button>
+								</div>
+								<div v-if="items.length" class="autocomplete-items">
+									<div
+										v-for="(item, index) in items"
+										:key="item.id"
+										@click="selectItem(item)"
+										:class="{ 'autocomplete-active': index === selectedIndex }"
+									>
+										<div>
+											{{ item.text }}
+											<input
+												type="hidden"
+												:value="item.text"
+												:data-key="item.id"
+												:data-lyr="item.type"
+											/>
+											<span class="autocomplete-badge">{{
+												types[item.type]
+											}}</span>
+										</div>
+									</div>
+								</div>
+							</div>
 
-
-                <!-- <div class="actions-container display-none">
+							<!-- <div class="actions-container display-none">
                     <button class="action-button">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#5f6368">
                             <path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/>
@@ -669,474 +756,575 @@
                         <span>שכבות</span>
                     </button>
                 </div> -->
-            </div>
+						</div>
 
-                           
-                <button @click="govmap.showMeasure();" class="mobile-action-button" v-if="isSearchVisible != true">
-                    <svg width="24" height="24" viewBox="0 0 40 26">
-                        <g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
-                            <path d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"/>
-                            <path d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"/>
-                        </g>
-                    </svg>
-                    <span>מדוד</span>
-                </button>
-                <button @click="shareContent" class="mobile-action-button" style="margin-top: 5px" v-if="isSearchVisible != true">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" width="18px" viewBox="0 -960 960 960"  fill="#5f6368">
-                        <path d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"/>
-                    </svg>
-                    <span>שיתוף</span>
-                </button>
-                <button class="mobile-action-button" @click="toggleDrawer" v-if="isSearchVisible != true">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
-                    <span>אודות</span>
-                </button>
-                <img class="mobile-menu-logo" src="energyLOGO.png" style="height: 50px;" v-if="isSearchVisible != true" />
+						<button
+							@click="govmap.showMeasure()"
+							class="mobile-action-button"
+							v-if="isSearchVisible != true"
+						>
+							<svg width="24" height="24" viewBox="0 0 40 26">
+								<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
+									<path
+										d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"
+									/>
+									<path
+										d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"
+									/>
+								</g>
+							</svg>
+							<span>מדוד</span>
+						</button>
+						<button
+							@click="shareContent"
+							class="mobile-action-button"
+							style="margin-top: 5px"
+							v-if="isSearchVisible != true"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								height="18px"
+								width="18px"
+								viewBox="0 -960 960 960"
+								fill="#5f6368"
+							>
+								<path
+									d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"
+								/>
+							</svg>
+							<span>שיתוף</span>
+						</button>
+						<button
+							class="mobile-action-button"
+							@click="toggleDrawer"
+							v-if="isSearchVisible != true"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								height="24px"
+								viewBox="0 -960 960 960"
+								width="24px"
+								fill="#5f6368"
+							>
+								<path
+									d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+								/>
+							</svg>
+							<span>אודות</span>
+						</button>
+						<img
+							class="mobile-menu-logo"
+							src="energyLOGO.png"
+							style="height: 50px"
+							v-if="isSearchVisible != true"
+						/>
+					</div>
 
+					<div class="actions-container display-none">
+						<button @click="govmap.showMeasure()" class="action-button">
+							<svg width="24" height="24" viewBox="0 0 40 26">
+								<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
+									<path
+										d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"
+									/>
+									<path
+										d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"
+									/>
+								</g>
+							</svg>
+							<span>מדוד</span>
+						</button>
+						<button
+							@click="shareContent"
+							class="action-button"
+							style="margin-top: 5px"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								height="18px"
+								width="18px"
+								viewBox="0 -960 960 960"
+								fill="#5f6368"
+							>
+								<path
+									d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"
+								/>
+							</svg>
+							<span>שיתוף</span>
+						</button>
+						<image src="energyLOGO.png" style="height: 30px" />
+					</div>
+				</div>
 
-            </div>
-         
-
-  
-
-
-            <div class="actions-container display-none">
-                <button @click="govmap.showMeasure();" class="action-button">
-                    <svg width="24" height="24" viewBox="0 0 40 26">
-                        <g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
-                            <path d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"/>
-                            <path d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"/>
-                        </g>
-                    </svg>
-                    <span>מדוד</span>
-                </button>
-                <button @click="shareContent" class="action-button" style="margin-top: 5px">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" width="18px" viewBox="0 -960 960 960"  fill="#5f6368">
-                        <path d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"/>
-                    </svg>
-                    <span>שיתוף</span>
-                </button>
-                <image src="energyLOGO.png" style="height: 30px;"/>
-            </div>
-        </div>
-
-        <!-- Drawer for mobile menu -->
-        <div class="drawer" :class="{ open: showDrawer }">
-            <!-- Close button for drawer -->
-            <button class="close-btn" @click="toggleDrawer">✕</button>
-            <!-- <button class="action-button" @click="toggleDrawer">
+				<!-- Drawer for mobile menu -->
+				<div class="drawer" :class="{ open: showDrawer }">
+					<!-- Close button for drawer -->
+					<button class="close-btn" @click="toggleDrawer">✕</button>
+					<!-- <button class="action-button" @click="toggleDrawer">
                 <span>שכבות</span>
             </button> -->
-            <p class="disclaimer_mobile" >
-                מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת פליטות גזי חממה)
-           <a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">  בקישור</a>
-           </p>
-           <p class="disclaimer_mobile" >
-              אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות
-           </p>
-           <p class="disclaimer_mobile">
-                   עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
-           </p>
-           <p class="disclaimer_mobile" >
-                   ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע
-           </p>
-        </div>
-    </header>
+					<p class="disclaimer_mobile">
+						מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע
+						במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת
+						פליטות גזי חממה)
+						<a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">
+							בקישור</a>
+					</p>
+					<p class="disclaimer_mobile">
+						אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות
+					</p>
+					<p class="disclaimer_mobile">
+						עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
+					</p>
+					<p class="disclaimer_mobile">
+						ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע
+					</p>
+				</div>
+			</header>
 
-    <div name="form" id="mapForm" class="MapStyle">
-        <div id="map_div" class="MapStyle">
-        </div>
-    </div>
+			<div name="form" id="mapForm" class="MapStyle">
+				<div id="map_div" class="MapStyle"></div>
+			</div>
 
-    <div class="BgDiv" >
-        <button
-            id="bg"
-            type="button"
-            :class="bgClass"
-            @click="changeBg"
-        >
-        </button>
-    </div>	
+			<div class="BgDiv">
+				<!-- wrap -->
+				<!-- <p style="text-wrap: wrap; width: 72px;">{{ bgTitle }}</p> -->
+				<button id="bg" type="button" :class="bgClass" @click="changeBg">
+					<p class="esriLabelMask">{{ bgTitle }}</p>
+				</button>
+			</div>
 
-    <footer class="footer"
-            style="position:relative;
-            height: 2%;
-            background: white; border-color: #0044cc #0044cc #002a80; background-repeat: repeat-x; text-align: right;">
-            <div id="floating_scale_bar_desktop">
-                גבוה
-                <img src="scale_bar.jpeg" alt="" style="margin-left: 5px; margin-right: 5px; height: 15px;">
-                נמוך
-            </div>
-            <p class="disclaimer">
-                 מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת פליטות גזי חממה)
-            <a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">  בקישור</a>
-            </p>
-            <p class="disclaimer">
-               אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות
-            </p>
-            <p class="disclaimer">
-                	עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
-            </p>
-            <p class="disclaimer">
-                	ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע
-            </p>
-    </footer>
+			<footer
+				class="footer"
+				style="
+					position: relative;
+					height: 2%;
+					background: white;
+					border-color: #0044cc #0044cc #002a80;
+					background-repeat: repeat-x;
+					text-align: right;
+				"
+			>
+				<div id="floating_scale_bar_desktop">
+					גבוה
+					<img
+						src="scale_bar.jpeg"
+						alt=""
+						style="margin-left: 5px; margin-right: 5px; height: 15px"
+					/>
+					נמוך
+				</div>
+				<p class="disclaimer">
+					מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע
+					במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת פליטות
+					גזי חממה)
+					<a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">
+						בקישור</a>
+				</p>
+				<p class="disclaimer">
+					אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות
+				</p>
+				<p class="disclaimer">
+					עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
+				</p>
+				<p class="disclaimer">ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע</p>
+			</footer>
 
+			<div id="floating_scale_bar_mobile">
+				<div class="esriLabelMask" style="rotate: -90deg">גבוה</div>
+				<img
+					src="scale_bar.jpeg"
+					alt=""
+					style="height: 15px; border: #ffffff 2px solid"
+				/>
 
-    <div id="floating_scale_bar_mobile">
-        <div class="legend_text_mobile">
-            גבוה
-        </div>
-        <img src="scale_bar.jpeg" alt="" style="height: 15px;border: #ffffff 2px solid;">
-      
-        <div class="legend_text_mobile">
-            נמוך
-        </div>
-    </div>
+				<div class="esriLabelMask" style="rotate: -90deg">נמוך</div>
+			</div>
+		</div>
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script
+			language="javascript"
+			type="text/javascript"
+			src="https://govmap.gov.il/govmap/api/govmap.api.js"
+		></script>
+		<!-- Include Terraformer, WKT parser, and ArcGIS parser script tags -->
+		<script src="https://cdn.jsdelivr.net/npm/terraformer@1.0.7"></script>
+		<script src="https://cdn.jsdelivr.net/npm/terraformer-wkt-parser@1.0.0"></script>
+		<script src="https://cdn.jsdelivr.net/npm/terraformer-arcgis-parser@1.0.0"></script>
+		<!-- Include Turf.js script tag -->
+		<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js"></script>
+		<!-- Include Proj4.js script tag -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
 
-</div>
-    
+		<!-- Add Vue instance initialization -->
+		<script>
+			new Vue({
+				el: "#app",
+				data: {
+					orthoSrc: "ortho.jpg",
+					mapCacheSrc: "streets.png",
+					solarSrc: "solar.jpg",
+					isSearchVisible: false, // Add this new property
+					currentBg: 41,
+					searchQuery: "",
+					showDrawer: false,
+					layersToc: null,
+					//
+					types: {
+						address: "כתובת",
+						neighborhood: "שכונה",
+						street: "רחוב",
+						settlement: "יישוב",
+						parks: "שמורות טבע וגנים",
+						institutes: "מוסדות",
+						junction: "צומת",
+						block: "גוש",
+						parcel: "חלקה",
+						ways: "דרכים",
+						poi: "נקודת עניין",
+						statistic: "איזור סטטיסטי",
+					},
+					setl_areas: {},
+					loading: false,
+					x: 0,
+					y: 0,
+					query: "",
+					items: [],
+					items_wkts: {},
+					filteredItems: [],
+					map: null,
+					entries: [],
+					city: "",
+					searchCodes: {
+						NEIGHBORHOOD: 4,
+						STREET: 2,
+						ADDRESS: 1,
+						SETTLEMENT: 8,
+						KPARCEL_ALL: 16384,
+					},
+					searchSetlCode: 0,
+					selectedIndex: -1, // Track currently selected item
+					showClear: false, // Control clear button visibility
+				},
+				computed: {
+					bgClass() {
+						//return this.currentBg === 41 ? 'bgBtn mapCacheImg' : 'bgBtn orthoImg';
+						if (this.currentBg === 0) {
+							return "bgBtn mapCacheImg";
+						}
+						if (this.currentBg === 23) {
+							return "bgBtn orthoImg";
+						}
+						if (this.currentBg === 41) {
+							return "bgBtn solarImg";
+						}
+						return "bgBtn orthoImg";
+					},
+					bgTitle() {
+						if (this.currentBg === 0) {
+							return "רחובות ומבנים";
+						}
+						if (this.currentBg === 23) {
+							return "צילום אוויר";
+						}
+						return "אנרגיה מתחדשת";
+					},
+				},
+				methods: {
+					showSearch() {
+						this.isSearchVisible = !this.isSearchVisible;
+						if (this.isSearchVisible) {
+							// Focus the search input when showing
+							setTimeout(() => {
+								const searchInput = document.querySelector(
+									".search-container input",
+								);
+								if (searchInput) {
+									searchInput.focus();
+								}
+							}, 100);
+						}
+					},
+					// Modify the clearSearch method to also hide the search on mobile
+					clearSearch() {
+						this.query = "";
+						this.items = [];
+						this.selectedIndex = -1;
+						this.showClear = false;
+						if (window.innerWidth <= 768) {
+							this.isSearchVisible = false;
+						}
+					},
+					async shareContent() {
+						if (navigator.share) {
+							try {
+								await navigator.share({
+									title: "Check this out!",
+									text: "This is some interesting content I wanted to share with you.",
+									url: window.location.href, // Or you can specify a custom URL
+								});
+								console.log("Shared successfully");
+							} catch (error) {
+								console.error("Error sharing:", error);
+							}
+						} else {
+							// Fallback for browsers that do not support the Share API
+							this.fallbackShare();
+						}
+					},
+					fallbackShare() {
+						// You can use the Clipboard API or simply open a share dialog
+						const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+						window.open(shareUrl, "_blank");
+					},
+					changeBg() {
+						// Toggle currentBg between 41 and 0
+						// (Now - Lets add another option for the tuggle, as it will be 3...)
+						// currentBg === 23
+						// the order of the tuggling will be: [41, 0, 23]. ok?
+						console.log(11111);
+						this.currentBg =
+							this.currentBg === 41 ? 0 : this.currentBg === 0 ? 23 : 41;
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script language="javascript" type="text/javascript" src="https://govmap.gov.il/govmap/api/govmap.api.js" ></script>
-    <!-- Include Terraformer, WKT parser, and ArcGIS parser script tags -->
-    <script src="https://cdn.jsdelivr.net/npm/terraformer@1.0.7"></script>
-    <script src="https://cdn.jsdelivr.net/npm/terraformer-wkt-parser@1.0.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/terraformer-arcgis-parser@1.0.0"></script>
-    <!-- Include Turf.js script tag -->
-    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js"></script>
-    <!-- Include Proj4.js script tag -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
+						// Change background image
+						govmap.setBackground(this.currentBg);
+					},
+					toggleDrawer() {
+						this.showDrawer = !this.showDrawer;
+					},
+					showAllItems() {
+						this.filteredItems = this.items;
+					},
+					filterList() {
+						this.showClear = this.query.length > 0;
+						this.selectedIndex = -1; // Reset selection when filtering
+						var url =
+							"https://es.govmap.gov.il/TldSearch/api/DetailsByQuery?query=" +
+							this.query +
+							"&lyrs=276267023&gid=govmap";
+						// get...
+						fetch(url)
+							.then((response) => response.json())
+							.then((data) => {
+								console.log(data);
 
-      <!-- Add Vue instance initialization -->
-      <script>
+								this.items = [];
+								// if data.data has SETTLEMENT:
+								if (data.data.SETTLEMENT) {
+									data.data.SETTLEMENT.forEach((item) => {
+										this.items.push({
+											id: item.ObjectID,
+											text: item.ResultLable,
+											type: "settlement",
+											shape: `POINT(${item.X} ${item.Y})`,
+										});
+									});
+								}
+								// if data.data has NEIGHBORHOOD:
+								if (data.data.NEIGHBORHOOD) {
+									data.data.NEIGHBORHOOD.forEach((item) => {
+										this.items.push({
+											id: item.ObjectID,
+											text: item.ResultLable,
+											type: "neighborhood",
+											shape: `POINT(${item.X} ${item.Y})`,
+										});
+									});
+								}
+								// if data.data has STREET:
+								if (data.data.STREET) {
+									data.data.STREET.forEach((item) => {
+										this.items.push({
+											id: item.ObjectID,
+											text: item.ResultLable,
+											type: "street",
+											shape: `POINT(${item.X} ${item.Y})`,
+										});
+									});
+								}
+								// if data.data has ADDRESS:
+								if (data.data.ADDRESS) {
+									data.data.ADDRESS.forEach((item) => {
+										this.items.push({
+											id: item.ObjectID,
+											text: item.ResultLable,
+											type: "address",
+											shape: `POINT(${item.X} ${item.Y})`,
+										});
+									});
+								}
+								//if data.data has GOVMAP_PARCEL_ALL:
+								if (data.data.GOVMAP_PARCEL_ALL) {
+									data.data.GOVMAP_PARCEL_ALL.forEach((item) => {
+										this.items.push({
+											id: item.ObjectID,
+											text: item.ResultLable,
+											type: "parcel",
+											shape: `POINT(${item.X} ${item.Y})`,
+										});
+									});
+								}
 
-        new Vue({
-            el: '#app',
-            data: {
-                isSearchVisible: false, // Add this new property
-                currentBg: 29,
-                searchQuery: '',
-                showDrawer: false,
-                layersToc: null,
-                //
-                types: {'address': 'כתובת', 'neighborhood': 'שכונה', 'street': 'רחוב', 'settlement': 'יישוב', 'parks': 'שמורות טבע וגנים', 'institutes': 'מוסדות', 'junction': 'צומת', 'block': 'גוש', 'parcel': 'חלקה', 'ways': 'דרכים', 'poi': 'נקודת עניין', 'statistic': 'איזור סטטיסטי'},
-                setl_areas: {},
-                loading: false,
-                x: 0,
-                y: 0,
-                query: '',
-                items: [],
-                items_wkts: {},
-                filteredItems: [],
-                map: null,
-                entries: [],
-                city: "",
-                searchCodes: {
-                    NEIGHBORHOOD: 4,
-                    STREET: 2,
-                    ADDRESS: 1,
-                    SETTLEMENT: 8,
-                    KPARCEL_ALL: 16384,
-                },
-                searchSetlCode: 0,
-                selectedIndex: -1, // Track currently selected item
-                showClear: false, // Control clear button visibility
-            },
-            computed: {
-                bgClass() {
-                    return this.currentBg === 41 ? 'bgBtn mapCacheImg' : 'bgBtn orthoImg';
-                }
-            },
-            methods: {
-                showSearch() {
-                    this.isSearchVisible = !this.isSearchVisible;
-                    if (this.isSearchVisible) {
-                        // Focus the search input when showing
-                        setTimeout(() => {
-                            const searchInput = document.querySelector('.search-container input');
-                            if (searchInput) {
-                                searchInput.focus();
-                            }
-                        }, 100);
-                    }
-                },
-                // Modify the clearSearch method to also hide the search on mobile
-                clearSearch() {
-                    this.query = '';
-                    this.items = [];
-                    this.selectedIndex = -1;
-                    this.showClear = false;
-                    if (window.innerWidth <= 768) {
-                        this.isSearchVisible = false;
-                    }
-                },
-                async shareContent() {
-                    if (navigator.share) {
-                        try {
-                        await navigator.share({
-                            title: 'Check this out!',
-                            text: 'This is some interesting content I wanted to share with you.',
-                            url: window.location.href, // Or you can specify a custom URL
-                        });
-                        console.log('Shared successfully');
-                        } catch (error) {
-                        console.error('Error sharing:', error);
-                        }
-                    } else {
-                        // Fallback for browsers that do not support the Share API
-                        this.fallbackShare();
-                    }
-                },
-                fallbackShare() {
-                    // You can use the Clipboard API or simply open a share dialog
-                    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
-                    window.open(shareUrl, '_blank');
-                },
-                changeBg() {
-                    // Toggle currentBg between 28 and 29
-                    this.currentBg = this.currentBg === 41 ? 0 : 41;
+								// sort this.item by this order: 'settlement', 'neighborhood' 'street', 'address', 'parcel'..
+								this.items.sort((a, b) => {
+									if (a.type > b.type) {
+										return 1;
+									}
+									if (a.type < b.type) {
+										return -1;
+									}
+									return 0;
+								});
 
-                    // Change background image
-                    govmap.setBackground(this.currentBg);
-                },
-                toggleDrawer() {
-                    this.showDrawer = !this.showDrawer;
-                },
-                showAllItems() {
-                    this.filteredItems = this.items;
-                },
-                filterList() {
-                    this.showClear = this.query.length > 0;
-                    this.selectedIndex = -1; // Reset selection when filtering
-                    var url = "https://es.govmap.gov.il/TldSearch/api/DetailsByQuery?query="+this.query+"&lyrs=276267023&gid=govmap"
-                    // get...
-                    fetch(url)
-                    .then(response => response.json())
-                    .then(data => {
-                    console.log(data);
-                    
-                    this.items = [];
-                    // if data.data has SETTLEMENT:
-                    if (data.data.SETTLEMENT) {
-                        data.data.SETTLEMENT.forEach((item) => {
-                        this.items.push({
-                            id: item.ObjectID,
-                            text: item.ResultLable,
-                            type: 'settlement',
-                            shape: `POINT(${item.X} ${item.Y})`
-                        });
-                        });
-                    }
-                    // if data.data has NEIGHBORHOOD:
-                    if (data.data.NEIGHBORHOOD) {
-                        data.data.NEIGHBORHOOD.forEach((item) => {
-                        this.items.push({
-                            id: item.ObjectID,
-                            text: item.ResultLable,
-                            type: 'neighborhood',
-                            shape: `POINT(${item.X} ${item.Y})`
-                        });
-                        });
-                    }
-                    // if data.data has STREET:
-                    if (data.data.STREET) {
-                        data.data.STREET.forEach((item) => {
-                        this.items.push({
-                            id: item.ObjectID,
-                            text: item.ResultLable,
-                            type: 'street',
-                            shape: `POINT(${item.X} ${item.Y})`
-                        });
-                        });
-                    }
-                    // if data.data has ADDRESS:
-                    if (data.data.ADDRESS) {
-                        data.data.ADDRESS.forEach((item) => {
-                        this.items.push({
-                            id: item.ObjectID,
-                            text: item.ResultLable,
-                            type: 'address',
-                            shape: `POINT(${item.X} ${item.Y})`
-                        });
-                        });
-                    }
-                    //if data.data has GOVMAP_PARCEL_ALL:
-                    if (data.data.GOVMAP_PARCEL_ALL) {
-                        data.data.GOVMAP_PARCEL_ALL.forEach((item) => {
-                        this.items.push({
-                            id: item.ObjectID,
-                            text: item.ResultLable,
-                            type: 'parcel',
-                            shape: `POINT(${item.X} ${item.Y})`
-                        });
-                        });
-                    }
+								this.filteredItems = this.items;
+							});
+					},
+					selectItem(item) {
+						this.query = item.text;
+						this.items = [];
+						this.selectedIndex = -1;
+						this.showClear = true;
+						this.filteredItems = [];
 
+						console.log("Selected item:", item);
+						//get the wkt for the selected item
+						var wkt = item.shape;
+						//"POINT(3887038.1170383873 3786759.179448681)"
+						var geojson = Terraformer.WKT.parse(wkt);
+						var coords = geojson.coordinates;
+						var x = parseFloat(coords[0]);
+						var y = parseFloat(coords[1]);
 
-                    
-                    // sort this.item by this order: 'settlement', 'neighborhood' 'street', 'address', 'parcel'..
-                    this.items.sort((a, b) => {
-                        if (a.type > b.type) {
-                        return 1;
-                        }
-                        if (a.type < b.type) {
-                        return -1;
-                        }
-                        return 0;
-                    });
+						// zoom to the selected item
 
-                    
-                    
-                    this.filteredItems = this.items;
+						// web mercator to wgs84
+						// Define EPSG:2039
+						proj4.defs([
+							[
+								"EPSG:2039",
+								"+proj=tmerc +lat_0=31.7343936111111 +lon_0=35.2045169444445 +k=1.0000067 +x_0=219529.584 +y_0=626907.39 +ellps=GRS80 +towgs84=-24.002400,-17.103200,-17.844400,-0.33077,-1.852690,1.669690,5.424800 +units=m +no_defs",
+							],
+						]);
 
-                    })
+						// Example coordinate in EPSG:3857
+						const point3857 = [x, y]; // Replace 3857_x and 3857_y with your actual coordinates
 
-                },
-                selectItem(item) {
-                    this.query = item.text;
-                    this.items = [];
-                    this.selectedIndex = -1;
-                    this.showClear = true;
-                    this.filteredItems = [];
+						// Transform the coordinates to EPSG:2039
+						// const point2039 = proj4('EPSG:3857', 'EPSG:2039', point3857);
+						// this.x = point2039[0];
+						// this.y = point2039[1];
 
-                    console.log("Selected item:", item);
-                    //get the wkt for the selected item
-                    var wkt = item.shape;
-                //"POINT(3887038.1170383873 3786759.179448681)"
-                var geojson = Terraformer.WKT.parse(wkt);
-                    var coords = geojson.coordinates;
-                    var x = parseFloat(coords[0]);
-                    var y = parseFloat(coords[1]);
+						this.x = x;
+						this.y = y;
 
-                    // zoom to the selected item
+						// zoom to the selected item
+						govmap.zoomToXY({ x: this.x, y: this.y, level: 10, marker: true });
 
-                    // web mercator to wgs84
-                    // Define EPSG:2039
-                    proj4.defs([
-                        ["EPSG:2039", "+proj=tmerc +lat_0=31.7343936111111 +lon_0=35.2045169444445 +k=1.0000067 +x_0=219529.584 +y_0=626907.39 +ellps=GRS80 +towgs84=-24.002400,-17.103200,-17.844400,-0.33077,-1.852690,1.669690,5.424800 +units=m +no_defs"]
-                    ]);
+						if (window.innerWidth <= 768) {
+							this.isSearchVisible = false;
+						}
+					},
 
-                    // Example coordinate in EPSG:3857
-                    const point3857 = [x, y]; // Replace 3857_x and 3857_y with your actual coordinates
+					// Handle keyboard navigation
+					handleKeyDown(e) {
+						if (this.items.length === 0) return;
 
-                    // Transform the coordinates to EPSG:2039
-                    // const point2039 = proj4('EPSG:3857', 'EPSG:2039', point3857);
-                    // this.x = point2039[0];
-                    // this.y = point2039[1];
+						switch (e.keyCode) {
+							case 40: // Down arrow
+								e.preventDefault();
+								this.selectedIndex =
+									this.selectedIndex < this.items.length - 1
+										? this.selectedIndex + 1
+										: this.items.length - 1;
+								this.scrollToSelected();
+								break;
 
-                    this.x = x;
-                    this.y = y;
-                    
-                    // zoom to the selected item
-                    govmap.zoomToXY({ x: this.x , y: this.y, level: 10, marker: true });
+							case 38: // Up arrow
+								e.preventDefault();
+								this.selectedIndex =
+									this.selectedIndex > 0 ? this.selectedIndex - 1 : 0;
+								this.scrollToSelected();
+								break;
 
-                    if (window.innerWidth <= 768) {
-                        this.isSearchVisible = false;
-                    }
-                },
+							case 13: // Enter
+								e.preventDefault();
+								if (this.selectedIndex >= 0) {
+									this.selectItem(this.items[this.selectedIndex]);
+								}
+								break;
 
-                // Handle keyboard navigation
-                handleKeyDown(e) {
-                    if (this.items.length === 0) return;
-                    
-                    switch(e.keyCode) {
-                        case 40: // Down arrow
-                            e.preventDefault();
-                            this.selectedIndex = 
-                                this.selectedIndex < this.items.length - 1 ? 
-                                this.selectedIndex + 1 : this.items.length - 1;
-                            this.scrollToSelected();
-                            break;
-                            
-                        case 38: // Up arrow
-                            e.preventDefault();
-                            this.selectedIndex = 
-                                this.selectedIndex > 0 ? 
-                                this.selectedIndex - 1 : 0;
-                            this.scrollToSelected();
-                            break;
-                            
-                        case 13: // Enter
-                            e.preventDefault();
-                            if (this.selectedIndex >= 0) {
-                                this.selectItem(this.items[this.selectedIndex]);
-                            }
-                            break;
-                            
-                        case 27: // Escape
-                            this.clearSearch();
-                            break;
-                    }
-                },
-                
-                // Scroll selected item into view
-                scrollToSelected() {
-                    if (this.selectedIndex < 0) return;
-                    const container = document.querySelector('.autocomplete-items');
-                    const selected = container.children[this.selectedIndex];
-                    if (selected) {
-                        selected.scrollIntoView({ block: 'nearest' });
-                    }
-                },
+							case 27: // Escape
+								this.clearSearch();
+								break;
+						}
+					},
 
-                // Clear search
-                clearSearch() {
-                    this.query = '';
-                    this.items = [];
-                    this.selectedIndex = -1;
-                    this.showClear = false;
-                },
-            },
-            watch: {
-                // Watch for query changes
-                query(newVal) {
-                    this.showClear = newVal.length > 0;
-                }
-            },
-            mounted() {
-                var appVue = this;
-                this.currentBg = 41
-                // Empty mounted lifecycle hook
-                //var my_token = "0fff9694-a045-4ede-b997-ee9927b0d56c";//govmap
-                //var my_token = "5a4b8472-b95b-4687-8179-0ccb621c7990"; //for localhost domain
-                var my_token ='aafedfe5-8dfa-4fd5-9af9-8b95759447bd'; // git
-                govmap.createMap('map_div', {
-                    token: my_token,
-                    visibleLayers: [],
-                    layers:["parcel_all", "sub_gush_all", "NEIGHBORHOODS_AREA"],  
-                    showXY: false,
-                    identifyOnClick: false,
-                    background: 0,
-                    layersMode: 2,
-                    bgButton:false,
-                    level: 5,
-                    center:{x:219545,y:631555},
-                    // onClick: function (e)
-                    // {
-                    //     var lyrs = ["parcel_all", "sub_gush_all", "NEIGHBORHOODS_AREA"];
-                    //     var x = e.mapPoint.x;
-                    //     var y = e.mapPoint.y;
-                        
-                    //     // govmap.identifyByXYAndLayer(x, y, lyrs).then(function(result){
-                    //     //     if (result && result.data && result.data.length > 0) {
-                    //     //     var params = {
-                    //     //     "coord":{"x":x,"y":y},
-                    //     //     data:result.data
-                    //     //     };
-                    //     //     //result.data["requestParams"]={"x":x,"y":y};
-                    //     //             govmap.showBubble(params);
-                    //     // 	} 
-                    //     // });
-                        
-                            
-                    // },
-                    isEmbeddedToggle: false
-                });
-                govmap.setBackground(this.currentBg);
-            }
-        });
-    </script>
-</body>
+					// Scroll selected item into view
+					scrollToSelected() {
+						if (this.selectedIndex < 0) return;
+						const container = document.querySelector(".autocomplete-items");
+						const selected = container.children[this.selectedIndex];
+						if (selected) {
+							selected.scrollIntoView({ block: "nearest" });
+						}
+					},
+
+					// Clear search
+					clearSearch() {
+						this.query = "";
+						this.items = [];
+						this.selectedIndex = -1;
+						this.showClear = false;
+					},
+				},
+				watch: {
+					// Watch for query changes
+					query(newVal) {
+						this.showClear = newVal.length > 0;
+					},
+				},
+				mounted() {
+					var appVue = this;
+					this.currentBg = 41;
+					// Empty mounted lifecycle hook
+					//var my_token = "0fff9694-a045-4ede-b997-ee9927b0d56c";//govmap
+					//var my_token = "5a4b8472-b95b-4687-8179-0ccb621c7990"; //for localhost domain
+					var my_token = "aafedfe5-8dfa-4fd5-9af9-8b95759447bd"; // git
+					govmap.createMap("map_div", {
+						token: my_token,
+						visibleLayers: [],
+						layers: ["parcel_all", "sub_gush_all", "NEIGHBORHOODS_AREA"],
+						showXY: false,
+						identifyOnClick: false,
+						background: 0,
+						layersMode: 2,
+						bgButton: false,
+						level: 5,
+						center: { x: 219545, y: 631555 },
+						// onClick: function (e)
+						// {
+						//     var lyrs = ["parcel_all", "sub_gush_all", "NEIGHBORHOODS_AREA"];
+						//     var x = e.mapPoint.x;
+						//     var y = e.mapPoint.y;
+
+						//     // govmap.identifyByXYAndLayer(x, y, lyrs).then(function(result){
+						//     //     if (result && result.data && result.data.length > 0) {
+						//     //     var params = {
+						//     //     "coord":{"x":x,"y":y},
+						//     //     data:result.data
+						//     //     };
+						//     //     //result.data["requestParams"]={"x":x,"y":y};
+						//     //             govmap.showBubble(params);
+						//     // 	}
+						//     // });
+
+						// },
+						isEmbeddedToggle: false,
+					});
+					govmap.setBackground(this.currentBg);
+				},
+			});
+		</script>
+	</body>
 </html>

@@ -524,7 +524,7 @@
 						</svg>
 						<span>אודות</span>
 					</button>
-					<button @click="govmap.showMeasure()" class="mobile-action-button">
+					<button @click="showMesure()" class="mobile-action-button">
 						<svg width="24" height="24" viewBox="0 0 40 26">
 							<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
 								<path
@@ -621,7 +621,7 @@
 					</a>
 
 					<div class="actions-container display-none">
-						<button @click="govmap.showMeasure()" class="action-button">
+						<button @click="showMeasure()" class="action-button">
 							<svg width="24" height="24" viewBox="0 0 40 26">
 								<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
 									<path
@@ -759,7 +759,7 @@
 						</div>
 
 						<button
-							@click="govmap.showMeasure()"
+							@click="showMeasure()"
 							class="mobile-action-button"
 							v-if="isSearchVisible != true"
 						>
@@ -821,7 +821,7 @@
 					</div>
 
 					<div class="actions-container display-none">
-						<button @click="govmap.showMeasure()" class="action-button">
+						<button @click="showMeasure()" class="action-button">
 							<svg width="24" height="24" viewBox="0 0 40 26">
 								<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
 									<path
@@ -965,6 +965,7 @@
 			new Vue({
 				el: "#app",
 				data: {
+					isMesure: false,
 					orthoSrc: "ortho.jpg",
 					mapCacheSrc: "streets.png",
 					solarSrc: "solar.jpg",
@@ -1035,6 +1036,17 @@
 					},
 				},
 				methods: {
+					showMeasure() {
+						var appVue = this;
+						// turn on the measure tool
+						this.isMesure = true;
+						
+						govmap.showMeasure().then((result) => {
+							console.log("done mesuring");
+							// go back to isMesure = false
+							appVue.isMesure = false;
+						});	
+					},
 					showSearch() {
 						this.isSearchVisible = !this.isSearchVisible;
 						if (this.isSearchVisible) {
@@ -1297,35 +1309,44 @@
 					govmap.createMap("map_div", {
 						token: my_token,
 						visibleLayers: [],
-						layers: ["parcel_all", "sub_gush_all", "NEIGHBORHOODS_AREA"],
+						layers: ["parcel_all", "sub_gush_all", "NEIGHBORHOODS_AREA", "Setl_Areas_Solar541","bldg_Solar541"],
 						showXY: false,
-						identifyOnClick: false,
+						identifyOnClick: true,
 						background: 0,
 						layersMode: 2,
 						bgButton: false,
 						level: 5,
 						center: { x: 219545, y: 631555 },
-						// onClick: function (e)
-						// {
-						//     var lyrs = ["parcel_all", "sub_gush_all", "NEIGHBORHOODS_AREA"];
-						//     var x = e.mapPoint.x;
-						//     var y = e.mapPoint.y;
-
-						//     // govmap.identifyByXYAndLayer(x, y, lyrs).then(function(result){
-						//     //     if (result && result.data && result.data.length > 0) {
-						//     //     var params = {
-						//     //     "coord":{"x":x,"y":y},
-						//     //     data:result.data
-						//     //     };
-						//     //     //result.data["requestParams"]={"x":x,"y":y};
-						//     //             govmap.showBubble(params);
-						//     // 	}
-						//     // });
-
-						// },
 						isEmbeddedToggle: false,
 					});
 					govmap.setBackground(this.currentBg);
+
+					govmap.onEvent(govmap.events.CLICK).progress(function (e)  
+					{  
+						console.log("isMesure", appVue.isMesure);
+						if (appVue.isMesure == true){
+							console.log("isMesure", appVue.isMesure);
+							return;
+						}
+						else{
+							var lyrs = ["parcel_all", "bldg_Solar541"];
+							var x = e.mapPoint.x;
+							var y = e.mapPoint.y;
+
+							govmap.identifyByXYAndLayer(x, y, lyrs).then(function(result){
+								if (result && result.data && result.data.length > 0) {
+								var params = {
+								"coord":{"x":x,"y":y},
+								data:result.data
+								};
+								//result.data["requestParams"]={"x":x,"y":y};
+										govmap.showBubble(params);
+								}
+							});
+
+						}
+
+					}); 
 				},
 			});
 		</script>

@@ -7,13 +7,12 @@
 		<title>פוטנציאל ייצור אנרגיה מתחדשת</title>
 		<!-- Add Vue 2 CDN -->
 		<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
-        
+		<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/alefhebrew.css">
         <script src="vue@2.js"></script>
 		<style>
 			[v-cloak] {
 				display: none;
 			}
-			@import url(https://fonts.googleapis.com/earlyaccess/alefhebrew.css);
 			* {
 				margin: 0;
 				padding: 0;
@@ -252,6 +251,11 @@
 
 			.font {
 				caret-color: transparent;
+				font-family: "Alef Hebrew", "Helvetica Neue", Helvetica, Arial,
+					sans-serif;
+			}
+
+			#app{
 				font-family: "Alef Hebrew", "Helvetica Neue", Helvetica, Arial,
 					sans-serif;
 			}
@@ -500,7 +504,7 @@
 	</head>
 
 	<body class="font">
-		<div id="app" v-cloak>
+		<div id="app" class="font" v-cloak>
 			<header id="desktop-header" class="navbar-header">
 				<div
 					style="
@@ -616,7 +620,7 @@
                 </div> -->
 					</div>
 
-					<a href="#" class="navbar-brand">
+					<a href="#" class="navbar-brand font">
 						פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים
 					</a>
 

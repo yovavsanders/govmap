@@ -1339,12 +1339,83 @@
 
 							govmap.identifyByXYAndLayer(x, y, lyrs).then(function(result){
 								if (result && result.data && result.data.length > 0) {
-								var params = {
-								"coord":{"x":x,"y":y},
-								data:result.data
-								};
-								//result.data["requestParams"]={"x":x,"y":y};
-										govmap.showBubble(params);
+									var fields = result.data[0].Result[0].tabs[0].fields;
+									console.log(fields);
+									// sample of fields:
+									// [
+									// 	{
+									// 		"FieldName": "שם ישוב",
+									// 		"FieldValue": "ירושלים",
+									// 		"FieldType": 1
+									// 	},
+									// 	{
+									// 		"FieldName": "שטח הגג",
+									// 		"FieldValue": "5638",
+									// 		"FieldType": 1
+									// 	},
+									// 	{
+									// 		"FieldName": "הערה",
+									// 		"FieldValue": "לא לשימוש מסחרי, זכויות היוצרים שמורות למרכז למיפוי ישראל",
+									// 		"FieldType": 1
+									// 	},
+									// 	{
+									// 		"FieldName": "שטח מוערך בעל הספק אנרגטי",
+									// 		"FieldValue": "4218",
+									// 		"FieldType": 1
+									// 	},
+									// 	{
+									// 		"FieldName": "ממוצע אנרגיה מתחדשת",
+									// 		"FieldValue": "1433",
+									// 		"FieldType": 1
+									// 	},
+									// 	{
+									// 		"FieldName": "הערכת הספק",
+									// 		"FieldValue": "527",
+									// 		"FieldType": 1
+									// 	}
+									// ]
+
+									// send ,הערה, to the end...
+									var fields = fields.sort(function(a, b){
+										if (a.FieldName == "הערה") return 1;
+										if (b.FieldName == "הערה") return -1;
+										return 0;
+									});
+									// "שטח הגג" -> if number is bigger then 999, add comma
+									// plus - add 'מ"ר' to the end
+									fields.forEach(function(field){
+										if (field.FieldName == "שטח הגג" || field.FieldName == "שטח מוערך בעל הספק אנרגטי"){
+											field.FieldValue = field.FieldValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+											field.FieldValue += " מ\"ר";
+										}
+									});
+
+									// now, for  "הערכת הספק" - please add 'קילו-ואט' to the end
+									// plus add comma if number is bigger then 999
+									fields.forEach(function(field){
+										if (field.FieldName == "הערכת הספק"){
+											field.FieldValue = field.FieldValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+											field.FieldValue += " קילו-ואט";
+										}
+									});
+
+									// now, for  "ממוצע אנרגיה מתחדשת" - please add 'קילו-ואט/שעה' to the end
+									// plus add comma if number is bigger then 999
+									fields.forEach(function(field){
+										if (field.FieldName == "ממוצע אנרגיה מתחדשת"){
+											field.FieldValue = field.FieldValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+											field.FieldValue += " קילו-ואט/שעה";
+										}
+									});
+
+									// set new fields for the bubble (data)...
+									result.data[0].Result[0].tabs[0].fields = fields;
+									var params = {
+										"coord":{"x":x,"y":y},
+										data:result.data
+									};
+									//result.data["requestParams"]={"x":x,"y":y};
+									govmap.showBubble(params);
 								}
 							});
 

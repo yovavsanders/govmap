@@ -333,11 +333,11 @@
 
 			.BgDiv {
 				position: absolute;
-				bottom: 145px;
+				bottom: 81px;
 				left: 15px;
 			}
 			.MapStyle {
-				height: calc(100vh - 190px);
+				height: calc(100vh - 126px);
 				/* position: absolute; */
 				/* top:160px; */
 			}
@@ -366,6 +366,7 @@
 					display: none;
 				}
 				#floating_scale_bar_desktop {
+					position: absolute;
 					padding-top: 10px;
 					padding-bottom: 10px;
 					/* width: 500px; */
@@ -374,6 +375,8 @@
 					display: flex;
 					justify-content: center;
 					align-items: center;
+					bottom: 81px;
+					
 				}
 				#floating_scale_bar_mobile {
 					display: none;
@@ -408,15 +411,12 @@
 				}
 				#floating_scale_bar_mobile {
 					left: calc(-50% + 22px);
-					transform: translateY(-50%) rotate(90deg);
-					/* width: 100px; */
-					bottom: 50%;
+					top: 400px;
 					position: absolute;
-					margin: 0 auto;
 					width: 100%;
 					display: flex;
-					justify-content: right;
-					/* rotate: 90deg; */
+					justify-content: center;
+					rotate: 90deg;
 				}
 				.navbar-header {
 					width: 100%;
@@ -448,7 +448,7 @@
 				}
 
 				.MapStyle {
-					height:calc(100vh - 117px);
+					height:calc(100vh - 143px);
 				}
 				.BgDiv {
 					position: absolute;
@@ -539,7 +539,7 @@
 								<path
 									d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"
 								/>
-							</g>
+							</g>enuz
 						</svg>
 						<span>מדוד</span>
 					</button>
@@ -577,7 +577,7 @@
 									@focus="showAllItems"
 									@input="filterList"
 									@keydown="handleKeyDown"
-									placeholder="הקלד כתובת / שם רחוב / שם ישוב"
+									placeholder="הקלד כתובת / גוש חלקה"
 								/>
 								<button
 									v-if="showClear"
@@ -623,7 +623,7 @@
 					</div>
 
 					<a href="#" class="navbar-brand font">
-						פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים
+						 פוטנציאל ייצור אנרגיה מתחדשת בשטחים הבנויים בישראל
 					</a>
 
 					<div class="actions-container display-none">
@@ -658,7 +658,7 @@
 							</svg>
 							<span>שיתוף</span>
 						</button>
-						<image src="energyLOGO.png" style="height: 30px" />
+						<image src="energyLOGO.jpg" style="height: 50px" />
 					</div>
 				</div>
 
@@ -682,14 +682,14 @@
 					<p class="disclaimer_mobile">
 						עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
 					</p>
-					<p class="disclaimer_mobile">
+					<!-- <p class="disclaimer_mobile">
 						ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע
-					</p>
+					</p> -->
 				</div>
 			</header>
 			<header id="mobile-header" class="navbar-header">
 				<div class="header-content">
-					<a href="#" class="navbar-brand"> פוטנציאל ייצור אנרגיה מתחדשת </a>
+					<a href="#" class="navbar-brand"> פוטנציאל ייצור אנרגיה מתחדשת בשטחים הבנויים בישראל</a>
 				</div>
 
 				<div class="header-content">
@@ -719,7 +719,7 @@
 										@focus="showAllItems"
 										@input="filterList"
 										@keydown="handleKeyDown"
-										placeholder="הקלד כתובת / שם רחוב / שם ישוב"
+										placeholder="הקלד כתובת / גוש חלקה"
 									/>
 									<button
 										v-if="showClear"
@@ -821,7 +821,7 @@
 						<img
 							class="mobile-menu-logo"
 							src="energyLOGO.png"
-							style="height: 50px"
+							style="height: 50px;"
 							v-if="isSearchVisible != true"
 						/>
 					</div>
@@ -858,7 +858,7 @@
 							</svg>
 							<span>שיתוף</span>
 						</button>
-						<image src="energyLOGO.png" style="height: 30px" />
+						<image src="energyLOGO.png" style="height: 50px" />
 					</div>
 				</div>
 
@@ -882,9 +882,9 @@
 					<p class="disclaimer_mobile">
 						עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
 					</p>
-					<p class="disclaimer_mobile">
+					<!-- <p class="disclaimer_mobile">
 						ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע
-					</p>
+					</p> -->
 				</div>
 			</header>
 
@@ -899,7 +899,21 @@
 					<p class="esriLabelMask">{{ bgTitle }}</p>
 				</button>
 			</div>
-
+			<div v-if="currentBg == 41" id="floating_scale_bar_desktop" >
+					<p class="esriLabelMask">
+					גבוה
+					</p>
+					
+					<img
+						src="scale_bar.jpeg"
+						alt=""
+						style="margin-left: 5px; margin-right: 5px; height: 15px;border: 2px solid rgb(255, 255, 255);"
+					/>
+					<p class="esriLabelMask">
+						נמוך
+						</p>
+						
+				</div>
 			<footer
 				class="footer"
 				style="
@@ -911,18 +925,6 @@
 					text-align: right;
 				"
 			>
-				<div v-if="currentBg == 41" id="floating_scale_bar_desktop">
-					גבוה
-					<img
-						src="scale_bar.jpeg"
-						alt=""
-						style="margin-left: 5px; margin-right: 5px; height: 15px"
-					/>
-					נמוך
-				</div>
-                <div style="height: 38.67px" v-else>
-
-                </div>
 				<p class="disclaimer">
 					מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע
 					במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת פליטות
@@ -936,7 +938,7 @@
 				<p class="disclaimer">
 					עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
 				</p>
-				<p class="disclaimer">ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע</p>
+				<!-- <p class="disclaimer">ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע</p> -->
 			</footer>
 
 			<div v-if="currentBg == 41" id="floating_scale_bar_mobile">

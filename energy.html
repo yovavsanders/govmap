@@ -687,7 +687,7 @@
 			</header>
 			<header id="mobile-header" class="navbar-header">
 				<div class="header-content">
-					<a href="#" class="navbar-brand"> פוצנציאל ייצור אנרגיה מתחדשת </a>
+					<a href="#" class="navbar-brand"> פוטנציאל ייצור אנרגיה מתחדשת </a>
 				</div>
 
 				<div class="header-content">
@@ -1021,7 +1021,7 @@
 						if (this.currentBg === 0) {
 							return "bgBtn mapCacheImg";
 						}
-						if (this.currentBg === 23) {
+						if (this.currentBg === 1) {
 							return "bgBtn orthoImg";
 						}
 						if (this.currentBg === 41) {
@@ -1033,7 +1033,7 @@
 						if (this.currentBg === 0) {
 							return "רחובות ומבנים";
 						}
-						if (this.currentBg === 23) {
+						if (this.currentBg === 1) {
 							return "צילום אוויר";
 						}
 						return "אנרגיה מתחדשת";
@@ -1100,11 +1100,11 @@
 					changeBg() {
 						// Toggle currentBg between 41 and 0
 						// (Now - Lets add another option for the tuggle, as it will be 3...)
-						// currentBg === 23
-						// the order of the tuggling will be: [41, 0, 23]. ok?
+						// currentBg === 1
+						// the order of the tuggling will be: [41, 0, 1]. ok?
 						console.log(11111);
 						this.currentBg =
-							this.currentBg === 41 ? 0 : this.currentBg === 0 ? 23 : 41;
+							this.currentBg === 41 ? 0 : this.currentBg === 0 ? 1 : 41;
 
 						// Change background image
 						govmap.setBackground(this.currentBg);

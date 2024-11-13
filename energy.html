@@ -54,6 +54,7 @@
 				position: relative;
 				flex-grow: 1;
 				max-width: 300px;
+				min-width: 280px;
 				display: flex;
 				align-items: center;
 				gap: 1rem;
@@ -336,7 +337,7 @@
 				bottom: 81px;
 				left: 15px;
 			}
-			.MapStyle { /*desktop*/
+			.MapStyle {
 				height: calc(100vh - 126px);
 				/* position: absolute; */
 				/* top:160px; */
@@ -447,7 +448,7 @@
 					border-radius: 4px;
 				}
 
-				.MapStyle { /*mobile*/
+				.MapStyle {
 					height:calc(100vh - 143px);
 				}
 				.BgDiv {
@@ -1188,16 +1189,27 @@
 										});
 									});
 								}
+								//if POI_MID_POINT
+								if (data.data.POI_MID_POINT) {
+									data.data.POI_MID_POINT.forEach((item) => {
+										//ResultLable => only first 30 characters if more then 30
+										if (item.ResultLable.length > 30){
+											item.ResultLable = item.ResultLable.substring(0, 30) + "...";
+										}
+										this.items.push({
+											id: item.ObjectID,
+											text: item.ResultLable,
+											type: "poi",
+											shape: `POINT(${item.X} ${item.Y})`,
+										});
+									});
+								}
 
-								// sort this.item by this order: 'settlement', 'neighborhood' 'street', 'address', 'parcel'..
+
+								// sort this.item by this order: 'settlement', 'neighborhood' 'street', 'address', 'parcel', 'poi'..
+								var order = ["settlement", "neighborhood", "street", "address", "parcel", "poi"];
 								this.items.sort((a, b) => {
-									if (a.type > b.type) {
-										return 1;
-									}
-									if (a.type < b.type) {
-										return -1;
-									}
-									return 0;
+									return order.indexOf(a.type) - order.indexOf(b.type);
 								});
 
 								this.filteredItems = this.items;

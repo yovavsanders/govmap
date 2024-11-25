@@ -10,6 +10,8 @@
 		<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/alefhebrew.css">
         <script src="vue@2.js"></script>
+		<link rel="stylesheet" href="mapi.woff2">
+		 <link rel="stylesheet" href="layers_icons.css">
 		<style>
 			[v-cloak] {
 				display: none;
@@ -395,7 +397,7 @@
 	flex-direction: row;
 	justify-content: center;
 	flex-wrap: nowrap;
-	align-items: baseline;
+	align-items: center;
 }
 
 .footer-text {
@@ -416,8 +418,68 @@
   margin-left: 8px;
 }
 
+
+.mapi-logo {
+    /* position: absolute; */
+    right: 13px;
+    /* bottom: 13px; */
+    background-color: transparent;
+    border: none;
+    z-index: 1;
+    font-family: mapiregular;
+    display: inline-block
+}
+
+.mapi-logo .logo {
+    font-size: 35px;
+    font-style: normal;
+    display: inline-block
+}
+
+.mapi-logo .mapi-23 {
+    float: left;
+    margin-right: -5px
+}
+
+.mapi-logo.bar-logo {
+    position: fixed
+}
+
+.mapi-logo.map-logo {
+    bottom: 0
+}
+
+.mapi-logo.logo-orthoBgPhotoChange,.mapi-logo.logo-orthoBgPhotoChangeEn {
+    text-shadow: 2px 0 0 #fff,-2px 0 0 #fff,0 2px 0 #fff,0 -2px 0 #fff,1px 1px #fff,-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff
+}
+
+.mapi-logo.logo-orthoBgPhotoChange .mapi-23,.mapi-logo.logo-orthoBgPhotoChangeEn .mapi-23 {
+    color: #2178da
+}
+
+.mapi-logo.logo-orthoBgPhotoChange .mapi-25,.mapi-logo.logo-orthoBgPhotoChangeEn .mapi-25 {
+    color: #ff871d
+}
+
+.mapi-logo.logo-mapBgPhotoChange,.mapi-logo.logo-mapBgPhotoChangeEn {
+    text-shadow: 2px 0 0 #000,-2px 0 0 #000,0 2px 0 #000,0 -2px 0 #000,1px 1px #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000
+}
+
+.mapi-logo.logo-mapBgPhotoChange .mapi-23,.mapi-logo.logo-mapBgPhotoChangeEn .mapi-23 {
+    color: #fff
+}
+
+.mapi-logo.logo-mapBgPhotoChange .mapi-25,.mapi-logo.logo-mapBgPhotoChangeEn .mapi-25 {
+    color: #fff
+}
+
+.mapi-logo .logo {
+}
 			@media (min-width: 768px) {
 				#mobile-header {
+					display: none;
+				}
+				.govmaplogo {
 					display: none;
 				}
 				#floating_scale_bar_desktop {
@@ -571,13 +633,10 @@
 					transform: translateX(-50%);
 					left: 50%;
 					bottom: 0;
-					padding: 8px;
 					width: 100%;
-					bottom: 5px;
 					justify-content: center;
 					align-items: center;
 					flex-direction: column;
-					padding: 8px;
 
 				}
 				.legend_text_mobile {
@@ -1186,6 +1245,10 @@
 
 				<div class="map-footer">
 					<div class="footer-content">
+					<div class="mapi-logo map-logo footer-text logo-orthoBgPhotoChange govmaplogo">
+						<i class="logo mapi-25"></i>
+						<i class="logo mapi-23"></i>
+					</div>
 					  <div class="footer-text">
 						<a href="https://www.gov.il/he/departments/survey_of_israel/govil-landing-page" 
 							class="footer-link" 
@@ -1204,10 +1267,14 @@
 						<a href="#" @click="showModal(contactText)" class="footer-link">צור קשר</a>
 					  </div>
 					</div>
-					<div class="footer-content">
+
+
+			
+					<!-- <div class="footer-content">
 						<div class="coordinates">X: {{parseInt(map_x)}} Y: {{parseInt(map_y)}}</div>
-					</div>
-				  </div>
+					</div> -->
+	
+				</div>
 
 
 				  <!-- Modal Component -->

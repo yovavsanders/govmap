@@ -7,10 +7,12 @@
 		<title>פוטנציאל ייצור אנרגיה מתחדשת</title>
 		<!-- Add Vue 2 CDN -->
 		<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/alefhebrew.css">
-        <script src="vue@2.js"></script>
-		<link rel="stylesheet" href="mapi.woff2">
-		 <link rel="stylesheet" href="layers_icons.css">
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/earlyaccess/alefhebrew.css"
+		/>
+		<script src="vue@2.js"></script>
+		<link rel="stylesheet" href="layers_icons.css" />
 		<style>
 			[v-cloak] {
 				display: none;
@@ -256,13 +258,13 @@
 			.font {
 				caret-color: transparent;
 				font-family: "Alef Hebrew", "Helvetica Neue", Helvetica, Arial,
-				sans-serif;
+					sans-serif;
 				margin: 0;
 				overflow: hidden; /* Prevent scrolling */
 				height: 100vh;
 			}
 
-			#app{
+			#app {
 				font-family: "Alef Hebrew", "Helvetica Neue", Helvetica, Arial,
 					sans-serif;
 			}
@@ -314,7 +316,7 @@
         background-image: url(MapArea.png); */
 				border: none;
 				cursor: pointer; /* Add this line */
-			
+
 				border-radius: 5px;
 				box-shadow: 0px 0px 3px 0px #020202;
 				border: 1px solid #f2f2f2ba;
@@ -379,105 +381,125 @@
 				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 			}
 
-.thumbnail {
-  width: 80px;
-  height: 80px;
-  overflow: hidden;
-  border-radius: 3px;
-  margin-right: 12px;
-}
+			.thumbnail {
+				width: 80px;
+				height: 80px;
+				overflow: hidden;
+				border-radius: 3px;
+				margin-right: 12px;
+			}
 
-.thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+			.thumbnail img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
 
-.footer-content {
-  display: flex;
-  font-size: 12px;
-  color: #333;
-	flex-direction: row;
-	justify-content: center;
-	flex-wrap: nowrap;
-	align-items: center;
-}
+			.footer-content {
+				display: flex;
+				font-size: 12px;
+				color: #333;
+				flex-direction: row;
+				justify-content: center;
+				flex-wrap: nowrap;
+				align-items: center;
+			}
 
-.footer-text {
-  font-weight: 500;
-  margin-left: 16px;
+			.footer-text {
+				font-weight: 500;
+				margin-left: 16px;
+			}
 
-}
+			.footer-link {
+				color: #0066cc;
+				text-decoration: none;
+				transition: all 0.2s ease;
+			}
 
-.footer-link {
-  color: #0066cc;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
+			.coordinates {
+				font-family: monospace;
+				color: #666;
+				margin-left: 8px;
+			}
 
-.coordinates {
-  font-family: monospace;
-  color: #666;
-  margin-left: 8px;
-}
+			.mapi-logo {
+				/* position: absolute; */
+				right: 13px;
+				/* bottom: 13px; */
+				background-color: transparent;
+				border: none;
+				z-index: 1;
+				font-family: mapiregular;
+				display: inline-block;
+			}
 
+			.mapi-logo .logo {
+				font-size: 35px;
+				font-style: normal;
+				display: inline-block;
+			}
 
-.mapi-logo {
-    /* position: absolute; */
-    right: 13px;
-    /* bottom: 13px; */
-    background-color: transparent;
-    border: none;
-    z-index: 1;
-    font-family: mapiregular;
-    display: inline-block
-}
+			.mapi-logo .mapi-23 {
+				float: left;
+				margin-right: -5px;
+			}
 
-.mapi-logo .logo {
-    font-size: 35px;
-    font-style: normal;
-    display: inline-block
-}
+			.mapi-logo.bar-logo {
+				position: fixed;
+			}
 
-.mapi-logo .mapi-23 {
-    float: left;
-    margin-right: -5px
-}
+			.mapi-logo.map-logo {
+				bottom: 0;
+			}
 
-.mapi-logo.bar-logo {
-    position: fixed
-}
+			.mapi-logo.logo-orthoBgPhotoChange,
+			.mapi-logo.logo-orthoBgPhotoChangeEn {
+				text-shadow:
+					2px 0 0 #fff,
+					-2px 0 0 #fff,
+					0 2px 0 #fff,
+					0 -2px 0 #fff,
+					1px 1px #fff,
+					-1px -1px 0 #fff,
+					1px -1px 0 #fff,
+					-1px 1px 0 #fff;
+			}
 
-.mapi-logo.map-logo {
-    bottom: 0
-}
+			.mapi-logo.logo-orthoBgPhotoChange .mapi-23,
+			.mapi-logo.logo-orthoBgPhotoChangeEn .mapi-23 {
+				color: #2178da;
+			}
 
-.mapi-logo.logo-orthoBgPhotoChange,.mapi-logo.logo-orthoBgPhotoChangeEn {
-    text-shadow: 2px 0 0 #fff,-2px 0 0 #fff,0 2px 0 #fff,0 -2px 0 #fff,1px 1px #fff,-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff
-}
+			.mapi-logo.logo-orthoBgPhotoChange .mapi-25,
+			.mapi-logo.logo-orthoBgPhotoChangeEn .mapi-25 {
+				color: #ff871d;
+			}
 
-.mapi-logo.logo-orthoBgPhotoChange .mapi-23,.mapi-logo.logo-orthoBgPhotoChangeEn .mapi-23 {
-    color: #2178da
-}
+			.mapi-logo.logo-mapBgPhotoChange,
+			.mapi-logo.logo-mapBgPhotoChangeEn {
+				text-shadow:
+					2px 0 0 #000,
+					-2px 0 0 #000,
+					0 2px 0 #000,
+					0 -2px 0 #000,
+					1px 1px #000,
+					-1px -1px 0 #000,
+					1px -1px 0 #000,
+					-1px 1px 0 #000;
+			}
 
-.mapi-logo.logo-orthoBgPhotoChange .mapi-25,.mapi-logo.logo-orthoBgPhotoChangeEn .mapi-25 {
-    color: #ff871d
-}
+			.mapi-logo.logo-mapBgPhotoChange .mapi-23,
+			.mapi-logo.logo-mapBgPhotoChangeEn .mapi-23 {
+				color: #fff;
+			}
 
-.mapi-logo.logo-mapBgPhotoChange,.mapi-logo.logo-mapBgPhotoChangeEn {
-    text-shadow: 2px 0 0 #000,-2px 0 0 #000,0 2px 0 #000,0 -2px 0 #000,1px 1px #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000
-}
+			.mapi-logo.logo-mapBgPhotoChange .mapi-25,
+			.mapi-logo.logo-mapBgPhotoChangeEn .mapi-25 {
+				color: #fff;
+			}
 
-.mapi-logo.logo-mapBgPhotoChange .mapi-23,.mapi-logo.logo-mapBgPhotoChangeEn .mapi-23 {
-    color: #fff
-}
-
-.mapi-logo.logo-mapBgPhotoChange .mapi-25,.mapi-logo.logo-mapBgPhotoChangeEn .mapi-25 {
-    color: #fff
-}
-
-.mapi-logo .logo {
-}
+			.mapi-logo .logo {
+			}
 			@media (min-width: 768px) {
 				#mobile-header {
 					display: none;
@@ -496,7 +518,6 @@
 					justify-content: center;
 					align-items: center;
 					bottom: 21px;
-					
 				}
 				#floating_scale_bar_mobile {
 					display: none;
@@ -512,145 +533,150 @@
 				text-shadow: 0px 0px 18px #ffffff;
 			}
 			.info-card {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-family: Alef Hebrew, Helvetica Neue, Helvetica, Arial, sans-serif;
-  max-width: 400px;
-  border: 1px solid #e2e2e2;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  background: white;
-  direction: rtl;
-  padding: 16px;
-  z-index: 1000;
-}
+				position: absolute;
+				top: 20px;
+				right: 20px;
+				font-family:
+					Alef Hebrew,
+					Helvetica Neue,
+					Helvetica,
+					Arial,
+					sans-serif;
+				max-width: 400px;
+				border: 1px solid #e2e2e2;
+				border-radius: 8px;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+				background: white;
+				direction: rtl;
+				padding: 16px;
+				z-index: 1000;
+			}
 
-.info-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+			.info-card-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
 
-.info-card-header h2 {
-  margin: 0;
-  font-size: 18px;
-  color: #333;
-}
+			.info-card-header h2 {
+				margin: 0;
+				font-size: 18px;
+				color: #333;
+			}
 
-.close-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #666;
-  font-size: 18px;
-  padding: 4px 8px;
-}
+			.close-button {
+				background: none;
+				border: none;
+				cursor: pointer;
+				color: #666;
+				font-size: 18px;
+				padding: 4px 8px;
+			}
 
-.section-container-top{
-  background-color: #C8E6C9;
-  padding: 10px;
-}
+			.section-container-top {
+				background-color: #c8e6c9;
+				padding: 10px;
+			}
 
-.section-container-bottom{
-  background-color: #A5D6A7;
-  padding: 10px;
-}
+			.section-container-bottom {
+				background-color: #a5d6a7;
+				padding: 10px;
+			}
 
-.location-container {
-	background-color:#E0E0E0;
-	padding: 10px;
-}
+			.location-container {
+				background-color: #e0e0e0;
+				padding: 10px;
+			}
 
-.section-header {
-  font-weight: bold;
-  border-radius: 6px;
-  color: #333;
-}
+			.section-header {
+				font-weight: bold;
+				border-radius: 6px;
+				color: #333;
+			}
 
-.field-row {
-	display: flex;
-    justify-content: flex-start;
-    line-height: 1.4;
-    flex-direction: row;
-}
+			.field-row {
+				display: flex;
+				justify-content: flex-start;
+				line-height: 1.4;
+				flex-direction: row;
+			}
 
-.field-name {
-  color: #666;
-}
+			.field-name {
+				color: #666;
+			}
 
-.field-value {
-  font-weight: 500;
-  margin-right: 8px;
-}
+			.field-value {
+				font-weight: 500;
+				margin-right: 8px;
+			}
+			.field-value-small{
+				margin-right: 8px;
+				max-width: 230px;
+			}
 
-.note-section {
-  padding: 12px;
-  background-color: #f5f5f5;
-  border-radius: 6px;
-  margin-top: 16px;
-}
+			.note-section {
+				padding: 12px;
+				background-color: #f5f5f5;
+				border-radius: 6px;
+				margin-top: 16px;
+			}
 
-.note-section p {
-  margin: 0;
-  font-size: 14px;
-  color: #666;
-  line-height: 1.4;
-}
+			.note-section p {
+				margin: 0;
+				font-size: 14px;
+				color: #666;
+				line-height: 1.4;
+			}
 
+			.modal {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.5);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				z-index: 1000;
+				direction: rtl;
+			}
 
+			.modal-content {
+				background-color: white;
+				padding: 20px;
+				border-radius: 8px;
+				max-width: 500px;
+				width: 90%;
+				max-height: 80vh;
+				overflow-y: auto;
+			}
 
+			.modal-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 15px;
+			}
 
-				.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  direction: rtl;
-}
+			.close-button {
+				background: none;
+				border: none;
+				font-size: 24px;
+				cursor: pointer;
+				padding: 0 8px;
+			}
 
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 500px;
-  width: 90%;
-  max-height: 80vh;
-  overflow-y: auto;
-}
+			.modal-body {
+				line-height: 1.6;
+			}
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.close-button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 0 8px;
-}
-
-.modal-body {
-  line-height: 1.6;
-}
-
-.navbar-container {
-				        display: flex;
-						justify-content: space-between;
-						align-items: center;
-						height: 65px;
-				}
-
+			.navbar-container {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				height: 65px;
+			}
 
 			@media (max-width: 768px) {
 				.about {
@@ -665,8 +691,7 @@
 					justify-content: center;
 					align-items: center;
 					flex-direction: column;
-					padding: 0px !important
-
+					padding: 0px !important;
 				}
 				.legend_text_mobile {
 					rotate: -90deg;
@@ -724,7 +749,7 @@
 				}
 
 				.MapStyle {
-					height:calc(100vh - 143px);
+					height: calc(100vh - 143px);
 				}
 				.BgDiv {
 					position: absolute;
@@ -739,10 +764,10 @@
 				}
 
 				.navbar-container {
-				        display: flex;
-						justify-content: space-between;
-						align-items: center;
-						height: 65px;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					height: 65px;
 				}
 
 				.mobile-menu-button {
@@ -889,19 +914,10 @@
 								</div>
 							</div>
 						</div>
-
-						<!-- <div class="actions-container display-none">
-                    <button class="action-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#5f6368">
-                            <path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/>
-                        </svg>
-                        <span>שכבות</span>
-                    </button>
-                </div> -->
 					</div>
 
 					<a :href="baseHref" class="navbar-brand">
-						 פוטנציאל ייצור אנרגיה מתחדשת בשטחים הבנויים בישראל
+						פוטנציאל ייצור אנרגיה מתחדשת בשטחים הבנויים בישראל
 					</a>
 
 					<div class="actions-container display-none">
@@ -944,15 +960,13 @@
 				<div class="drawer" :class="{ open: showDrawer }">
 					<!-- Close button for drawer -->
 					<button class="close-btn" @click="toggleDrawer">✕</button>
-					<!-- <button class="action-button" @click="toggleDrawer">
-                <span>שכבות</span>
-            </button> -->
 					<p class="disclaimer_mobile">
 						מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע
 						במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת
 						פליטות גזי חממה)
 						<a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">
-							בקישור</a>
+							בקישור</a
+						>
 					</p>
 					<p class="disclaimer_mobile">
 						אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות
@@ -960,14 +974,13 @@
 					<p class="disclaimer_mobile">
 						עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
 					</p>
-					<!-- <p class="disclaimer_mobile">
-						ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע
-					</p> -->
 				</div>
 			</header>
 			<header id="mobile-header" class="navbar-header">
 				<div class="header-content">
-					<a :href="baseHref" class="navbar-brand"> פוטנציאל ייצור אנרגיה מתחדשת בשטחים הבנויים בישראל</a>
+					<a :href="baseHref" class="navbar-brand">
+						פוטנציאל ייצור אנרגיה מתחדשת בשטחים הבנויים בישראל</a
+					>
 				</div>
 
 				<div class="header-content">
@@ -1031,15 +1044,6 @@
 									</div>
 								</div>
 							</div>
-
-							<!-- <div class="actions-container display-none">
-                    <button class="action-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="#5f6368">
-                            <path d="M3 18v-2h18v2Zm0-5v-2h18v2Zm0-5V6h18v2Z"/>
-                        </svg>
-                        <span>שכבות</span>
-                    </button>
-                </div> -->
 						</div>
 
 						<button
@@ -1078,28 +1082,10 @@
 							</svg>
 							<span>שיתוף</span>
 						</button>
-						<!-- <button
-							class="mobile-action-button"
-							@click="toggleDrawer"
-							v-if="isSearchVisible != true"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								height="24px"
-								viewBox="0 -960 960 960"
-								width="24px"
-								fill="#5f6368"
-							>
-								<path
-									d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
-								/>
-							</svg>
-							<span>אודות</span>
-						</button> -->
 						<img
 							class="mobile-menu-logo"
 							src="energyLOGO.png"
-							style="height: 50px;"
+							style="height: 50px"
 							v-if="isSearchVisible != true"
 						/>
 					</div>
@@ -1144,15 +1130,13 @@
 				<div class="drawer" :class="{ open: showDrawer }">
 					<!-- Close button for drawer -->
 					<button class="close-btn" @click="toggleDrawer">✕</button>
-					<!-- <button class="action-button" @click="toggleDrawer">
-                <span>שכבות</span>
-            </button> -->
 					<p class="disclaimer_mobile">
 						מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע
 						במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת
 						פליטות גזי חממה)
 						<a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">
-							בקישור</a>
+							בקישור</a
+						>
 					</p>
 					<p class="disclaimer_mobile">
 						אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות
@@ -1160,220 +1144,167 @@
 					<p class="disclaimer_mobile">
 						עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
 					</p>
-					<!-- <p class="disclaimer_mobile">
-						ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע
-					</p> -->
 				</div>
 			</header>
 
-			<div name="form" id="mapForm" class="MapStyle" style="position: relative;">
-
-				<!-- <div id="info_div" style="
-					position: absolute;
-					top: 20px;
-					right: 20px;
-					font-family: Alef Hebrew, Helvetica Neue, Helvetica, Arial, sans-serif;
-					max-width: 400px;
-					border: 1px solid #e2e2e2;
-					border-radius: 8px;
-					box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-					background: white;
-					direction: rtl;
-					padding: 16px;
-					z-index: 1000;">
-					
-					<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-						<h2 style="margin: 0; font-size: 18px; color: #333;">כרטיס מידע</h2>
-						<button style="background: none; border: none; cursor: pointer; color: #666; font-size: 18px;">×</button>
-					</div>
-					
-					<div style="margin-bottom: 12px;">
-						<div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-							<span style="color: #666;">שם יישוב:</span>
-							<span style="font-weight: 500;">ירושלים</span>
-						</div>
-						
-						<div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-							<span style="color: #666;">שטח כולל:</span>
-							<span style="font-weight: 500;">125 קמ"ר</span>
-						</div>
-						
-						<div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-							<span style="color: #666;">אוכלוסייה:</span>
-							<span style="font-weight: 500;">936,425 תושבים</span>
-						</div>
-					</div>
-					
-					<div style="padding: 12px; background-color: #f5f5f5; border-radius: 6px; margin-top: 16px;">
-						<p style="margin: 0; font-size: 14px; color: #666; line-height: 1.4;">
-							הערה: נתונים לשנת 2024. המידע מתעדכן על בסיס שנתי.
-						</p>
-					</div>
-				</div> -->
-
-
-				<!-- <div class="info-card" v-show="fields.length > 0">
-					<div class="info-card-header">
-					  <h2>נתונים בשטחים נבחרים</h2>
-					  <button class="close-button" @click="closeCard">×</button>
-					</div>
-					
-					<div class="info-card-content">
-					  <div v-for="(field, index) in fields" :key="index" class="field-row">
-						<template v-if="field.FieldName !== 'הערה'">
-						  <span class="field-name">{{ field.FieldName }}:</span>
-						  <span class="field-value">{{ field.FieldValue }}</span>	
-						</template>
-					  </div>
-					</div>
-					<div class="note-section" v-if="noteField">
-					  <p>{{ noteField.FieldValue }}</p>
-					</div>
-				</div> -->
-
+			<div name="form" id="mapForm" class="MapStyle" style="position: relative">
 				<div class="info-card" v-show="fields.length > 0">
 					<div class="info-card-header">
-					  <button class="close-button" @click="closeCard">×</button>
+						<button class="close-button" @click="closeCard">×</button>
 					</div>
-				  
-					<div class="info-card-content">
 
-					<div class="location-container">
-					<!-- Section 1: Address -->
-						<div v-if="fields.find(f => f.FieldName === 'שם ישוב')" class="section-header">{{ fields.find(f => f.FieldName === 'שם ישוב').FieldValue }}</div>
-					</div>
-				  
-					<!-- Section 2: Existing on Roof -->
-					<div class="section-container-top">
-						<div class="section-header">קיים על הגג</div>
-						<div v-for="field in existingFields" :key="field.FieldName" class="field-row">
-						<span class="field-name">{{ field.FieldName }}:</span>
-						<span class="field-value">{{ field.FieldValue }}</span>
+					<div class="info-card-content">
+						<div class="location-container">
+							<!-- Section 1: Address -->
+							<div
+								v-if="fields.find((f) => f.FieldName === 'שם ישוב')"
+								class="section-header"
+							>
+								{{ fields.find((f) => f.FieldName === "שם ישוב").FieldValue }}
+							</div>
+							<div
+								v-if="
+									fields.find((f) => f.FieldName === 'כתובת') &&
+									fields.find((f) => f.FieldName === 'כתובת').FieldValue != ''
+								"
+								class="section-header"
+							>
+								{{ fields.find((f) => f.FieldName === "כתובת").FieldValue }}
+							</div>
+							<div v-else class="section-header">
+								גוש {{ gushNum }} חלקה {{ parcelNum }}
+							</div>
+						</div>
+
+						<!-- Section 2: Existing on Roof -->
+						<div class="section-container-top">
+							<div class="section-header">קיים על הגג</div>
+							<div
+								v-for="field in existingFields"
+								:key="field.FieldName"
+								class="field-row"
+							>
+								<span class="field-name">{{ field.FieldName }}:</span>
+								<span class="field-value"
+									>{{ Number(field.FieldValue).toLocaleString() }} מ"ר</span
+								>
+							</div>
+						</div>
+
+						<!-- Section 3: Solar Potential -->
+						<div class="section-container-bottom">
+							<div class="section-header">פוטנציאל אנרגיה סולארית</div>
+							<div
+								v-for="field in potentialFields"
+								:key="field.FieldName"
+								class="field-row"
+							>
+								<span class="field-name">{{ field.FieldName }}:</span>
+								<span
+									v-if="field.FieldName === 'קרינת שמש ממוצעת שנתית'"
+									class="field-value"
+									>{{ Number(field.FieldValue).toLocaleString() }} שעות שמש
+									בשנה</span
+								>
+								<span
+									v-if="field.FieldName === 'פוטנציאל הספק'"
+									class="field-value"
+									>{{ Number(field.FieldValue).toLocaleString() }} קילו-ואט
+									מותקן
+								</span>
+								<span
+									v-if="field.FieldName === 'ייצור אנרגיה בשנה'"
+									class="field-value"
+									>{{ Number(field.FieldValue).toLocaleString() }} קילו-ואט/שעה
+									לשנה</span
+								>
+								<span
+									v-if="field.FieldName === 'פרמיה אורבנית'"
+									class="field-value-small"
+									>{{ field.FieldValue }}
+								</span
+								>
+							</div>
 						</div>
 					</div>
-				  
-					  <!-- Section 3: Solar Potential -->
-					  <div class="section-container-bottom">
-						<div class="section-header">פוטנציאל אנרגיה סולארית</div>
-						<div v-for="field in potentialFields" :key="field.FieldName" class="field-row">
-							<span class="field-name">{{ field.FieldName }}:</span>
-							<span class="field-value">{{ field.FieldValue }}</span>
-						  </div>
 
-					  </div>
-					</div>
-				  
 					<!-- Note Section -->
 					<div class="note-section" v-if="noteField">
-					  <p>{{ noteField.FieldValue }}</p>
+						<p>{{ noteField.FieldValue }}</p>
 					</div>
-				  </div>
-
-				<div id="map_div" class="MapStyle">		
 				</div>
 
+				<div id="map_div" class="MapStyle"></div>
 			</div>
 
 			<div class="BgDiv">
 				<!-- wrap -->
-				<!-- <p style="text-wrap: wrap; width: 72px;">{{ bgTitle }}</p> -->
 				<button id="bg" type="button" :class="bgClass" @click="changeBg">
 					<p class="esriLabelMask">{{ bgTitle }}</p>
 				</button>
 			</div>
-			<div v-if="currentBg == 41" id="floating_scale_bar_desktop" >
-					<p class="esriLabelMask">
-					גבוה
-					</p>
-					
-					<img
-						src="scale_bar.jpeg"
-						alt=""
-						style="margin-left: 5px; margin-right: 5px; height: 15px;border: 2px solid rgb(255, 255, 255);"
-					/>
-					<p class="esriLabelMask">
-						נמוך
-						</p>
-						
-				</div>
+			<div v-if="currentBg == 41" id="floating_scale_bar_desktop">
+				<p class="esriLabelMask">גבוה</p>
 
+				<img
+					src="scale_bar.jpeg"
+					alt=""
+					style="
+						margin-left: 5px;
+						margin-right: 5px;
+						height: 15px;
+						border: 2px solid rgb(255, 255, 255);
+					"
+				/>
+				<p class="esriLabelMask">נמוך</p>
+			</div>
 
-				<div class="map-footer">
-					<div class="footer-content">
-					<div class="mapi-logo map-logo footer-text logo-orthoBgPhotoChange govmaplogo">
+			<div class="map-footer">
+				<div class="footer-content">
+					<div
+						class="mapi-logo map-logo footer-text logo-orthoBgPhotoChange govmaplogo"
+					>
 						<i class="logo mapi-25"></i>
 						<i class="logo mapi-23"></i>
 					</div>
-					  <div class="footer-text">
-						<a href="https://www.gov.il/he/departments/survey_of_israel/govil-landing-page" 
-							class="footer-link" 
-							target="_blank" 
-							rel="noopener noreferrer">
+					<div class="footer-text">
+						<a
+							href="https://www.gov.il/he/departments/survey_of_israel/govil-landing-page"
+							class="footer-link"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
 							© המרכז למיפוי ישראל
 						</a>
-					  </div>
-					  <div class="footer-text">
-						<a href="#" @click="showModal(usingCondText)" class="footer-link">תנאי שימוש</a>
-					  </div>
-					  <div class="footer-text">
-						<a href="#" @click="showModal(aboutText)" class="footer-link">אודות</a>
-					  </div>
-					  <div class="footer-text">
-						<a href="#" @click="showModal(contactText)" class="footer-link">צור קשר</a>
-					  </div>
 					</div>
-
-
-			
-					<!-- <div class="footer-content">
-						<div class="coordinates">X: {{parseInt(map_x)}} Y: {{parseInt(map_y)}}</div>
-					</div> -->
-	
+					<div class="footer-text">
+						<a href="#" @click="showModal(usingCondText)" class="footer-link"
+							>תנאי שימוש</a
+						>
+					</div>
+					<div class="footer-text">
+						<a href="#" @click="showModal(aboutText)" class="footer-link"
+							>אודות</a
+						>
+					</div>
+					<div class="footer-text">
+						<a href="#" @click="showModal(contactText)" class="footer-link"
+							>צור קשר</a
+						>
+					</div>
 				</div>
+			</div>
 
-
-				  <!-- Modal Component -->
-				<div class="modal" v-if="isModalVisible" @click.self="closeModal">
-					<div class="modal-content">
+			<!-- Modal Component -->
+			<div class="modal" v-if="isModalVisible" @click.self="closeModal">
+				<div class="modal-content">
 					<div class="modal-header">
 						<h3>{{ modalTitle }}</h3>
 						<button class="close-button" @click="closeModal">&times;</button>
 					</div>
 					<div class="modal-body" v-html="modalContent"></div>
-					</div>
 				</div>
-
-
-
-				</div>
-
-
-			<!-- <footer
-				class="footer"
-				style="
-					position: relative;
-					height: 2%;
-					background: white;
-					border-color: #0044cc #0044cc #002a80;
-					background-repeat: repeat-x;
-					text-align: right;
-				"
-			>
-				<p class="disclaimer">
-					מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע
-					במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת פליטות
-					גזי חממה)
-					<a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">
-						בקישור</a>
-				</p>
-				<p class="disclaimer">
-					אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות
-				</p>
-				<p class="disclaimer">
-					עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
-				</p>
-				 <p class="disclaimer">ייתכנו אי דיוקים והמשתמש נדרש לאמת את המידע</p> 
-			</footer> -->
+			</div>
 
 			<div v-if="currentBg == 41" id="floating_scale_bar_mobile">
 				<div class="esriLabelMask" style="rotate: -90deg">גבוה</div>
@@ -1407,15 +1338,17 @@
 			new Vue({
 				el: "#app",
 				data: {
+					gushNum: null,
+					parcelNum: null,
 					isModalVisible: false,
-					modalTitle: '',
-					modalContent: '',
+					modalTitle: "",
+					modalContent: "",
 
-					  // Modal content objects
-					  
-    usingCondText: {
-      title: 'תנאי שימוש',
-      content: `
+					// Modal content objects
+
+					usingCondText: {
+						title: "תנאי שימוש",
+						content: `
         <div class="terms-content">
 <div class="content">
                 <table cellpadding="0" cellspacing="0" dir="rtl">
@@ -1573,12 +1506,12 @@
 
             </div>
         </div>
-      `
-    },
-    
-    aboutText: {
-      title: 'אודות',
-      content: `
+      `,
+					},
+
+					aboutText: {
+						title: "אודות",
+						content: `
 <div><p class="disclaimer_mobile">
 						מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע
 						במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת
@@ -1589,12 +1522,12 @@
 					</p> <p class="disclaimer_mobile">
 						עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
 					</p></div>
-      `
-    },
-    
-    contactText: {
-      title: 'צור קשר',
-      content: `
+      `,
+					},
+
+					contactText: {
+						title: "צור קשר",
+						content: `
         <div>
           <h4>יצירת קשר</h4>
           <p>נשמח לעמוד לרשותכם בכל שאלה או בקשה.</p>
@@ -1604,14 +1537,11 @@
           </div>
           
         </div>
-      `
-    },
+      `,
+					},
 
-
-
-
-					baseHref: '',
-					baseHtmlPath: '/energy/energy.html',
+					baseHref: "",
+					baseHtmlPath: "/energy/energy.html",
 					map_x: 219545,
 					map_y: 631555,
 					map_z: 5,
@@ -1662,99 +1592,64 @@
 					showClear: false, // Control clear button visibility
 
 					isVisible: true,
-      fields: [
-        // {
-        //   "FieldName": "שם ישוב",
-        //   "FieldValue": "ירושלים",
-        //   "FieldType": 1
-        // },
-        // {
-        //   "FieldName": "שטח פנלים מותקנים",
-        //   "FieldValue": "0 מ\"ר",
-        //   "FieldType": 1
-        // },
-        // {
-        //   "FieldName": "שטח פוטנציאלי מוערך",
-        //   "FieldValue": "362 מ\"ר",
-        //   "FieldType": 1
-        // },
-        // {
-        //   "FieldName": "קרינה ממוצעת",
-        //   "FieldValue": "1,369 קילו-ואט",
-        //   "FieldType": 1
-        // },
-        // {
-        //   "FieldName": "הערכת הספק",
-        //   "FieldValue": "45 קילו-ואט/שעה",
-        //   "FieldType": 1
-        // },
-        // {
-        //   "FieldName": "הערה",
-        //   "FieldValue": "לא לשימוש מסחרי, זכויות היוצרים שמורות למרכז למיפוי ישראל. הנתונים מוערכים והשימוש במידע כמו שהוא הינה באחריות המשתמש בלבד",
-        //   "FieldType": 1
-        // }
-      ],
+					fields: [],
 				},
 				computed: {
 					existingFields() {
-						var fields_1 = this.fields.filter(field =>
-							["שטח פנלים מותקנים", "שטח פוטנציאלי מוערך"].includes(field.FieldName)
+						return this.fields.filter((field) =>
+							["שטח פאנלים קיימים על הגג", "שטח פנוי"].includes(
+								field.FieldName,
+							),
 						);
-						// "שטח פוטנציאלי מוערך" = "שטח פנוי"... replace
-						var fields_2 = fields_1.map(field => {
-							if (field.FieldName === "שטח פוטנציאלי מוערך") {
-								return { ...field, FieldName: "שטח פנוי" };
-							}
-							return field;
-						});
-						return fields_2;
 					},
 					potentialFields() {
-					return this.fields.filter(field =>
-						["קרינה ממוצעת", "הערכת הספק"].includes(field.FieldName)
-					);
+						return this.fields.filter((field) =>
+							[
+								"קרינת שמש ממוצעת שנתית",
+								"פוטנציאל הספק",
+								"ייצור אנרגיה בשנה",
+								"פרמיה אורבנית"
+							].includes(field.FieldName),
+						);
 					},
 					noteField() {
-					return this.fields.find(field => field.FieldName === "הערה");
+						return this.fields.find((field) => field.FieldName === "הערה");
 					},
-									noteField() {
-										return this.fields.find(field => field.FieldName === 'הערה')
-									},
-									bgClass() {
-										//return this.currentBg === 41 ? 'bgBtn mapCacheImg' : 'bgBtn orthoImg';
-										if (this.currentBg === 0) {
-											return "bgBtn mapCacheImg";
-										}
-										if (this.currentBg === 1) {
-											return "bgBtn orthoImg";
-										}
-										if (this.currentBg === 41) {
-											return "bgBtn solarImg";
-										}
-										return "bgBtn orthoImg";
-									},
-									bgTitle() {
-										if (this.currentBg === 0) {
-											return "רחובות ומבנים";
-										}
-										if (this.currentBg === 1) {
-											return "צילום אוויר";
-										}
-										return "אנרגיה מתחדשת";
-									},
-								},
-								methods: {
-									showModal(textObj) {
-					this.modalTitle = textObj.title;
-					this.modalContent = textObj.content;
-					this.isModalVisible = true;
-					// Prevent page scrolling when modal is open
-					document.body.style.overflow = 'hidden';
+					bgClass() {
+						//return this.currentBg === 41 ? 'bgBtn mapCacheImg' : 'bgBtn orthoImg';
+						if (this.currentBg === 0) {
+							return "bgBtn mapCacheImg";
+						}
+						if (this.currentBg === 1) {
+							return "bgBtn orthoImg";
+						}
+						if (this.currentBg === 41) {
+							return "bgBtn solarImg";
+						}
+						return "bgBtn orthoImg";
+					},
+					bgTitle() {
+						if (this.currentBg === 0) {
+							return "רחובות ומבנים";
+						}
+						if (this.currentBg === 1) {
+							return "צילום אוויר";
+						}
+						return "אנרגיה מתחדשת";
+					},
+				},
+				methods: {
+					showModal(textObj) {
+						this.modalTitle = textObj.title;
+						this.modalContent = textObj.content;
+						this.isModalVisible = true;
+						// Prevent page scrolling when modal is open
+						document.body.style.overflow = "hidden";
 					},
 					closeModal() {
-					this.isModalVisible = false;
-					// Restore page scrolling
-					document.body.style.overflow = 'auto';
+						this.isModalVisible = false;
+						// Restore page scrolling
+						document.body.style.overflow = "auto";
 					},
 					closeCard() {
 						this.isVisible = false;
@@ -1764,12 +1659,11 @@
 						var appVue = this;
 						// turn on the measure tool
 						this.isMesure = true;
-						
+
 						govmap.showMeasure().then((result) => {
-							console.log("done mesuring");
 							// go back to isMesure = false
 							appVue.isMesure = false;
-						});	
+						});
 					},
 					showSearch() {
 						this.isSearchVisible = !this.isSearchVisible;
@@ -1803,7 +1697,6 @@
 									text: "מפה דינאמית של פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים",
 									url: window.location.href, // Or you can specify a custom URL
 								});
-								console.log("Shared successfully");
 							} catch (error) {
 								console.error("Error sharing:", error);
 							}
@@ -1822,7 +1715,6 @@
 						// (Now - Lets add another option for the tuggle, as it will be 3...)
 						// currentBg === 1
 						// the order of the tuggling will be: [41, 0, 1]. ok?
-						console.log(11111);
 						this.currentBg =
 							this.currentBg === 41 ? 0 : this.currentBg === 0 ? 1 : 41;
 
@@ -1846,8 +1738,6 @@
 						fetch(url)
 							.then((response) => response.json())
 							.then((data) => {
-								console.log(data);
-
 								this.items = [];
 								// if data.data has SETTLEMENT:
 								if (data.data.SETTLEMENT) {
@@ -1908,8 +1798,9 @@
 								if (data.data.POI_MID_POINT) {
 									data.data.POI_MID_POINT.forEach((item) => {
 										//ResultLable => only first 30 characters if more then 30
-										if (item.ResultLable.length > 30){
-											item.ResultLable = item.ResultLable.substring(0, 30) + "...";
+										if (item.ResultLable.length > 30) {
+											item.ResultLable =
+												item.ResultLable.substring(0, 30) + "...";
 										}
 										this.items.push({
 											id: item.ObjectID,
@@ -1920,9 +1811,15 @@
 									});
 								}
 
-
 								// sort this.item by this order: 'settlement', 'neighborhood' 'street', 'address', 'parcel', 'poi'..
-								var order = ["settlement", "neighborhood", "street", "address", "parcel", "poi"];
+								var order = [
+									"settlement",
+									"neighborhood",
+									"street",
+									"address",
+									"parcel",
+									"poi",
+								];
 								this.items.sort((a, b) => {
 									return order.indexOf(a.type) - order.indexOf(b.type);
 								});
@@ -1936,8 +1833,6 @@
 						this.selectedIndex = -1;
 						this.showClear = true;
 						this.filteredItems = [];
-
-						console.log("Selected item:", item);
 						//get the wkt for the selected item
 						var wkt = item.shape;
 						//"POINT(3887038.1170383873 3786759.179448681)"
@@ -2052,15 +1947,20 @@
 						this.map_z = z;
 					}
 
-					console.log("mounted", { x: this.map_x, y: this.map_y, z: this.map_z });
-					// Empty mounted lifecycle hook
 					//var my_token = "0fff9694-a045-4ede-b997-ee9927b0d56c";//govmap
 					var my_token = "5a4b8472-b95b-4687-8179-0ccb621c7990"; //for localhost domain
 					//var my_token = "aafedfe5-8dfa-4fd5-9af9-8b95759447bd"; // git
+
+					//Cmplx_Solar_Poten541 – פוטנציאל הצללה סולארית
 					govmap.createMap("map_div", {
 						token: my_token,
 						visibleLayers: [],
-						layers: ["parcel_all", "sub_gush_all", "NEIGHBORHOODS_AREA", "Setl_Areas_Solar541"],
+						layers: [
+							"parcel_all",
+							"sub_gush_all",
+							"NEIGHBORHOODS_AREA",
+							"Setl_Areas_Solar541",
+						],
 						showXY: false,
 						identifyOnClick: true,
 						background: 0,
@@ -2072,47 +1972,16 @@
 					});
 					govmap.setBackground(this.currentBg);
 
-					// add url query params (x, y, z) to browser url - 
-					// like this: from "energy.html" => to "energy.html?x=219545&y=631555&z=5"
-					// use appVue.x, appVue.y, appVue.z
-
-					 // Construct the URL with query parameters
+					// Construct the URL with query parameters
 					const url = new URL(window.location.href);
-					url.searchParams.set('x', parseInt(appVue.map_x));
-					url.searchParams.set('y', parseInt(appVue.map_y));
-					url.searchParams.set('z', appVue.map_z);
+					url.searchParams.set("x", parseInt(appVue.map_x));
+					url.searchParams.set("y", parseInt(appVue.map_y));
+					url.searchParams.set("z", appVue.map_z);
 
 					// Update the browser's URL
-					window.history.replaceState({}, '', url.toString());
+					window.history.replaceState({}, "", url.toString());
 
-					govmap.onEvent(govmap.events.EXTENT_CHANGE).progress(function (e)  
-					{
-						// e sample:
-						// {
-						//     "delta": {
-						//         "x": -65.78186401365235,
-						//         "y": -29.691687672923933
-						//     },
-						//     "extent": {
-						//         "xmin": 181847.78455534906,
-						//         "ymin": 620630.8863002785,
-						//         "xmax": 257651.0611619023,
-						//         "ymax": 672555.4693161113,
-						//         "spatialReference": {
-						//             "wkid": 2039
-						//         }
-						//     },
-						//     "levelChange": false,
-						//     "lod": {
-						//         "level": 3,
-						//         "resolution": 66.1459656252646,
-						//         "scale": 250000,
-						//         "startTileRow": 0,
-						//         "startTileCol": 0,
-						//         "endTileRow": 1603,
-						//         "endTileCol": 1502
-						//     }
-						// }
+					govmap.onEvent(govmap.events.EXTENT_CHANGE).progress(function (e) {
 						if (e.levelChange) {
 							appVue.map_z = e.lod.level;
 						}
@@ -2121,124 +1990,50 @@
 
 						// Construct the URL with query parameters
 						const url = new URL(window.location.href);
-						url.searchParams.set('x', parseInt(appVue.map_x));
-						url.searchParams.set('y', parseInt(appVue.map_y));
-						url.searchParams.set('z', appVue.map_z);
+						url.searchParams.set("x", parseInt(appVue.map_x));
+						url.searchParams.set("y", parseInt(appVue.map_y));
+						url.searchParams.set("z", appVue.map_z);
 
 						// Update the browser's URL
-						window.history.replaceState({}, '', url.toString());
+						window.history.replaceState({}, "", url.toString());
 					});
 
-					govmap.onEvent(govmap.events.CLICK).progress(function (e)  
-					{  
-						console.log("isMesure", appVue.isMesure);
-						if (appVue.isMesure == true){
-							console.log("isMesure", appVue.isMesure);
+					govmap.onEvent(govmap.events.CLICK).progress(function (e) {
+						if (appVue.isMesure == true) {
 							return;
-						}
-						else{
-							var lyrs = ["bldg_Solar541"];
-							var x = e.mapPoint.x;
-							var y = e.mapPoint.y;
+						} else {
+							var lyrs = ["PARCEL_ALL", "bldg_Solar541_V2"];
+							const x = e.mapPoint.x;
+							const y = e.mapPoint.y;
 
-							govmap.identifyByXYAndLayer(x, y, lyrs).then(function(result){
+							govmap.identifyByXYAndLayer(x, y, lyrs).then(function (result) {
 								if (result && result.data && result.data.length > 0) {
-									var fields = result.data[0].Result[0].tabs[0].fields;
+									var fields = [];
+									var fields_parcel = [];
+									result.data.forEach((element) => {
+										if (element.LayerName == "PARCEL_ALL") {
+											fields_parcel = element.Result[0].tabs[0].fields;
+										}
+										if (element.LayerName == "BLDG_SOLAR541_V2") {
+											fields = element.Result[0].tabs[0].fields;
+										}
+									});
+
 									appVue.fields = fields;
-									console.log(fields);
-									// sample of fields:
-									// [
-									// 	{
-									// 		"FieldName": "שם ישוב",
-									// 		"FieldValue": "ירושלים",
-									// 		"FieldType": 1
-									// 	},
-									// 	{
-									// 		"FieldName": "שטח פנלים מותקנים",
-									// 		"FieldValue": "0",
-									// 		"FieldType": 1
-									// 	},
-									// 	{
-									// 		"FieldName": "הערה",
-									// 		"FieldValue": "לא לשימוש מסחרי, זכויות היוצרים שמורות למרכז למיפוי ישראל",
-									// 		"FieldType": 1
-									// 	},
-									// 	{
-									// 		"FieldName": "שטח פוטנציאלי מוערך",
-									// 		"FieldValue": "645",
-									// 		"FieldType": 1
-									// 	},
-									// 	{
-									// 		"FieldName": "קרינה ממוצעת",
-									// 		"FieldValue": "1350",
-									// 		"FieldType": 1
-									// 	},
-									// 	{
-									// 		"FieldName": "הערכת הספק",
-									// 		"FieldValue": "80",
-									// 		"FieldType": 1
-									// 	}
-									// ]
-
-									// send ,הערה, to the end...
-									var fields = fields.sort(function(a, b){
-										if (a.FieldName == "הערה") return 1;
-										if (b.FieldName == "הערה") return -1;
-										return 0;
-									});
-
-									// להוסיף ל"הערה" את הטקסט - 
-									// .הנתונים מוערכים והשימוש במידע כמו שהוא הינה באחריות המשתמש בלבד
-									fields.forEach(function(field){
-										if (field.FieldName == "הערה"){
-											field.FieldValue += ". הנתונים מוערכים והשימוש במידע כמו שהוא הינה באחריות המשתמש בלבד";
-										}
-									});
-
-
-									// "שטח הגג" -> if number is bigger then 999, add comma
-									// plus - add 'מ"ר' to the end
-									fields.forEach(function(field){
-										if (field.FieldName == "שטח פנלים מותקנים" || field.FieldName == "שטח פוטנציאלי מוערך"){
-											field.FieldValue = field.FieldValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-											field.FieldValue += " מ\"ר";
-										}
-									});
-
-									// now, for  "הערכת הספק" - please add 'קילו-ואט' to the end
-									// plus add comma if number is bigger then 999
-									fields.forEach(function(field){
-										if ( field.FieldName == "קרינה ממוצעת"){
-											field.FieldValue = field.FieldValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-											field.FieldValue += " קילו-ואט";
-										}
-									});
-
-									// now, for  "ממוצע אנרגיה מתחדשת" - please add 'קילו-ואט/שעה' to the end
-									// plus add comma if number is bigger then 999
-									fields.forEach(function(field){
-										if (field.FieldName == "הערכת הספק" || field.FieldName == "ממוצע אנרגיה מתחדשת"){
-											field.FieldValue = field.FieldValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-											field.FieldValue += " קילו-ואט/שעה";
-										}
-									});
-
-									// set new fields for the bubble (data)...
-									result.data[0].Result[0].tabs[0].fields = fields;
-									//appVue.isVisible = true;
-									//appVue.fields = fields;
-									var params = {
-										"coord":{"x":x,"y":y},
-										data:result.data
-									};
-									//result.data["requestParams"]={"x":x,"y":y};
-									//govmap.showBubble(params);
+									if (fields_parcel) {
+										//FieldName: 'מספר גוש'
+										appVue.gushNum = fields_parcel.filter(
+											(field) => field.FieldName === "מספר גוש",
+										)[0].FieldValue;
+										//FieldName: 'חלקה'
+										appVue.parcelNum = fields_parcel.filter(
+											(field) => field.FieldName === "חלקה",
+										)[0].FieldValue;
+									}
 								}
 							});
-
 						}
-
-					}); 
+					});
 				},
 			});
 		</script>

@@ -1178,7 +1178,7 @@
 
 						<!-- Section 2: Existing on Roof -->
 						<div class="section-container-top">
-							<div class="section-header">קיים על הגג</div>
+							<div class="section-header">קיים על מצללה</div>
 							<div
 								v-for="field in existingFields"
 								:key="field.FieldName"
@@ -1947,8 +1947,17 @@
 						this.map_z = z;
 					}
 
+					var my_token = "0fff9694-a045-4ede-b997-ee9927b0d56c";
+
+					if (window.location.hostname.includes("govmap.gov.il")) {
+						my_token = "0fff9694-a045-4ede-b997-ee9927b0d56c";
+					} else if (window.location.hostname.includes("github.io")) {
+						my_token = "aafedfe5-8dfa-4fd5-9af9-8b95759447bd";
+					}
+
+
 					//var my_token = "0fff9694-a045-4ede-b997-ee9927b0d56c";//govmap
-					var my_token = "5a4b8472-b95b-4687-8179-0ccb621c7990"; //for localhost domain
+					//var my_token = "5a4b8472-b95b-4687-8179-0ccb621c7990"; //for localhost domain
 					//var my_token = "aafedfe5-8dfa-4fd5-9af9-8b95759447bd"; // git
 
 					//Cmplx_Solar_Poten541 – פוטנציאל הצללה סולארית
@@ -1962,7 +1971,7 @@
 							"Setl_Areas_Solar541",
 						],
 						showXY: false,
-						identifyOnClick: true,
+						identifyOnClick: false,
 						background: 0,
 						layersMode: 2,
 						bgButton: false,
@@ -2005,22 +2014,44 @@
 							var lyrs = ["PARCEL_ALL", "bldg_Solar541_V2"];
 							const x = e.mapPoint.x;
 							const y = e.mapPoint.y;
+							var fields = [];
+							var fields_parcel = [];
 
 							govmap.identifyByXYAndLayer(x, y, lyrs).then(function (result) {
+								//check if only parcels
+								if (result && result.data && result.data.length == 1) {
+									result.data.forEach((element) => {
+										if (element.LayerName == "PARCEL_ALL") {
+											//remove highLight Feature
+											console.log('remove highLight Feature')
+											govmap.clearSelection();											
+										}
+									});
+								}
 								if (result && result.data && result.data.length > 0) {
-									var fields = [];
-									var fields_parcel = [];
 									result.data.forEach((element) => {
 										if (element.LayerName == "PARCEL_ALL") {
 											fields_parcel = element.Result[0].tabs[0].fields;
 										}
 										if (element.LayerName == "BLDG_SOLAR541_V2") {
 											fields = element.Result[0].tabs[0].fields;
+											console.log(element.Result[0].objectId);
+											if (element.Result[0].objectId > -1){
+												//highLight Feature
+												govmap.searchInLayer({
+													layerName: 'BLDG_SOLAR541_V2',
+													fieldName: 'OBJECTID',
+													fieldValues: [element.Result[0].objectId],
+													highlight: true
+												})
+											}
+
 										}
 									});
 
 									appVue.fields = fields;
-									if (fields_parcel) {
+									if (fields_parcel.length > 0) {
+										console.log(fields_parcel);
 										//FieldName: 'מספר גוש'
 										appVue.gushNum = fields_parcel.filter(
 											(field) => field.FieldName === "מספר גוש",
@@ -2031,6 +2062,15 @@
 										)[0].FieldValue;
 									}
 								}
+								else{
+									appVue.fields = [];
+									appVue.gushNum = null;
+									appVue.parcelNum = null;
+									//remove highLight Feature
+									console.log('remove highLight Feature')
+									govmap.clearSelection();
+
+								}	
 							});
 						}
 					});

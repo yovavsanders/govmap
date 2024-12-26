@@ -1184,8 +1184,8 @@
 								:key="field.FieldName"
 								class="field-row"
 							>
-								<span class="field-name">{{ field.FieldName }}:</span>
-								<span class="field-value"
+								<span v-if="(field.FieldName === 'שטח פאנלים קיימים על הגג' && field.FieldValue != '0') || (field.FieldName === 'שטח פנוי')" class="field-name">{{ field.FieldName }}:</span>
+								<span v-if="field.FieldName === 'שטח פאנלים קיימים על הגג' && field.FieldValue != '0' || (field.FieldName === 'שטח פנוי')" class="field-value"
 									>{{ Number(field.FieldValue).toLocaleString() }} מ"ר</span
 								>
 							</div>
@@ -1613,7 +1613,7 @@
 						);
 					},
 					noteField() {
-						return this.fields.find((field) => field.FieldName === "הערה");
+						return this.fields.find((field) => (field.FieldName === "הערה" || field.FieldName === "הערות"));
 					},
 					bgClass() {
 						//return this.currentBg === 41 ? 'bgBtn mapCacheImg' : 'bgBtn orthoImg';
@@ -1947,18 +1947,13 @@
 						this.map_z = z;
 					}
 
-					var my_token = "0fff9694-a045-4ede-b997-ee9927b0d56c";
+					var my_token = "5a4b8472-b95b-4687-8179-0ccb621c7990";
 
 					if (window.location.hostname.includes("govmap.gov.il")) {
 						my_token = "0fff9694-a045-4ede-b997-ee9927b0d56c";
 					} else if (window.location.hostname.includes("github.io")) {
 						my_token = "aafedfe5-8dfa-4fd5-9af9-8b95759447bd";
 					}
-
-
-					//var my_token = "0fff9694-a045-4ede-b997-ee9927b0d56c";//govmap
-					//var my_token = "5a4b8472-b95b-4687-8179-0ccb621c7990"; //for localhost domain
-					//var my_token = "aafedfe5-8dfa-4fd5-9af9-8b95759447bd"; // git
 
 					//Cmplx_Solar_Poten541 – פוטנציאל הצללה סולארית
 					govmap.createMap("map_div", {
@@ -1969,7 +1964,9 @@
 							"sub_gush_all",
 							"NEIGHBORHOODS_AREA",
 							"Setl_Areas_Solar541",
+							"Cmplx_Solar_Poten541"
 						],
+						visibleLayers: ["Cmplx_Solar_Poten541"],
 						showXY: false,
 						identifyOnClick: false,
 						background: 0,
@@ -2011,7 +2008,7 @@
 						if (appVue.isMesure == true) {
 							return;
 						} else {
-							var lyrs = ["PARCEL_ALL", "bldg_Solar541_V2"];
+							var lyrs = ["PARCEL_ALL", "bldg_Solar541_V2", "Cmplx_Solar_Poten541"];
 							const x = e.mapPoint.x;
 							const y = e.mapPoint.y;
 							var fields = [];
@@ -2023,7 +2020,6 @@
 									result.data.forEach((element) => {
 										if (element.LayerName == "PARCEL_ALL") {
 											//remove highLight Feature
-											console.log('remove highLight Feature')
 											govmap.clearSelection();											
 										}
 									});
@@ -2033,9 +2029,20 @@
 										if (element.LayerName == "PARCEL_ALL") {
 											fields_parcel = element.Result[0].tabs[0].fields;
 										}
+										if (element.LayerName == "CMPLX_SOLAR_POTEN541") {
+											fields = element.Result[0].tabs[0].fields;
+											if (element.Result[0].objectId > -1){
+												//highLight Feature
+												govmap.searchInLayer({
+													layerName: 'CMPLX_SOLAR_POTEN541',
+													fieldName: 'OBJECTID',
+													fieldValues: [element.Result[0].objectId],
+													highlight: true
+												})
+											}
+										}
 										if (element.LayerName == "BLDG_SOLAR541_V2") {
 											fields = element.Result[0].tabs[0].fields;
-											console.log(element.Result[0].objectId);
 											if (element.Result[0].objectId > -1){
 												//highLight Feature
 												govmap.searchInLayer({
@@ -2045,13 +2052,11 @@
 													highlight: true
 												})
 											}
-
 										}
 									});
 
 									appVue.fields = fields;
 									if (fields_parcel.length > 0) {
-										console.log(fields_parcel);
 										//FieldName: 'מספר גוש'
 										appVue.gushNum = fields_parcel.filter(
 											(field) => field.FieldName === "מספר גוש",
@@ -2067,7 +2072,6 @@
 									appVue.gushNum = null;
 									appVue.parcelNum = null;
 									//remove highLight Feature
-									console.log('remove highLight Feature')
 									govmap.clearSelection();
 
 								}	

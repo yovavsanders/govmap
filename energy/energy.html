@@ -1181,7 +1181,7 @@
 						</div>
 
 						<!-- Section 2: Existing on Roof -->
-						<div class="section-container-top">
+						<div v-if="existingFields != null" class="section-container-top">
 							<div class="section-header">{{ roofTitle }}</div>
 							<div
 								v-for="field in existingFields"
@@ -1205,11 +1205,15 @@
 							>
 								<span class="field-name">{{ field.FieldName }}:</span>
 								<span
+									v-if="field.FieldName === 'שטח פנוי'"
+									class="field-value"
+									>{{ Number(field.FieldValue).toLocaleString() }} מ"ר
+								</span>
+								<span
 									v-if="field.FieldName === 'קרינת שמש ממוצעת שנתית'"
 									class="field-value"
-									>{{ Number(field.FieldValue).toLocaleString() }} שעות שמש
-									בשנה</span
-								>
+									>{{ Number(field.FieldValue).toLocaleString() }} שעות שמש בשנה
+								</span>
 								<span
 									v-if="field.FieldName === 'פוטנציאל הספק'"
 									class="field-value"
@@ -1235,7 +1239,7 @@
 					<!-- Note Section -->
 					<div class="note-section" v-if="noteField">
 						<div v-if="areaCoef" class="field-row">
-							<span v-if="areaCoef" class="field-name"> מקדם חישוב:</span>
+							<span v-if="areaCoef" class="field-name"> מקדם שטח פנוי:</span>
 							<span v-if="areaCoef" class="field-value"> {{ areaCoef }}</span>
 						</div>
 
@@ -1347,6 +1351,7 @@
 			new Vue({
 				el: "#app",
 				data: {
+					layerNameClicked: null,
 					roofTitle: null,
 					gushNum: null,
 					parcelNum: null,
@@ -1606,6 +1611,9 @@
 				},
 				computed: {
 					existingFields() {
+						if (this.layerNameClicked == "CMPLX_SOLAR_POTEN541"){
+							return null;
+						}
 						return this.fields.filter((field) =>
 							["שטח פאנלים קיימים על הגג", "שטח פנוי"].includes(
 								field.FieldName,
@@ -1613,6 +1621,17 @@
 						);
 					},
 					potentialFields() {
+						if (this.layerNameClicked == "CMPLX_SOLAR_POTEN541"){
+							return this.fields.filter((field) =>
+								[
+									"שטח פנוי",
+									"קרינת שמש ממוצעת שנתית",
+									"פוטנציאל הספק",
+									"ייצור אנרגיה בשנה",
+									"פרמיה אורבנית"
+								].includes(field.FieldName),
+							);
+						}
 						return this.fields.filter((field) =>
 							[
 								"קרינת שמש ממוצעת שנתית",
@@ -1621,6 +1640,7 @@
 								"פרמיה אורבנית"
 							].includes(field.FieldName),
 						);
+
 					},
 					usageType(){
 						const field = this.fields.find((field) => field.FieldName === "שם שימוש");
@@ -2054,9 +2074,10 @@
 											fields_parcel = element.Result[0].tabs[0].fields;
 										}
 										if (element.LayerName == "CMPLX_SOLAR_POTEN541") {
+											appVue.layerNameClicked = "CMPLX_SOLAR_POTEN541";
 											fields = element.Result[0].tabs[0].fields;
 											console.log(fields);
-											appVue.roofTitle = "קיים על מצללה";
+											appVue.roofTitle = null;
 											if (element.Result[0].objectId > -1){
 												//highLight Feature
 												govmap.searchInLayer({
@@ -2068,6 +2089,7 @@
 											}
 										}
 										if (element.LayerName == "BLDG_SOLAR541_V2") {
+											appVue.layerNameClicked = "BLDG_SOLAR541_V2";
 											fields = element.Result[0].tabs[0].fields;
 											appVue.roofTitle = "קיים על הגג";
 											if (element.Result[0].objectId > -1){
@@ -2100,6 +2122,7 @@
 									appVue.gushNum = null;
 									appVue.parcelNum = null;
 									//remove highLight Feature
+									appVue.layerNameClicked = null;
 									govmap.clearSelection();
 
 								}	

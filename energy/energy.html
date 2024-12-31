@@ -1259,7 +1259,7 @@
 				</button>
 			</div>
 			<div v-if="currentBg == 41" id="floating_scale_bar_desktop">
-				<p class="esriLabelMask">קרינה גבוהה (2200 KWH) </p>
+				<p class="esriLabelMask">קרינה גבוהה  </p>
 
 				<img
 					src="scale_bar.jpeg"
@@ -1271,7 +1271,7 @@
 						border: 2px solid rgb(255, 255, 255);
 					"
 				/>
-				<p class="esriLabelMask">קרינה נמוכה (300 KWH) </p>
+				<p class="esriLabelMask">קרינה נמוכה </p>
 			</div>
 
 			<div class="map-footer">
@@ -1315,21 +1315,30 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h3>{{ modalTitle }}</h3>
-						<button class="close-button" @click="closeModal">&times;</button>
+						<button v-if="showCloseButton" class="close-button" @click="closeModal">&times;</button>
+						<!-- add label to checkbox  הבנתי ואני מסכים<  כfrom right to left-->
+						 <div v-if="!showCloseButton">
+							<label for="checkbox" style="margin-left: 10px;">הבנתי ואני מסכים</label>
+							<input dir="rtl" type="checkbox" v-model="checked" id="checkbox" />
+						 </div>
+		
 					</div>
 					<div class="modal-body" v-html="modalContent"></div>
 				</div>
 			</div>
 
+
+			</div>
+
 			<div v-if="currentBg == 41" id="floating_scale_bar_mobile">
-				<div class="esriLabelMask" style="rotate: -90deg">קרינה גבוהה (2200 KWH) </div>
+				<div class="esriLabelMask" style="rotate: -90deg">קרינה גבוהה  </div>
 				<img
 					src="scale_bar.jpeg"
 					alt=""
 					style="height: 15px; border: #ffffff 2px solid"
 				/>
 
-				<div class="esriLabelMask" style="rotate: -90deg">קרינה נמוכה (300 KWH) </div>
+				<div class="esriLabelMask" style="rotate: -90deg">קרינה נמוכה </div>
 			</div>
 		</div>
 
@@ -1353,6 +1362,7 @@
 			new Vue({
 				el: "#app",
 				data: {
+					checked: false,
 					layerNameClicked: null,
 					roofTitle: null,
 					gushNum: null,
@@ -2439,7 +2449,7 @@
 					},
 
 					aboutText: {
-						title: "אודות",
+						title: "דיסקליימר",
 						content: `
 <h3 style="font-weight: bold;">פוטנציאל ייצור אנרגיה מתחדשת בשטחים בנויים בישראל</h3>
 
@@ -2479,16 +2489,16 @@
 					contactText: {
 						title: "צור קשר",
 						content: `
-        <div>
-          <h4>יצירת קשר</h4>
-          <p>נשמח לעמוד לרשותכם בכל שאלה או בקשה.</p>
-          <div class="contact-info">
-            <p><strong>דוא"ל:</strong>guydk@energy.gov.il</p>
-			<p><strong>גיא דקניט</strong></p>
-          </div>
-          
-        </div>
-      `,
+						<div>
+						<h4>יצירת קשר</h4>
+						<p>נשמח לעמוד לרשותכם בכל שאלה או בקשה.</p>
+						<div class="contact-info">
+							<p><strong>דוא"ל:</strong>guydk@energy.gov.il</p>
+							<p><strong>גיא דקניט</strong></p>
+						</div>
+						
+						</div>
+					`,
 					},
 
 					baseHref: "",
@@ -2546,6 +2556,18 @@
 					fields: [],
 				},
 				computed: {
+					showCloseButton(){
+						if (this.modalTitle.includes("דיסקליימר") && this.checked == false){
+							return false;
+						}
+						else{
+							setTimeout(() => {
+								this.aboutText.title = "אודות";
+								return true;
+							}, 1000);
+						}
+						return true;
+					},
 					existingFields() {
 						if (this.layerNameClicked == "CMPLX_SOLAR_POTEN541"){
 							return null;
@@ -2619,6 +2641,12 @@
 					},
 				},
 				methods: {
+					checkModal(){
+						if (this.modalTitle.includes("דיסקליימר") && this.checked == false){
+							return false;
+						}
+						return true;
+					},
 					showModal(textObj) {
 						this.modalTitle = textObj.title;
 						this.modalContent = textObj.content;
@@ -2627,6 +2655,9 @@
 						document.body.style.overflow = "hidden";
 					},
 					closeModal() {
+						if (this.modalTitle=="דיסקליימר" && this.checked == false){
+							return;
+						}
 						this.isModalVisible = false;
 						// Restore page scrolling
 						document.body.style.overflow = "auto";
@@ -2904,6 +2935,13 @@
 					},
 				},
 				watch: {
+					checked(newVal) {
+						if (newVal) {
+							setTimeout(() => {
+								this.closeModal();
+							}, 1000);
+						}
+					},
 					// Watch for query changes
 					query(newVal) {
 						this.showClear = newVal.length > 0;
@@ -3070,6 +3108,9 @@
 							});
 						}
 					});
+
+
+					this.showModal(this.aboutText);
 				},
 			});
 		</script>

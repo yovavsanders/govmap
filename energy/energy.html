@@ -713,12 +713,12 @@
 				}
 				#floating_scale_bar_mobile {
 					left: calc(-50% + 50px);
-					top: 420px;
 					position: absolute;
 					width: 100%;
 					display: flex;
 					justify-content: center;
 					rotate: 90deg;
+					top: 315px;
 				}
 				.navbar-header {
 					width: 100%;
@@ -2935,6 +2935,11 @@
 						my_token = "aafedfe5-8dfa-4fd5-9af9-8b95759447bd";
 					}
 
+					var zoomButtons = true;
+					const isMobile = window.matchMedia("(max-width: 767px)").matches;
+					if (isMobile) {
+						zoomButtons = false;
+					}
 					//Cmplx_Solar_Poten541 – פוטנציאל הצללה סולארית
 					govmap.createMap("map_div", {
 						token: my_token,
@@ -2955,6 +2960,7 @@
 						level: appVue.map_z,
 						center: { x: appVue.map_x, y: appVue.map_y },
 						isEmbeddedToggle: false,
+						zoomButtons: zoomButtons,
 					});
 					govmap.setBackground(this.currentBg);
 

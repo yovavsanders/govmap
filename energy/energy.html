@@ -1276,7 +1276,12 @@
 								:key="field.FieldName"
 								class="field-row"
 							>
-								<span v-if="field.FieldName !== 'פרמיה אורבנית'" class="field-name">{{ field.FieldName }}:</span>
+								<span v-if="field.FieldName !== 'פרמיה אורבנית'" class="field-name" style="font-weight: bold;">{{ field.FieldName }}:</span>
+								<span v-else
+									class="field-value-small"
+									style="right: 0; width: 100%;"
+									>{{ field.FieldValue }}
+								</span>
 								<span
 									v-if="field.FieldName === 'שטח פנוי'"
 									class="field-value"
@@ -1298,12 +1303,6 @@
 									class="field-value"
 									>{{ Number(field.FieldValue).toLocaleString() }} קילו-ואט/שעה
 									לשנה</span
-								>
-								<span
-									v-if="field.FieldName === 'פרמיה אורבנית'"
-									class="field-value-small"
-									>{{ field.FieldValue }}
-								</span
 								>
 							</div>
 						</div>

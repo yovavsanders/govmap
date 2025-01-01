@@ -619,7 +619,7 @@
   border: 1px solid rgba(0, 0, 0, 1);
   border-radius: 10px;
   margin: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px 0 grey;
 }
 
 .section-container-bottom .section-header {
@@ -658,15 +658,17 @@
 
 /* Note section */
 .note-section {
-  padding: 8px 16px 12px;
-  background-color: #fff;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 12px;
+  padding: 12px;
+  background-color: rgb(225, 224, 224);
+  color: #000;
+  direction: rtl;
 }
 
 .note-section p {
   margin: 0;
   font-size: 12px;
-  color: #666;
+  color: #000;
   line-height: 1.4;
   word-break: break-word;
 }
@@ -1315,7 +1317,7 @@
 							<span v-if="areaCoef" class="field-value"> {{ areaCoef }}</span>
 						</div>
 
-						<p>{{ noteField.FieldValue }}</p>
+						<p>{{ noteField.FieldValue.replace(".", "") }}</p>
 					</div>
 				</div>
 

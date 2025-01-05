@@ -537,7 +537,7 @@
 				top: 20px;
 				right: 20px;
 				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-				width: 480px;
+				width: 460px;
 				background: white;
 				direction: rtl;
 				padding: 0;
@@ -574,7 +574,7 @@
 
 /* Title Section */
 .location-container {
-  background: #2196F3;
+  background: #2e75b6;
   padding: 12px 16px;
   border-radius: 10px;
   margin: 8px;
@@ -614,12 +614,10 @@
 
 /* Second info block - "פוטנציאל אנרגיה סולארית" */
 .section-container-bottom {
-  background-color: #E3F2FD;
+  background-color: #9dc3e6;
   padding: 12px 16px;
-  border: 1px solid rgba(0, 0, 0, 1);
   border-radius: 10px;
   margin: 8px;
-  box-shadow: 0 0 10px 0 grey;
 }
 
 .section-container-bottom .section-header {
@@ -1389,7 +1387,7 @@
 						<h3>{{ modalTitle }}</h3>
 						<button v-if="showCloseButton" class="close-button" @click="closeModal">&times;</button>
 						<!-- add label to checkbox  הבנתי ואני מסכים<  כfrom right to left-->
-						 <div v-if="!showCloseButton">
+						 <div v-if="!showCloseButton" style="display: flex;">
 							<label for="checkbox" style="margin-left: 10px;">הבנתי ואני מסכים</label>
 							<input dir="rtl" type="checkbox" v-model="checked" id="checkbox" />
 						 </div>
@@ -2232,21 +2230,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td  style="border: none; padding: 0in"><p><br/>
-
-			</p>
-		</td>
-	</tr>
-	<tr>
-		<td  style="border: none; padding: 0in"><p style="margin-bottom: 0.11in">
-			<br/>
-<br/>
-
-			</p>
-			<p style="margin-bottom: 0.11in"><br/>
-<br/>
-
-			</p>
+		<td  style="border: none; padding: 0in">
 			<p style="margin-bottom: 0.11in"><span lang="he-IL"><font color="#444444"><u><font size="3" style="font-size: 11pt"><b>איסורים
 			ומגבלות</b></font></font></span></font><font size="3" style="font-size: 11pt"><b>:</b></font></font></u></font></p>
 			<p style="margin-bottom: 0.11in"><span lang="he-IL"><font color="#444444"><font size="3" style="font-size: 11pt"><b>חל
@@ -2269,7 +2253,7 @@
 				לא מוגבל ל</font></span></font></font><font><font size="3" style="font-size: 12pt">:
 				</font></font></font>
 				</p>
-				<ul>
+				<ul style="list-style-type: disc;">
 					<li><p align="right" style="margin-bottom: 0in"><font><font size="3" style="font-size: 12pt"><span lang="he-IL">שימוש
 					בבוטים או תוכנות אוטומטיות לניווט
 					באתר</font></span></font></font></p></li>
@@ -2313,8 +2297,8 @@
 				זכויות יוצרים וקניין רוחני</font></span></font></font><font><font size="3" style="font-size: 12pt">.</font></font></font></p></li>
 			</ol>
 			<p dir="ltr" align="right" style="margin-top: 0.19in; margin-bottom: 0.19in">
-			<font><font size="3" style="font-size: 12pt"><span lang="he-IL">הורדה
-			</font></span></font></font><font><font size="3" style="font-size: 12pt">(Downloading):</font></font></font></p>
+			<font><font size="3" style="font-size: 12pt"><span lang="he-IL">:הורדה
+			</font></span></font></font><font><font size="3" style="font-size: 12pt">(Downloading)</font></font></font></p>
 			<ol>
 				<li><p align="right" style="margin-top: 0.19in; margin-bottom: 0in">
 				<font><font size="3" style="font-size: 12pt"><span lang="he-IL">הורדה
@@ -2324,7 +2308,7 @@
 				יכולה לכלול</font></span></font></font><font><font size="3" style="font-size: 12pt">:
 				</font></font></font>
 				</p>
-				<ul>
+				<ul style="list-style-type: disc;">
 					<li><p align="right" style="margin-bottom: 0in"><font><font size="3" style="font-size: 12pt"><span lang="he-IL">שמירת
 					טקסטים</font></span></font></font><font><font size="3" style="font-size: 12pt">,
 					</font></font></font><font><font size="3" style="font-size: 12pt"><span lang="he-IL">תמונות</font></span></font></font><font><font size="3" style="font-size: 12pt">,
@@ -2361,7 +2345,7 @@
 				</font></font></font><font><font size="3" style="font-size: 12pt"><span lang="he-IL">למשל</font></span></font></font><font><font size="3" style="font-size: 12pt">:
 				</font></font></font>
 				</p>
-				<ul>
+				<ul style="list-style-type: disc;">
 					<li><p align="right" style="margin-bottom: 0in"><font><font size="3" style="font-size: 12pt"><span lang="he-IL">הורדת
 					מאמר בודד לקריאה אישית עשויה להיות
 					מותרת</font></span></font></font></p></li>
@@ -2431,7 +2415,7 @@
 				ספציפיים</font></font></span></font><font size="3" style="font-size: 12pt">:
 				</font></font>
 				</p>
-				<ul>
+				<ul style="list-style-type: disc;">
 					<li><p style="margin-bottom: 0in"><span lang="he-IL"><font size="3" style="font-size: 12pt">אין
 					ליצור אוספים או מאגרי מידע המבוססים
 					על תכני האתר</font></font></span></font><font size="3" style="font-size: 12pt">.</font></font></p></li>
@@ -2521,15 +2505,15 @@
 					},
 
 					aboutText: {
-						title: "דיסקליימר",
+						title: "תניית פטור (Disclaimer)",
 						content: `
 <h3 style="font-weight: bold;">פוטנציאל ייצור אנרגיה מתחדשת בשטחים בנויים בישראל</h3>
 
-    <h2 style="text-decoration: underline;">אופן חישוב הפוטנציאל</h2>
+    <h4 style="text-decoration: underline;">אופן חישוב הפוטנציאל</h4>
 
     <ol>
         <li>האתר מציג שתי שכבות פוטנצייאל ייצור סולארי בדו-שימוש:
-            <ul>
+            <ul style="list-style-type: disc;">
                 <li>פוטנצייאל על גגות מבנים ביישובים. הנתונים עדכניים לשנת 2023 וכוללים את שטחי יישובים ישראלים ביהודה ושומרון</li>
                 <li>פוטנציאל להתקנת הצללה סולארית במרחב ציבורי. השכבה כוללת חניונים ציבוריים, מגרשי משחקים, מסופי תחבורה ובתי עלמין הזמינים בשכבת הבנט"ל (בסיס נתונים טופוגרפי לאומי). כל סיווג מצויין בצבע שונה.</li>
             </ul>
@@ -2537,7 +2521,7 @@
         <li>חישוב הפוטנציאל: זיהוי שטח הגג בעל קרינה ישירה של 1,500 ומעלה שעות שמש בשנה. בנוסף, ניקוי שטחים שזוהו כלא פנויים כגון לוחות סולאריים קיימים או הפרעות נוספות הקיימות על הגג. נעשה שימוש באלגוריתם ובמודדלים לחישוב ולזיהוי הפרעות על הגגות. אומדן חישוב לפוטנציאל האנרגיה הינו מספר שעות קרינת שמש בשנה כפול ההספק המותקן בקילוואט על שטח הגג.</li>
         <li>גוון סרגל הצבעים בשכבת פוטנציאל ייצור אנרגיה על מבנים מתייחסת לקרינה ממוצעת שנתית. כאשר הצבע הכהה ביותר מייצג קרינה ממוצעת שנתית נמוכה של 300 קילוואט שעה והצבע הבהיר מייצג קרינה ממוצעת שנתית של 2,200 קילוואט שעה.</li>
         <li>שכבת פוטנציאל ההצללה הסולארית כוללת את שטח הפוליגון שהוגדר בבנט"ל ושטח הקרינה מעל 1500 שעות שמש. על שטח שנותר מופעל מקדם אחוז מימוש, לכל אחד מהסיווגים הבאים מקדם שונה:
-            <ul>
+            <ul style="list-style-type: disc;">
                 <li>מסוף תחבורה -- 50% מכלל השטח</li>
                 <li>בתי עלמין 30% מכלל השטח</li>
                 <li>מגרשי ספורט - 90% מכלל השטח (מגרש ספורט בשטח של מתחת ל-50 מ"ר לא נכלל בחישוב)</li>
@@ -2629,12 +2613,16 @@
 				},
 				computed: {
 					showCloseButton(){
-						if (this.modalTitle.includes("דיסקליימר") && this.checked == false){
+						if (this.modalTitle.includes("תניית פטור (Disclaimer)") && this.checked == false){
 							return false;
 						}
 						else{
 							setTimeout(() => {
 								this.aboutText.title = "אודות";
+								this.aboutText.content = `<p style="font-weight: bold;">מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע</p>
+															<p>במסגרת תכנית משרד האנרגיה והתשתיות לעמידה ביעדי ממשלת ישראל למעבר ל- 30% ייצור חשמל מאנרגיה מתחדשת עד שנת 2030 למידע נוסף <a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">בקישור</a>.</p>
+															<p>אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות
+																עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל</p>`
 								return true;
 							}, 1000);
 						}
@@ -2714,7 +2702,7 @@
 				},
 				methods: {
 					checkModal(){
-						if (this.modalTitle.includes("דיסקליימר") && this.checked == false){
+						if (this.modalTitle.includes("תניית פטור (Disclaimer)") && this.checked == false){
 							return false;
 						}
 						return true;
@@ -2727,7 +2715,7 @@
 						document.body.style.overflow = "hidden";
 					},
 					closeModal() {
-						if (this.modalTitle=="דיסקליימר" && this.checked == false){
+						if (this.modalTitle=="תניית פטור (Disclaimer)" && this.checked == false){
 							return;
 						}
 						this.isModalVisible = false;

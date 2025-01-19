@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="he" dir="rtl">
 	<head>
@@ -796,7 +797,7 @@
 				}
 
 				.MapStyle {
-					height: calc(100vh - 143px);
+					height: calc(var(--vh) - 143px);
 				}
 				.BgDiv {
 					position: absolute;
@@ -1308,8 +1309,17 @@
 		<!-- Include Proj4.js script tag -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
 
+
+
 		<!-- Add Vue instance initialization -->
 		<script>
+
+        function updateMapHeight() {
+            document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
+        }
+
+
+
 			new Vue({
 				el: "#app",
 				data: {
@@ -2046,6 +2056,11 @@
 				},
 				mounted() {
 					var appVue = this;
+
+
+                    window.addEventListener('resize', updateMapHeight);
+                    updateMapHeight();
+
 
 					this.baseHref = `${window.location.origin}${this.baseHtmlPath}`;
 

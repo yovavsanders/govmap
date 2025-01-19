@@ -938,7 +938,7 @@
 							</svg>
 							<span>מדוד</span>
 						</button>
-                        <button @click="govmap.showExportMap()" class="action-button">
+                        <!-- <button @click="govmap.showExportMap()" class="action-button">
                             <svg 
                                 xmlns="http://www.w3.org/2000/svg" 
                                 viewBox="0 0 24 24" 
@@ -948,7 +948,7 @@
                                 <path d="M3 2a1 1 0 0 0-1 1v18a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6.828a2 2 0 0 0-.586-1.414L18.586 2H3zm14 2h2.414L21 5.586V20a1 1 0 0 1-1 1h-2V14a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v7H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12v4zm-8 16v-6h6v6H9zm7-14V4h2v4h-2z"/>
                             </svg>
                             <span>שמור מפה</span>
-                        </button>
+                        </button> -->
 						<button
 							@click="shareContent"
 							class="action-button"
@@ -1078,7 +1078,7 @@
 							</svg>
 							<span>מדוד</span>
 						</button>
-                        <button @click="govmap.showExportMap()" class="mobile-action-button"
+                        <!-- <button @click="govmap.showExportMap()" class="mobile-action-button"
                             style="margin-top: 5px"
                             v-if="isSearchVisible != true">
                             <svg 
@@ -1090,7 +1090,7 @@
                                 <path d="M3 2a1 1 0 0 0-1 1v18a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6.828a2 2 0 0 0-.586-1.414L18.586 2H3zm14 2h2.414L21 5.586V20a1 1 0 0 1-1 1h-2V14a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v7H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12v4zm-8 16v-6h6v6H9zm7-14V4h2v4h-2z"/>
                             </svg>
                             <span>שמור מפה</span>
-                        </button>
+                        </button> -->
 						<button
 							@click="shareContent"
 							class="mobile-action-button"
@@ -2089,14 +2089,14 @@
 					if (isMobile) {
 						zoomButtons = false;
 					}
-					//Cmplx_Solar_Poten541 – פוטנציאל הצללה סולארית
+
 					govmap.createMap("map_div", {
 						token: my_token,
 						visibleLayers: [],
                         layers: ["ILREGION","MMI_DISTRICTS","MINHALARBSETLBRDR","CONTOUR","REGIONALPEREFERIYA","REGIONALGALIL","REGIONALNEGEV","DISTRICTS_ADDITIONAL","REGIONALCOUNCIL","AGRIPARCELS","SOIL_SURVEY","FLOODPLAIN","DEAD_SEA_DELEK","RETZEFGVULOT","TOCHNIOTSHIVUK","TABAOT","TAZAR","MT_IL","SKARIM","TALAR_TABLE_TAVLAEI","GUSHIM_REZEF_ADDITONAL","PARCEL_REZEF_ADDITIONAL","ECONOMYLOTS_V2","MICHRAZIM_HALUKA","MICHRAZIM","RESIDENTIALSTOCKPLAN","SOIHISTORYPARCELS","ADD_RAIN_AREA_PLANNING_PROD","PLAN_REGION_STRATEGIC","ATAREI_RATAG","TAYARUT","HOTELS","FIELDSCHOOL","TRACKS","SHVIL_ISRAEL","RESERVE_NATURAL_PLAN","BASIN","INTERESTLAYERMEKOROT","PURIFIED_DRAINAGE_PONDS","TRAIN_TRACKS_STATUS","BL_LIN_P","ROUT3","EMERGANCY_HOSPITALS","TAMAT_DISTRICTS_POLYGONS"],
 						visibleLayers: [],
 						showXY: false,
-						identifyOnClick: false,
+						identifyOnClick: true,
 						background: 0,
 						layersMode: 2,
 						bgButton: true,

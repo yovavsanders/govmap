@@ -602,7 +602,7 @@
 /* First info block - "מה קיים על הגג" */
 .section-container-top {
   /* background-color: #f5f5f5; */
-  padding: 12px 16px;
+  padding: 1px 22px;
   /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
 }
 
@@ -617,7 +617,7 @@
 .section-container-bottom {
   background-color: #9dc3e6;
   padding: 12px 16px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   margin: 8px;
 }
 
@@ -657,7 +657,7 @@
 
 /* Note section */
 .note-section {
-  margin: 12px;
+  margin: 8px;
   padding: 12px;
   background-color: rgb(225, 224, 224);
   color: #000;
@@ -1249,30 +1249,24 @@
 
 						<!-- Section 2: Existing on Roof -->
 						<div v-if="existingFields != null" class="section-container-top">
-							<div class="section-header">{{ roofTitle }}</div>
+							<!-- <div v-if="layerNameClicked == 'BLDG_SOLAR541_V2'" class="section-header">פוטנציאל אנרגיה סולארית</div> -->
+							<div class="section-header">פוטנציאל אנרגיה סולארית</div>
 							<div
 								v-for="field in existingFields"
 								:key="field.FieldName"
 								class="field-row">
-								<span style="color: grey;" class="field-name">
+								<span v-if="field.FieldValue != zero_mr" style="color: grey;" class="field-name">
 									{{ field.FieldName }}:
 								</span>
-								<span class="field-value">
+								<span v-if="field.FieldValue != zero_mr" class="field-value">
 									{{ field.FieldValue }} 
 								</span>
-
-								
-								
-		
 							</div>
 						</div>
 
-							<!-- horizontal line -->
-							<div style="border-bottom: 1px solid #ccc; margin-left: 20px; margin-right: 20px; margin-bottom: 20px;"></div>
-
 						<!-- Section 3: Solar Potential -->
 						<div class="section-container-bottom">
-							<div class="section-header">פוטנציאל אנרגיה סולארית</div>
+							<!-- <div v-if="layerNameClicked == 'CMPLX_SOLAR_POTEN541'" class="section-header">פוטנציאל אנרגיה סולארית</div> -->
 							<div
 								v-for="field in potentialFields"
 								:key="field.FieldName"
@@ -1289,12 +1283,11 @@
 
 					<!-- Note Section -->
 					<div class="note-section" v-if="noteField">
-						<div v-if="areaCoef" class="field-row">
-							<span v-if="areaCoef" class="field-name"> מקדם שטח פנוי:</span>
-							<span v-if="areaCoef" class="field-value"> {{ areaCoef }}</span>
-						</div>
+						<span class="field-name" style="font-size: 13px;">{{ premiaText }}. </span>
 
-						<p>{{ noteField.FieldValue.replace(".", "") }}</p>
+						<div style="height: 10px;"></div>
+
+						<p>{{ noteField.FieldValue.replace(".", "") }}.</p>
 					</div>
 				</div>
 
@@ -1411,6 +1404,7 @@
 			new Vue({
 				el: "#app",
 				data: {
+					zero_mr: '0 מ"ר',
 					checked: false,
 					layerNameClicked: null,
 					roofTitle: null,
@@ -2486,38 +2480,40 @@
 					aboutText: {
 						title: "תניית פטור (Disclaimer)",
 						content: `
-<h3 style="font-weight: bold;">פוטנציאל ייצור אנרגיה מתחדשת בשטחים בנויים בישראל</h3>
+<h3 style="font-weight: bold;">דיסקליימר: פוטנציאל ייצור אנרגיה מתחדשת בשטחים בנויים בישראל</h3>
 
-    <h4 style="text-decoration: underline;">אופן חישוב הפוטנציאל</h4>
+<h4 style="text-decoration: underline;">אופן חישוב הפוטנציאל</h4>
 
-    <ol>
-        <li>האתר מציג שתי שכבות פוטנצייאל ייצור סולארי בדו-שימוש:
-            <ul style="list-style-type: disc;">
-                <li>פוטנצייאל על גגות מבנים ביישובים. הנתונים עדכניים לשנת 2023 וכוללים את שטחי יישובים ישראלים ביהודה ושומרון</li>
-                <li>פוטנציאל להתקנת הצללה סולארית במרחב ציבורי. השכבה כוללת חניונים ציבוריים, מגרשי משחקים, מסופי תחבורה ובתי עלמין הזמינים בשכבת הבנט"ל (בסיס נתונים טופוגרפי לאומי). כל סיווג מצויין בצבע שונה.</li>
-            </ul>
-        </li>
-        <li>חישוב הפוטנציאל: זיהוי שטח הגג בעל קרינה ישירה של 1,500 ומעלה שעות שמש בשנה. בנוסף, ניקוי שטחים שזוהו כלא פנויים כגון לוחות סולאריים קיימים או הפרעות נוספות הקיימות על הגג. נעשה שימוש באלגוריתם ובמודדלים לחישוב ולזיהוי הפרעות על הגגות. אומדן חישוב לפוטנציאל האנרגיה הינו מספר שעות קרינת שמש בשנה כפול ההספק המותקן בקילוואט על שטח הגג.</li>
-        <li>גוון סרגל הצבעים בשכבת פוטנציאל ייצור אנרגיה על מבנים מתייחסת לקרינה ממוצעת שנתית. כאשר הצבע הכהה ביותר מייצג קרינה ממוצעת שנתית נמוכה של 300 קילוואט שעה והצבע הבהיר מייצג קרינה ממוצעת שנתית של 2,200 קילוואט שעה.</li>
-        <li>שכבת פוטנציאל ההצללה הסולארית כוללת את שטח הפוליגון שהוגדר בבנט"ל ושטח הקרינה מעל 1500 שעות שמש. על שטח שנותר מופעל מקדם אחוז מימוש, לכל אחד מהסיווגים הבאים מקדם שונה:
-            <ul style="list-style-type: disc;">
-                <li>מסוף תחבורה -- 50% מכלל השטח</li>
-                <li>בתי עלמין 30% מכלל השטח</li>
-                <li>מגרשי ספורט - 90% מכלל השטח (מגרש ספורט בשטח של מתחת ל-50 מ"ר לא נכלל בחישוב)</li>
-                <li>חניות - 40% מכלל השטח (שטח של מתחת ל-50 מ"ר לא נכלל בחישוב)</li>
-            </ul>
-        </li>
-    </ol>
+<ol>
+    <li>האתר מציג את פוטנציאל ייצור האנרגיה הסולארית בשטחים מבונים, ביישובים בישראל, בשתי שכבות מידע:
+        <ul style="list-style-type: disc;">
+            <li>פוטנציאל על גגות מבנים.</li>
+            <li>פוטנציאל בהצללות על מרחב ציבורי: חניונים ציבוריים, מגרשי ספורט, פארקים גדולים, מסופי תחבורה ובתי עלמין הזמינים בשכבת הבנט"ל (בסיס נתונים טופוגרפי לאומי). כל סיווג מצויין בצבע שונה.</li>
+        </ul>
+    </li>
+    <li>הנתונים עדכניים לשנת 2023.</li>
+    <li>חישוב שטחים בעלי פוטנציאל להתקנת מערכות סולארית (הספק מותקן): האתר מחשב שטח פוטנציאל עבור גגות והצללות בהם קיימת קרינה של מעל 1,500 שעות שמש בשנה. כמו כן, באמצעות אלגוריתם ומודלים לזיהוי הפרעות על גגות נגרעים שטחים נוספים בהם לא תתאפשר התקנת מערכת סולארית כגון מערכות סולאריות קיימות.</li>
+    <li>חישוב ייצור חשמל בשנה: מספר שעות קרינת שמש בשנה כפול ההספק המותקן בקילוואט על שטח הגג או ההצללה.</li>
+    <li>גוון סרגל הצבעים בשכבת פוטנציאל ייצור אנרגיה על מבנים מתייחס לקרינה ממוצעת שנתית. כאשר הצבע הכהה ביותר מייצג קרינה ממוצעת שנתית נמוכה של 300 קילוואט שעה והצבע הצהוב הבהיר מייצג קרינה ממוצעת שנתית של 2,200 קילוואט שעה.</li>
+    <li>חישוב הפוטנציאל להצללות: שכבת פוטנציאל ההצללה הסולארית כוללת את שטח הפוליגון שהוגדר בבנט"ל וסך השטח עליו קיימת קרינה של מעל 1,500 שעות שמש בשנה. על שטח זה, מופעל מקדם אחוז מימוש בהתאם לסיווג השימוש הקרקע:
+        <ul style="list-style-type: disc;">
+            <li>מסוף תחבורה: 50% מכלל שטח המגרש.</li>
+            <li>בתי עלמין: 30% מכלל שטח המגרש.</li>
+            <li>מגרשי ספורט: 80% מכלל שטח המגרש (מגרש ספורט בשטח של מתחת ל-50 מ"ר לא נכלל בחישוב).</li>
+            <li>חניונים: 40% מכלל השטח (שטח של מתחת ל-50 מ"ר לא נכלל בחישוב).</li>
+        </ul>
+    </li>
+</ol>
 
-    <h2 style="text-decoration: underline;">הבהרות וצעדי המשך</h2>
+<h2 style="text-decoration: underline;">הבהרות וצעדי המשך</h2>
 
-    <ol start="5">
-        <li>הפוטנציאל לא כולל אפשרות חיבור לרשת -- ניתן להצליב נתונים עם נתוני זמינות חיבור באתר <a href="https://www.iec.co.il/content/renewableenergy/contentpages/probabilitymap">חברת חשמל לישראל</a> ואינו כולל זמינות למתקן אגירת אנרגיה.</li>
-        <li>מפת הפוטנציאל נמצאת בגרסת בטא. נשמח לקבל תובנות והמלצות ב "צור קשר".</li>
-        <li>בחודשים הקרובים תעלה גרסה משופרת של המפת הפוטנציאל שתכלול שיפור יכולת זיהוי הפרעות על הגג דוגמאת דודי שמש ועליה ברזולצית החישוב לשטח פנוי, מה שישפר את ודאות וזיהוי השטח הפנוי, בעקבות כך את חישוב הפוטנציאל לייצור אנרגיה.</li>
-        <li>הנתונים המוצגים באתר הינם אומדנים בלבד והשימוש במידע הוא באחריות המשתמש בלבד.</li>
-        <li>אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות. עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל.</li>
-    </ol>
+<ol start="7">
+    <li>הפוטנציאל אינו מתייחס לאפשרות חיבור המערכת לרשת החשמל– ניתן לבחון את זמינות רשת החשמל באתר <a href="https://www.iec.co.il/content/renewableenergy/contentpages/probabilitymap">חברת חשמל לישראל</a>.</li>
+    <li>הנתונים המוצגים באתר הינם אומדנים בלבד והשימוש במידע הוא באחריות המשתמש בלבד.</li>
+    <li>אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות. עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל.</li>
+    <li>מפת הפוטנציאל בגרסת בטא. נשמח לקבל תובנות והצעות לשיפור בכתובת המייל muni@energy.gov.il.</li>
+    <li>האתר נמצא בתהליך פיתוח ובעתיד הקרוב תועלה גרסה שתכלול שיפור רזולוציית תצלומי האוויר שתאפשר ודאות רבה בזיהוי השטחים הפנויים על הגגות, באמצעות גריעת הפרעות כגון דודי שמש ומתקנים הנדסיים לקבלת פוטנציאל מדויק יותר של ייצור אנרגיה סולארית. כמו כן, הצגת לוח מחוונים (דשבורד) להצגת מידע אגרגטיבי ברמת שכונות, יישובים וכלל מדינת ישראל בחלוקה לשימושי קרקע שונים.</li>
+</ol>
       `,
 					},
 
@@ -2528,8 +2524,7 @@
 						<h4>יצירת קשר</h4>
 						<p>נשמח לעמוד לרשותכם בכל שאלה או בקשה.</p>
 						<div class="contact-info">
-							<p><strong>דוא"ל:</strong>guydk@energy.gov.il</p>
-							<p><strong>גיא דקניט</strong></p>
+							<p><strong>דוא"ל:</strong>muni@energy.gov.il</p>
 						</div>
 						
 						</div>
@@ -2538,9 +2533,9 @@
 
 					baseHref: "",
 					baseHtmlPath: "/energy/energy.html",
-					map_x: 219545,
-					map_y: 631555,
-					map_z: 5,
+					map_x: 219642,
+					map_y: 631535,
+					map_z: 8,
 					isMesure: false,
 					orthoSrc: "ortho.jpg",
 					mapCacheSrc: "streets.png",
@@ -2599,7 +2594,7 @@
 							setTimeout(() => {
 								this.aboutText.title = "אודות";
 								this.aboutText.content = `<p style="font-weight: bold;">מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע</p>
-															<p>במסגרת תכנית משרד האנרגיה והתשתיות לעמידה ביעדי ממשלת ישראל למעבר ל- 30% ייצור חשמל מאנרגיה מתחדשת עד שנת 2030 למידע נוסף <a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">בקישור</a>.</p>
+															<p>במסגרת תכנית משרד האנרגיה והתשתיות לעמידה ביעדי ממשלת ישראל למעבר ל- 30% ייצור חשמל מאנרגיה מתחדשת עד שנת 2030 למידע נוסף <a target="_blank" href="https://www.gov.il/he/pages/israel_re?chapterIndex=3">בקישור</a>.</p>
 															<p>אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות
 																עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל</p>`
 								return true;
@@ -2716,40 +2711,61 @@
 					// 		"FieldType": 1
 					// 	}
 					// ]
+
+					//top - white
 					existingFields() {
+						console.log("fields from ex", this.fields);
 						if (this.layerNameClicked == "CMPLX_SOLAR_POTEN541"){
-							return null;
+							console.log("complex")
+							return this.fields.filter((field) =>
+								[
+								"שטח המגרש",
+								"מקדם מימוש לחישוב פוטנציאל סולארי"].includes(
+									field.FieldName,
+								),
+							);
 						}
+						if (this.layerNameClicked == "BLDG_SOLAR541_V2"){
+							console.log("bldg")
+							return this.fields.filter((field) =>
+								["שטח הגג","שטח פאנלים סולאריים קיימים"
+								].includes(
+									field.FieldName,
+								),
+							);
+						}
+						console.log("else")
 						return this.fields.filter((field) =>
-							["שטח פאנלים סולאריים קיימים", "שטח פנוי לסולארי"].includes(
+							["שטח הגג","שטח פאנלים סולאריים קיימים",
+							].includes(
 								field.FieldName,
 							),
 						);
 					},
+					//bottom - blue
 					potentialFields() {
 						if (this.layerNameClicked == "CMPLX_SOLAR_POTEN541"){
 							return this.fields.filter((field) =>
 								[
-									"שטח פנוי לסולארי",
-									"קרינת שמש ממוצעת",
+									"שטח פנוי לקירוי סולארי",
 									"הספק פוטנציאלי למערכת סולארית",
+									"קרינת שמש ממוצעת",
 									"יצור אנרגיה צפוי",
-									"פרמיה אורבנית"
 								].includes(field.FieldName),
 							);
 						}
 						return this.fields.filter((field) =>
 							[
-								"קרינת שמש ממוצעת",
+								"שטח פנוי לסולארי",
 								"הספק פוטנציאלי למערכת סולארית",
+								"קרינת שמש ממוצעת",
 								"יצור אנרגיה צפוי",
-								"פרמיה אורבנית"
 							].includes(field.FieldName),
 						);
 
 					},
 					usageType(){
-						const field = this.fields.find((field) => field.FieldName === "שם שימוש");
+						const field = this.fields.find((field) => field.FieldName === "סוג שימוש");
 						if (field) {
 							return field.FieldValue;
 						}
@@ -3198,6 +3214,7 @@
 								}
 								if (result && result.data && result.data.length > 0) {
 									result.data.forEach((element) => {
+										console.log("element.LayerName",element.LayerName);
 										if (element.LayerName == "PARCEL_ALL") {
 											fields_parcel = element.Result[0].tabs[0].fields;
 										}
@@ -3205,7 +3222,7 @@
 											console.log(element);
 											appVue.layerNameClicked = "CMPLX_SOLAR_POTEN541";
 											fields = element.Result[0].tabs[0].fields;
-											appVue.roofTitle = null;
+											appVue.roofTitle = "פוטנציאל אנרגיה סולארית";
 											if (element.Result[0].objectId > -1){
 												//highLight Feature
 												govmap.searchInLayer({
@@ -3218,61 +3235,11 @@
 										}
 										if (element.LayerName == "BLDG_SOLAR541_V2") {
 											console.log(element);
-											// [
-											// 	{
-											// 		"FieldName": "שם ישוב",
-											// 		"FieldValue": "ירושלים",
-											// 		"FieldType": 1
-											// 	},
-											// 	{
-											// 		"FieldName": "כתובת",
-											// 		"FieldValue": "שבזי 13 (במבנה זה קיימות כתובות נוספות)",
-											// 		"FieldType": 1
-											// 	},
-											// 	{
-											// 		"FieldName": "שטח הגג",
-											// 		"FieldValue": "297 מ\"ר",
-											// 		"FieldType": 1
-											// 	},
-											// 	{
-											// 		"FieldName": "שטח פאנלים סולאריים קיימים",
-											// 		"FieldValue": "0 מ\"ר",
-											// 		"FieldType": 1
-											// 	},
-											// 	{
-											// 		"FieldName": "שטח פנוי לסולארי",
-											// 		"FieldValue": "68 מ\"ר",
-											// 		"FieldType": 1
-											// 	},
-											// 	{
-											// 		"FieldName": "הספק פוטנציאלי למערכת סולארית",
-											// 		"FieldValue": "9 קילוואט",
-											// 		"FieldType": 1
-											// 	},
-											// 	{
-											// 		"FieldName": "קרינת שמש ממוצעת",
-											// 		"FieldValue": "1,596 ממוצע שעות בשנה",
-											// 		"FieldType": 1
-											// 	},
-											// 	{
-											// 		"FieldName": "יצור אנרגיה צפוי",
-											// 		"FieldValue": "14,470 קילוואט שעה בשנה",
-											// 		"FieldType": 1
-											// 	},
-											// 	{
-											// 		"FieldName": "פרמיה אורבנית",
-											// 		"FieldValue": "ברשות זו יש זכאות לפרמיה אורבנית ולכן הכדאיות הכלכלית גבוהה יותר",
-											// 		"FieldType": 1
-											// 	},
-											// 	{
-											// 		"FieldName": "הערה",
-											// 		"FieldValue": "זכויות היוצרים שמורות למרכז למיפוי ישראל, מבוסס על הערכה וניתוחים, לא לשימוש מסחרי",
-											// 		"FieldType": 1
-											// 	}
-											// ]
 											appVue.layerNameClicked = "BLDG_SOLAR541_V2";
 											fields = element.Result[0].tabs[0].fields;
-											appVue.roofTitle = "מה קיים על הגג";
+											
+											//appVue.roofTitle = "מה קיים על הגג";
+											//appVue.roofTitle = "פוטנציאל אנרגיה סולארית";
 											if (element.Result[0].objectId > -1){
 												//highLight Feature
 												govmap.searchInLayer({
@@ -3284,8 +3251,16 @@
 											}
 										}
 									});
-
+									console.log("fields", fields);
 									appVue.fields = fields;
+
+									// get value from fields FieldName "פרמיה אורבנית"
+									const urbanPremia = fields.filter(
+										(field) => field.FieldName === "פרמיה אורבנית",
+									)[0];
+									appVue.premiaText = urbanPremia ? urbanPremia.FieldValue : null;
+
+
 									if (fields_parcel.length > 0) {
 										//FieldName: 'מספר גוש'
 										appVue.gushNum = fields_parcel.filter(
@@ -3298,6 +3273,7 @@
 									}
 								}
 								else{
+									console.log("no data");
 									appVue.roofTitle = null;
 									appVue.fields = [];
 									appVue.gushNum = null;

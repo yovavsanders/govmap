@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="he" dir="rtl">
 	<head>
@@ -880,7 +881,7 @@
 		</style>
 	</head>
 
-	<body class="font">
+	<body class="font"><script src="https://analytics.egov.gov.il/analytics.js" defer></script>
 		<div id="app" class="font" v-cloak>
 			<header id="desktop-header" class="navbar-header">
 				<div class="navbar-container">
@@ -1252,16 +1253,17 @@
 							<div
 								v-for="field in existingFields"
 								:key="field.FieldName"
-								class="field-row"
-							>
-								<span style="color: grey;" v-if="(field.FieldName === 'שטח פאנלים קיימים על הגג' && field.FieldValue != '0') || (field.FieldName === 'שטח פנוי')" class="field-name">
-									{{ field.FieldName.replace('קיימים על הגג', 'סולאריים') }}:</span>
-								<span v-if="field.FieldName === 'שטח פאנלים קיימים על הגג' && field.FieldValue != '0'" class="field-value"
-									>{{ Number(field.FieldValue).toLocaleString() }} מ"ר </span
-								>
-								<span style="font-weight: bold; font-size: 16px;" v-if="field.FieldName === 'שטח פנוי'" class="field-value"
-									>{{ Number(field.FieldValue).toLocaleString() }}  מ"ר </span
-								>
+								class="field-row">
+								<span style="color: grey;" class="field-name">
+									{{ field.FieldName }}:
+								</span>
+								<span class="field-value">
+									{{ field.FieldValue }} 
+								</span>
+
+								
+								
+		
 							</div>
 						</div>
 
@@ -1277,33 +1279,10 @@
 								class="field-row"
 							>
 								<span v-if="field.FieldName !== 'פרמיה אורבנית'" class="field-name" style="font-weight: bold;">{{ field.FieldName }}:</span>
-								<span v-else
-									class="field-value-small"
-									style="right: 0; width: 100%;"
-									>{{ field.FieldValue }}
+								<span class="field-value">
+									{{ field.FieldValue }}
 								</span>
-								<span
-									v-if="field.FieldName === 'שטח פנוי'"
-									class="field-value"
-									>{{ Number(field.FieldValue).toLocaleString() }} מ"ר
-								</span>
-								<span
-									v-if="field.FieldName === 'קרינת שמש ממוצעת שנתית'"
-									class="field-value"
-									>{{ Number(field.FieldValue).toLocaleString() }} שעות שמש בשנה
-								</span>
-								<span
-									v-if="field.FieldName === 'פוטנציאל הספק'"
-									class="field-value"
-									>{{ Number(field.FieldValue).toLocaleString() }} קילו-ואט
-									מותקן
-								</span>
-								<span
-									v-if="field.FieldName === 'ייצור אנרגיה בשנה'"
-									class="field-value"
-									>{{ Number(field.FieldValue).toLocaleString() }} קילו-ואט/שעה
-									לשנה</span
-								>
+							
 							</div>
 						</div>
 					</div>
@@ -2628,12 +2607,121 @@
 						}
 						return true;
 					},
+					// [
+					// 	{
+					// 		"FieldName": "שם ישוב",
+					// 		"FieldValue": "ירושלים",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "כתובת",
+					// 		"FieldValue": "שבזי 13 (במבנה זה קיימות כתובות נוספות)",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "שטח הגג",
+					// 		"FieldValue": "297 מ\"ר",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "שטח פאנלים סולאריים קיימים",
+					// 		"FieldValue": "0 מ\"ר",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "שטח פנוי לסולארי",
+					// 		"FieldValue": "68 מ\"ר",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "הספק פוטנציאלי למערכת סולארית",
+					// 		"FieldValue": "9 קילוואט",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "קרינת שמש ממוצעת",
+					// 		"FieldValue": "1,596 ממוצע שעות בשנה",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "יצור אנרגיה צפוי",
+					// 		"FieldValue": "14,470 קילוואט שעה בשנה",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "פרמיה אורבנית",
+					// 		"FieldValue": "ברשות זו יש זכאות לפרמיה אורבנית ולכן הכדאיות הכלכלית גבוהה יותר",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "הערה",
+					// 		"FieldValue": "זכויות היוצרים שמורות למרכז למיפוי ישראל, מבוסס על הערכה וניתוחים, לא לשימוש מסחרי",
+					// 		"FieldType": 1
+					// 	}
+					// ]
+
+
+
+
+
+					// [
+					// 	{
+					// 		"FieldName": "שם ישוב",
+					// 		"FieldValue": "ירושלים",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "סוג שימוש",
+					// 		"FieldValue": "מגרש ספורט",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "שטח המגרש",
+					// 		"FieldValue": "717 מ\"ר",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "מקדם מימוש לחישוב פוטנציאל סולארי",
+					// 		"FieldValue": "80%",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "שטח פנוי לקירוי סולארי",
+					// 		"FieldValue": "420 מ\"ר",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "הספק פוטנציאלי למערכת סולארית",
+					// 		"FieldValue": "60 קילוואט",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "קרינת שמש ממוצעת",
+					// 		"FieldValue": "1,380 ממוצע שעות בשנה",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "יצור אנרגיה צפוי",
+					// 		"FieldValue": "82,800 קילוואט שעה בשנה",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "פרמיה אורבנית",
+					// 		"FieldValue": "ברשות זו יש זכאות לפרמיה אורבנית ולכן הכדאיות הכלכלית גבוהה יותר",
+					// 		"FieldType": 1
+					// 	},
+					// 	{
+					// 		"FieldName": "הערות",
+					// 		"FieldValue": "זכויות היוצרים שמורות למרכז למיפוי ישראל, מבוסס על הערכה וניתוחים, לא לשימוש מסחרי",
+					// 		"FieldType": 1
+					// 	}
+					// ]
 					existingFields() {
 						if (this.layerNameClicked == "CMPLX_SOLAR_POTEN541"){
 							return null;
 						}
 						return this.fields.filter((field) =>
-							["שטח פאנלים קיימים על הגג", "שטח פנוי"].includes(
+							["שטח פאנלים סולאריים קיימים", "שטח פנוי לסולארי"].includes(
 								field.FieldName,
 							),
 						);
@@ -2642,19 +2730,19 @@
 						if (this.layerNameClicked == "CMPLX_SOLAR_POTEN541"){
 							return this.fields.filter((field) =>
 								[
-									"שטח פנוי",
-									"קרינת שמש ממוצעת שנתית",
-									"פוטנציאל הספק",
-									"ייצור אנרגיה בשנה",
+									"שטח פנוי לסולארי",
+									"קרינת שמש ממוצעת",
+									"הספק פוטנציאלי למערכת סולארית",
+									"יצור אנרגיה צפוי",
 									"פרמיה אורבנית"
 								].includes(field.FieldName),
 							);
 						}
 						return this.fields.filter((field) =>
 							[
-								"קרינת שמש ממוצעת שנתית",
-								"פוטנציאל הספק",
-								"ייצור אנרגיה בשנה",
+								"קרינת שמש ממוצעת",
+								"הספק פוטנציאלי למערכת סולארית",
+								"יצור אנרגיה צפוי",
 								"פרמיה אורבנית"
 							].includes(field.FieldName),
 						);
@@ -3114,6 +3202,7 @@
 											fields_parcel = element.Result[0].tabs[0].fields;
 										}
 										if (element.LayerName == "CMPLX_SOLAR_POTEN541") {
+											console.log(element);
 											appVue.layerNameClicked = "CMPLX_SOLAR_POTEN541";
 											fields = element.Result[0].tabs[0].fields;
 											appVue.roofTitle = null;
@@ -3128,6 +3217,59 @@
 											}
 										}
 										if (element.LayerName == "BLDG_SOLAR541_V2") {
+											console.log(element);
+											// [
+											// 	{
+											// 		"FieldName": "שם ישוב",
+											// 		"FieldValue": "ירושלים",
+											// 		"FieldType": 1
+											// 	},
+											// 	{
+											// 		"FieldName": "כתובת",
+											// 		"FieldValue": "שבזי 13 (במבנה זה קיימות כתובות נוספות)",
+											// 		"FieldType": 1
+											// 	},
+											// 	{
+											// 		"FieldName": "שטח הגג",
+											// 		"FieldValue": "297 מ\"ר",
+											// 		"FieldType": 1
+											// 	},
+											// 	{
+											// 		"FieldName": "שטח פאנלים סולאריים קיימים",
+											// 		"FieldValue": "0 מ\"ר",
+											// 		"FieldType": 1
+											// 	},
+											// 	{
+											// 		"FieldName": "שטח פנוי לסולארי",
+											// 		"FieldValue": "68 מ\"ר",
+											// 		"FieldType": 1
+											// 	},
+											// 	{
+											// 		"FieldName": "הספק פוטנציאלי למערכת סולארית",
+											// 		"FieldValue": "9 קילוואט",
+											// 		"FieldType": 1
+											// 	},
+											// 	{
+											// 		"FieldName": "קרינת שמש ממוצעת",
+											// 		"FieldValue": "1,596 ממוצע שעות בשנה",
+											// 		"FieldType": 1
+											// 	},
+											// 	{
+											// 		"FieldName": "יצור אנרגיה צפוי",
+											// 		"FieldValue": "14,470 קילוואט שעה בשנה",
+											// 		"FieldType": 1
+											// 	},
+											// 	{
+											// 		"FieldName": "פרמיה אורבנית",
+											// 		"FieldValue": "ברשות זו יש זכאות לפרמיה אורבנית ולכן הכדאיות הכלכלית גבוהה יותר",
+											// 		"FieldType": 1
+											// 	},
+											// 	{
+											// 		"FieldName": "הערה",
+											// 		"FieldValue": "זכויות היוצרים שמורות למרכז למיפוי ישראל, מבוסס על הערכה וניתוחים, לא לשימוש מסחרי",
+											// 		"FieldType": 1
+											// 	}
+											// ]
 											appVue.layerNameClicked = "BLDG_SOLAR541_V2";
 											fields = element.Result[0].tabs[0].fields;
 											appVue.roofTitle = "מה קיים על הגג";

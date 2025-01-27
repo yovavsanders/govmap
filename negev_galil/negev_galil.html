@@ -309,43 +309,6 @@
 				color: #000;
 			}
 
-			.bgBtn {
-				width: 72px;
-				height: 72px;
-				background-size: cover;
-				/* background-repeat: no-repeat;
-        background-image: url(MapArea.png); */
-				border: none;
-				cursor: pointer; /* Add this line */
-
-				border-radius: 5px;
-				box-shadow: 0px 0px 3px 0px #020202;
-				border: 1px solid #f2f2f2ba;
-			}
-
-			.orthoImg1 {
-				background-position-x: -1px;
-				background-position-y: -1px;
-			}
-			.orthoImg {
-				background-image: url(ortho.jpg);
-			}
-			.mapCacheImg1 {
-				background-position-x: -74px;
-				background-position-y: -1px;
-			}
-			.mapCacheImg {
-				background-image: url(streets.png);
-			}
-			.solarImg {
-				background-image: url(solar.jpg);
-			}
-
-			.BgDiv {
-				position: absolute;
-				bottom: 81px;
-				left: 15px;
-			}
 			.MapStyle {
 				height: calc(100vh - 98px);
 				/* position: absolute; */
@@ -868,7 +831,6 @@
 		<div id="app" class="font" v-cloak>
 			<header id="desktop-header" class="navbar-header">
 				<div class="navbar-container">
-
 					<img
 						class="mobile-menu-logo"
 						src="Logo.jpg"
@@ -970,26 +932,6 @@
 						<image src="Logo.jpg" style="height: 65px;" />
 					</div>
 				</div>
-
-				<!-- Drawer for mobile menu -->
-				<div class="drawer" :class="{ open: showDrawer }">
-					<!-- Close button for drawer -->
-					<button class="close-btn" @click="toggleDrawer">✕</button>
-					<p class="disclaimer_mobile">
-						מיפוי פוטנציאל ייצור אנרגיה מתחדשת בדו שימוש בשטחים הבנויים בוצע
-						במסגרת החלטת ממשלה 541 (תכנית הלאומית להתייעלות באנרגיה והפחתת
-						פליטות גזי חממה)
-						<a target="_blank" href="https://www.gov.il/he/pages/dec541_2021">
-							בקישור</a
-						>
-					</p>
-					<p class="disclaimer_mobile">
-						אפיון והגדרת המידע המוצג באתר בוצע על ידי משרד האנרגיה והתשתיות
-					</p>
-					<p class="disclaimer_mobile">
-						עיבוד וניתוח המידע בוצע על ידי המרכז למיפוי ישראל
-					</p>
-				</div>
 			</header>
 			<header id="mobile-header" class="navbar-header">
 				<div class="header-content">
@@ -1060,6 +1002,24 @@
 								</div>
 							</div>
 						</div>
+
+
+						<!-- Hamburger button for mobile view -->
+						<button v-if="isSearchVisible != true"
+						 class="mobile-action-button" @click="toggleDrawer()">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								height="24px"
+								viewBox="0 -960 960 960"
+								width="24px"
+								fill="#5f6368"
+							>
+								<path
+									d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+								/>
+							</svg>
+							<span>אודות</span>
+						</button>
 
 						<button
 							@click="showMeasure()"
@@ -1238,6 +1198,55 @@
 					</div>
 					<div class="modal-body" v-html="modalContent"></div>
 				</div>
+			</div>
+
+			<!-- Drawer for mobile menu -->
+			<div class="drawer" :class="{ open: showDrawer }">
+				<!-- Close button for drawer -->
+				<div style="
+					display: flex;
+					justify-content: space-between;
+					align-items: center;">
+					<button @click="showDrawer = false;" class="close-btn">✕</button>
+					<div class="mapi-logo map-logo footer-text logo-orthoBgPhotoChange govmaplogo"
+						style="margin-bottom: 5px;">
+						<i class="logo mapi-25"></i> <i class="logo mapi-23"></i>
+					</div>
+				</div>
+			
+				<!-- Footer -->
+
+				<div class="footer-text">
+					<a
+						href="https://www.gov.il/he/departments/survey_of_israel/govil-landing-page"
+						class="footer-link"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						© המרכז למיפוי ישראל
+					</a>
+				</div>
+				<div class="footer-text">
+					<a href="#" @click="showModal(usingCondText)" class="footer-link"
+						>תנאי שימוש</a
+					>
+				</div>
+				<div class="footer-text">
+					<a href="#" @click="showModal(aboutText)" class="footer-link"
+						>אודות</a
+					>
+				</div>
+				<div class="footer-text">
+					<a href="#" @click="showModal(contactText)" class="footer-link"
+						>צור קשר</a
+					>
+				</div>
+				<div class="footer-text">
+					<a href="#" @click="showModal(accesebilityText)" class="footer-link"
+						>הצהרת נגישות</a
+					>
+				</div>			
+				
 			</div>
 
 
@@ -1626,11 +1635,7 @@
 					map_y: 631555,
 					map_z: 5,
 					isMesure: false,
-					orthoSrc: "ortho.jpg",
-					mapCacheSrc: "streets.png",
-					solarSrc: "solar.jpg",
 					isSearchVisible: false, // Add this new property
-					currentBg: 41,
 					searchQuery: "",
 					showDrawer: false,
 					layersToc: null,
@@ -1840,6 +1845,7 @@
 						govmap.setBackground(this.currentBg);
 					},
 					toggleDrawer() {
+						console.log(this.showDrawer);
 						this.showDrawer = !this.showDrawer;
 					},
 					showAllItems() {
@@ -2042,6 +2048,12 @@
 					},
 				},
 				watch: {
+					isModalVisible(){
+						if (this.isModalVisible == true) {
+							this.showDrawer = false;
+						}
+
+					},
 					checked(newVal) {
 						if (newVal) {
 							setTimeout(() => {

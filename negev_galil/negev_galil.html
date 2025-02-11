@@ -527,6 +527,8 @@
 
 			.info-layers-card {
 				width: 300px;
+				display: flex;
+				flex-direction: column;
 				background-color: white;
 				text-align: right;
 				z-index: 2;
@@ -534,6 +536,9 @@
 
 			.info-layers-card-header {
 				border-bottom: 1px solid #e9eaed;
+				display: flex;
+				justify-content: center;
+				padding: 10px;
 
 				button {
 					left: 0;
@@ -541,10 +546,10 @@
 					float: left;
 					background-color: transparent;
 					border: transparent;
-					border-bottom: 1px solid #e9eaed;
 					position: absolute;
-					right: auto;
-					top: 8px;
+					display: block;
+					font: 20px Alef;
+					font-family: Alef, sans-serif;
 					color: #888;
 				}
 
@@ -555,10 +560,15 @@
 				}
 
 			}
+
 			.info-layers-card-buttons {
+				border-bottom: 1px solid #e9eaed;
+				height: 40px;
+
 				button {
 					background-color: #fff;
-					border-color: #fff; 
+					border-color: #fff;
+					border-bottom: 1px solid #e9eaed;
 					font-size: 15px;
 					border-radius: 4px;
 					float: right;
@@ -566,11 +576,79 @@
 					padding-left: 15px;
 					padding-right: 15px;
 					color: #1a6eb7;
-					border-color: transparent;
+
+					&:first-child {
+						border-left: 1px solid #e9eaed;
+					}
+
+					&:last-child {
+						border-right: 1px solid #e9eaed;
+					}
 					
 					&.active {
 						border: 1px solid #e9eaed;
+						border-bottom: transparent;
 						color: #747474;
+					}
+
+					&:first-child.active {
+						border-bottom-left-radius: 0;
+						border-left-color: transparent;
+					}
+
+					&:last-child.active {
+                        border-bottom-right-radius: 0;
+						border-right-color: transparent;
+                    }
+				}
+			}
+
+			.info-layers-card-list {
+				padding: 0;
+
+				.info-layer-button-container {
+					display: flex;
+					gap: 20px;
+					border-bottom: 1px solid #e9eaed;
+					cursor: pointer;
+					padding-top: 7px;
+					height: 40px;
+
+					&:hover {
+						background-color: #f4f5f5;
+					}
+
+					.info-layer-button {
+						color: #ccc;
+						padding-right: 7px;
+						font-size: 18px;
+
+						.square {
+							width: 14px;
+							height: 14px;
+							border: 2px solid #ccc;
+							position: relative;
+							display: inline-block;
+							opacity: 0.8;
+						}
+
+						.square.checked::after {
+							content: '';
+							position: absolute;
+							top: 50%;
+							left: 50%;
+							width: 7px;
+							height: 7px;
+							background-color: #000;
+							transform: translate(-50%, -50%);
+						}
+
+					}
+
+					.info-layers-card-text {
+						font-size: 15px;
+						color: #212121;
+						
 					}
 				}
 			}
@@ -1184,7 +1262,7 @@
 							שכבות מידע
 						</div>
 					</button>
-					<div class="info-layers-card" v-if="isInfoLayersCardOpen">
+					<div class="info-layers-card" v-else>
 						<div class="info-layers-card-header">
 							<button aria-label="סגור" @click="toggleInfoLayersCard()">
 									x
@@ -1192,13 +1270,24 @@
 							<title class="info-layers-title">שכבות מידע</title>
 						</div>
 						<div class="info-layers-card-buttons">
-							<button aria-label="שכבות" class="active">
+							<button aria-label="שכבות" :class="{active: activeInfoLayerTab === 'LAYERS'}" @click="changeInfoLayerTab('LAYERS')">
 								שכבות
 							</button>
-							<button aria-label="מקרא">
+							<button aria-label="מקרא" :class="{active: activeInfoLayerTab === 'LEDGER'}" @click="changeInfoLayerTab('LEDGER')">
 								מקרא
 							</button>
 						</div>
+						<ul class="info-layers-card-list">
+							<div v-for="(layer, index) in infoLayers" :key="layer.data.layerName" class="info-layer-button-container"
+								@click="infoLayerClicked(layer)">
+								<div class="info-layer-button">
+									<div class="square" :class="{checked: layer.data.visible}"></div>
+								</div>
+								<span class="info-layers-card-text">
+									{{ layer.data.caption }}
+								</span>
+							</div>
+						</ul>
 					</div>
 				</div>
 				<div class="info-card" v-show="fields.length > 0">
@@ -1799,6 +1888,39 @@
 					isVisible: true,
 					fields: [],
 					isInfoLayersCardOpen: false,
+					activeInfoLayerTab: 'LAYERS',
+					infoLayers: [
+						{
+							data: {
+								caption: "בתי מלון",
+								visible: false,  // Default visibility set to false
+								layerName: "HOTELS",
+								layerType: 0,
+								layerID: 68,  // Added layerID
+							},
+							isVisibleInScale: true,
+						},
+						{
+							data: {
+								caption: "מסעדות",
+								visible: false,  // Default visibility set to false
+								layerName: "RESTAURANTS",
+								layerType: 1,
+								layerID: 69,  // Added layerID
+							},
+							isVisibleInScale: false,
+						},
+						{
+							data: {
+								caption: "פארקים",
+								visible: false,  // Default visibility set to false
+								layerName: "PARKS",
+								layerType: 2,
+								layerID: 70,  // Added layerID
+							},
+							isVisibleInScale: true,
+						}
+					]
 				},
 				computed: {
                     scale() {
@@ -2169,6 +2291,18 @@
 					},
 					toggleInfoLayersCard() {
 						this.isInfoLayersCardOpen = !this.isInfoLayersCardOpen;
+					},
+
+					/**
+					 *  @param {'LAYER' | 'LEDGER'} tab - The tab to activate
+					 */
+					changeInfoLayerTab(tab) {
+						this.activeInfoLayerTab = tab;
+					},
+					infoLayerClicked(layer) {
+						console.log('0000 Layer clicked:', layer);
+						layer.data.visible = !layer.data.visible;
+						// Add your logic for handling layer click
 					}
 				},
 				watch: {

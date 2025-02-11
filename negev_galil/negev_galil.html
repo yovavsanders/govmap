@@ -488,6 +488,93 @@
 				-webkit-text-stroke: 2.5px white;
 				text-shadow: 0px 0px 18px #ffffff;
 			}
+
+			.info-layers-container {
+				position: absolute;
+				top: 56px;
+				right: 400px;
+				/* top: 20px; */
+				/* right: 20px; */
+
+				button {
+					cursor: pointer;
+				}
+			}
+
+			.info-button {
+				display: flex;
+				align-items: center;
+				background: white;
+				border: 1px solid black;
+				gap: 10px;
+				padding: 5px 12px;
+				font-family: 'Alef Hebrew';
+				font-size: 16px;
+				box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+				height: 35px;
+				border: 1px solid #ccc;
+
+				&:hover {
+					svg {
+						fill: #2178da;
+					}
+				}
+
+				:first-child {
+					height: 18px;
+				}
+			}
+
+			.info-layers-card {
+				width: 300px;
+				background-color: white;
+				text-align: right;
+				z-index: 2;
+			}
+
+			.info-layers-card-header {
+				border-bottom: 1px solid #e9eaed;
+
+				button {
+					left: 0;
+					width: 48px;
+					float: left;
+					background-color: transparent;
+					border: transparent;
+					border-bottom: 1px solid #e9eaed;
+					position: absolute;
+					right: auto;
+					top: 8px;
+					color: #888;
+				}
+
+				.info-layers-title {
+					display: block;
+					font: 20px Alef;
+					color: #000;
+				}
+
+			}
+			.info-layers-card-buttons {
+				button {
+					background-color: #fff;
+					border-color: #fff; 
+					font-size: 15px;
+					border-radius: 4px;
+					float: right;
+					height: 42px;
+					padding-left: 15px;
+					padding-right: 15px;
+					color: #1a6eb7;
+					border-color: transparent;
+					
+					&.active {
+						border: 1px solid #e9eaed;
+						color: #747474;
+					}
+				}
+			}
+
 			.info-card {
 				position: absolute;
 				top: 20px;
@@ -1081,6 +1168,39 @@
 			</header>
 
 			<div name="form" id="mapForm" class="MapStyle" style="position: relative">
+				<div class="info-layers-container">
+					<button class="info-button" v-if="!isInfoLayersCardOpen" @click="toggleInfoLayersCard()">
+						<div>
+							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 512 512" fill="currentColor">
+								<rect x="0" y="64" width="320" height="48"/>
+								<rect x="0" y="224" width="320" height="48"/>
+								<rect x="0" y="384" width="320" height="48"/>
+								<circle cx="464" cy="96" r="48"/>
+								<circle cx="464" cy="256" r="48"/>
+								<circle cx="464" cy="416" r="48"/>
+							</svg>
+						</div>
+						<div>
+							שכבות מידע
+						</div>
+					</button>
+					<div class="info-layers-card" v-if="isInfoLayersCardOpen">
+						<div class="info-layers-card-header">
+							<button aria-label="סגור" @click="toggleInfoLayersCard()">
+									x
+							</button>
+							<title class="info-layers-title">שכבות מידע</title>
+						</div>
+						<div class="info-layers-card-buttons">
+							<button aria-label="שכבות" class="active">
+								שכבות
+							</button>
+							<button aria-label="מקרא">
+								מקרא
+							</button>
+						</div>
+					</div>
+				</div>
 				<div class="info-card" v-show="fields.length > 0">
 					<div class="info-card-header">
 						<button class="close-button" @click="closeCard">×</button>
@@ -1678,6 +1798,7 @@
 
 					isVisible: true,
 					fields: [],
+					isInfoLayersCardOpen: false,
 				},
 				computed: {
                     scale() {
@@ -2046,6 +2167,9 @@
 						this.selectedIndex = -1;
 						this.showClear = false;
 					},
+					toggleInfoLayersCard() {
+						this.isInfoLayersCardOpen = !this.isInfoLayersCardOpen;
+					}
 				},
 				watch: {
 					isModalVisible(){

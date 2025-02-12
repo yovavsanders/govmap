@@ -584,7 +584,7 @@
 					&:last-child {
 						border-right: 1px solid #e9eaed;
 					}
-					
+
 					&.active {
 						border: 1px solid #e9eaed;
 						border-bottom: transparent;
@@ -648,7 +648,7 @@
 					.info-layers-card-text {
 						font-size: 15px;
 						color: #212121;
-						
+
 					}
 				}
 			}
@@ -907,6 +907,12 @@
 				.footer {
 					display: none;
 				}
+
+				.buttons-container {
+					display: flex;
+					overflow-x: auto
+				}
+
 				.mobile-action-button {
 					display: flex;
 					flex-direction: column;
@@ -937,6 +943,10 @@
 				}
 				.header-content {
 					flex-wrap: wrap;
+				}
+
+				.header-content1 {
+					gap: 0;
 				}
 
 				.navbar-container {
@@ -1065,10 +1075,23 @@
 							</svg>
 							<span>מדוד</span>
 						</button>
+						<button @click="spatialAnalysis()" class="action-button">
+							<svg width="24" height="24" viewBox="0 0 40 26">
+								<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
+									<path
+										d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"
+									/>
+									<path
+										d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"
+									/>
+								</g>
+							</svg>
+							<span>ניתוח מרחבי</span>
+						</button>
                         <!-- <button @click="govmap.showExportMap()" class="action-button">
-                            <svg 
-                                xmlns="http://www.w3.org/2000/svg" 
-                                viewBox="0 0 24 24" 
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
                                 width="24" height="24"
                                 fill="#5f6368"
                             >
@@ -1108,133 +1131,148 @@
 				<div class="header-content">
 					<!-- Hamburger button for mobile view -->
 					<div class="header-content1">
-						<button class="mobile-action-button" @click="showSearch">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								height="24px"
-								viewBox="0 -960 960 960"
-								width="24px"
-								fill="#5f6368"
-							>
-								<path
-									d="M781.69-136.92 530.46-388.16q-30 24.77-69 38.77-39 14-80.69 14-102.55 0-173.58-71.01-71.03-71.01-71.03-173.54 0-102.52 71.01-173.6 71.01-71.07 173.54-71.07 102.52 0 173.6 71.03 71.07 71.03 71.07 173.58 0 42.85-14.38 81.85-14.39 39-38.39 67.84l251.23 251.23-42.15 42.16ZM380.77-395.38q77.31 0 130.96-53.66 53.66-53.65 53.66-130.96t-53.66-130.96q-53.65-53.66-130.96-53.66t-130.96 53.66Q196.15-657.31 196.15-580t53.66 130.96q53.65 53.66 130.96 53.66Z"
-								/>
-							</svg>
-							<span>חיפוש</span>
-						</button>
-
-						<div class="search-container" v-if="isSearchVisible == true">
-							<div class="autocomplete">
-								<div class="search-input-container">
-									<input
-										type="text"
-										v-model="query"
-										@focus="showAllItems"
-										@input="filterList"
-										@keydown="handleKeyDown"
-										placeholder="חיפוש כתובת / גוש חלקה /נקודת עניין"
+						<div class="buttons-container">
+							<button class="mobile-action-button" @click="showSearch">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="24px"
+									viewBox="0 -960 960 960"
+									width="24px"
+									fill="#5f6368"
+								>
+									<path
+										d="M781.69-136.92 530.46-388.16q-30 24.77-69 38.77-39 14-80.69 14-102.55 0-173.58-71.01-71.03-71.01-71.03-173.54 0-102.52 71.01-173.6 71.01-71.07 173.54-71.07 102.52 0 173.6 71.03 71.07 71.03 71.07 173.58 0 42.85-14.38 81.85-14.39 39-38.39 67.84l251.23 251.23-42.15 42.16ZM380.77-395.38q77.31 0 130.96-53.66 53.66-53.65 53.66-130.96t-53.66-130.96q-53.65-53.66-130.96-53.66t-130.96 53.66Q196.15-657.31 196.15-580t53.66 130.96q53.65 53.66 130.96 53.66Z"
 									/>
-									<button
-										v-if="showClear"
-										class="clear-button"
-										@click="clearSearch"
-										type="button"
-										aria-label="נקה חיפוש"
-									>
-										✕
-									</button>
-								</div>
-								<div v-if="items.length" class="autocomplete-items">
-									<div
-										v-for="(item, index) in items"
-										:key="item.id"
-										@click="selectItem(item)"
-										:class="{ 'autocomplete-active': index === selectedIndex }"
-									>
-										<div>
-											{{ item.text }}
-											<input
-												type="hidden"
-												:value="item.text"
-												:data-key="item.id"
-												:data-lyr="item.type"
-											/>
-											<span class="autocomplete-badge">{{
-												types[item.type]
-											}}</span>
+								</svg>
+								<span>חיפוש</span>
+							</button>
+
+							<div class="search-container" v-if="isSearchVisible == true">
+								<div class="autocomplete">
+									<div class="search-input-container">
+										<input
+											type="text"
+											v-model="query"
+											@focus="showAllItems"
+											@input="filterList"
+											@keydown="handleKeyDown"
+											placeholder="חיפוש כתובת / גוש חלקה /נקודת עניין"
+										/>
+										<button
+											v-if="showClear"
+											class="clear-button"
+											@click="clearSearch"
+											type="button"
+											aria-label="נקה חיפוש"
+										>
+											✕
+										</button>
+									</div>
+									<div v-if="items.length" class="autocomplete-items">
+										<div
+											v-for="(item, index) in items"
+											:key="item.id"
+											@click="selectItem(item)"
+											:class="{ 'autocomplete-active': index === selectedIndex }"
+										>
+											<div>
+												{{ item.text }}
+												<input
+													type="hidden"
+													:value="item.text"
+													:data-key="item.id"
+													:data-lyr="item.type"
+												/>
+												<span class="autocomplete-badge">{{
+													types[item.type]
+												}}</span>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+
+
+							<!-- Hamburger button for mobile view -->
+							<button v-if="isSearchVisible != true"
+							class="mobile-action-button" @click="toggleDrawer()">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="24px"
+									viewBox="0 -960 960 960"
+									width="24px"
+									fill="#5f6368"
+								>
+									<path
+										d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+									/>
+								</svg>
+								<span>אודות</span>
+							</button>
+
+							<button
+								@click="showMeasure()"
+								class="mobile-action-button"
+								v-if="isSearchVisible != true"
+							>
+								<svg width="24" height="24" viewBox="0 0 40 26">
+									<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
+										<path
+											d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"
+										/>
+										<path
+											d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"
+										/>
+									</g>
+								</svg>
+								<span>מדוד</span>
+							</button>
+							<button @click="spatialAnalysis()" class="mobile-action-button">
+								<svg width="24" height="24" viewBox="0 0 40 26">
+									<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
+										<path
+											d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"
+										/>
+										<path
+											d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"
+										/>
+									</g>
+								</svg>
+								<span>ניתוח מרחבי</span>
+							</button>
+													<!-- <button @click="govmap.showExportMap()" class="mobile-action-button"
+															style="margin-top: 5px"
+															v-if="isSearchVisible != true">
+															<svg
+																	xmlns="http://www.w3.org/2000/svg"
+																	viewBox="0 0 24 24"
+																	width="24" height="24"
+																	fill="#5f6368"
+															>
+																	<path d="M3 2a1 1 0 0 0-1 1v18a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6.828a2 2 0 0 0-.586-1.414L18.586 2H3zm14 2h2.414L21 5.586V20a1 1 0 0 1-1 1h-2V14a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v7H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12v4zm-8 16v-6h6v6H9zm7-14V4h2v4h-2z"/>
+															</svg>
+															<span>שמור מפה</span>
+													</button> -->
+							<button
+								@click="shareContent"
+								class="mobile-action-button"
+								style="margin-top: 5px"
+								v-if="isSearchVisible != true"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="18px"
+									width="18px"
+									viewBox="0 -960 960 960"
+									fill="#5f6368"
+								>
+									<path
+										d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"
+									/>
+								</svg>
+								<span>שיתוף</span>
+							</button>
 						</div>
-
-
-						<!-- Hamburger button for mobile view -->
-						<button v-if="isSearchVisible != true"
-						 class="mobile-action-button" @click="toggleDrawer()">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								height="24px"
-								viewBox="0 -960 960 960"
-								width="24px"
-								fill="#5f6368"
-							>
-								<path
-									d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
-								/>
-							</svg>
-							<span>אודות</span>
-						</button>
-
-						<button
-							@click="showMeasure()"
-							class="mobile-action-button"
-							v-if="isSearchVisible != true"
-						>
-							<svg width="24" height="24" viewBox="0 0 40 26">
-								<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
-									<path
-										d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"
-									/>
-									<path
-										d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"
-									/>
-								</g>
-							</svg>
-							<span>מדוד</span>
-						</button>
-                        <!-- <button @click="govmap.showExportMap()" class="mobile-action-button"
-                            style="margin-top: 5px"
-                            v-if="isSearchVisible != true">
-                            <svg 
-                                xmlns="http://www.w3.org/2000/svg" 
-                                viewBox="0 0 24 24" 
-                                width="24" height="24"
-                                fill="#5f6368"
-                            >
-                                <path d="M3 2a1 1 0 0 0-1 1v18a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6.828a2 2 0 0 0-.586-1.414L18.586 2H3zm14 2h2.414L21 5.586V20a1 1 0 0 1-1 1h-2V14a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v7H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12v4zm-8 16v-6h6v6H9zm7-14V4h2v4h-2z"/>
-                            </svg>
-                            <span>שמור מפה</span>
-                        </button> -->
-						<button
-							@click="shareContent"
-							class="mobile-action-button"
-							style="margin-top: 5px"
-							v-if="isSearchVisible != true"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								height="18px"
-								width="18px"
-								viewBox="0 -960 960 960"
-								fill="#5f6368"
-							>
-								<path
-									d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"
-								/>
-							</svg>
-							<span>שיתוף</span>
-						</button>
 						<img
 							class="mobile-menu-logo"
 							src="Logo.jpg"
@@ -1422,7 +1460,7 @@
 						<i class="logo mapi-25"></i> <i class="logo mapi-23"></i>
 					</div>
 				</div>
-			
+
 				<!-- Footer -->
 
 				<div class="footer-text">
@@ -1454,8 +1492,8 @@
 					<a href="#" @click="showModal(accesebilityText)" class="footer-link"
 						>הצהרת נגישות</a
 					>
-				</div>			
-				
+				</div>
+
 			</div>
 
 
@@ -1774,7 +1812,7 @@
 							<p><strong>דוא"ל:</strong>noaml@png.gov.il</p>
 							<p><strong>נעם לסקר</strong></p>
 						</div>
-						
+
 						</div>`,
                     },
 
@@ -1783,7 +1821,7 @@
                         content: `<div ng-if="$root.isDefaultLanguage" class="" style="">
                         <!--Title Description-->
                         <div class="description-txt dark-gray-txt bold tbl-accesabilty tbl-responsive xs-mb-25 lg-mb-30  sub-links-permanent-underline">המרכז למיפוי ישראל רואה חשיבות רבה במתן הזדמנות שווה לכל גולשי האתר. לשם כך מושקעים מאמצים ומשאבים רבים בהנגשת האתר לשביעות רצון הגולשים.
-ההנגשה נועדה להתאים את האתר כך שיהיה זמין, נוח וידידותי לשימוש עבור אנשים עם מוגבלויות. 
+ההנגשה נועדה להתאים את האתר כך שיהיה זמין, נוח וידידותי לשימוש עבור אנשים עם מוגבלויות.
 המרכז למיפוי ישראל פועל בהתאם להנחיות הנגישות הקבועות בתקן ישראלי רשמי מספר 5568 שעניינו "קווים מנחים - לנגישות תכנים באינטרנט" לרמה AA (להלן- תקן הנגישות(.
 תקן ישראלי זה מתבסס על מסמך הקווים המנחים של הארגון הבינלאומי העוסק בתקינה ברשת - Web Content Accessibility Guidelines (WCAG) 2.0.
 </div>
@@ -1801,7 +1839,7 @@
 								</span>
                             </p>
 
-                           
+
 
                             <h3 dir="RTL">רכז נגישות (קבוע)</h3>
 
@@ -1831,10 +1869,10 @@
 
                             <p dir="RTL">מערכת Govmap מבוססת על רכיב מפה גיאוגרפי, אשר לא נמצא לו עדיין פתרון טכנולוגי להנגשה לפי התקן. המרכז למיפוי ישראל, פועל במרץ להנגשת יתר הרכיבים האפשריים באתר.</p>
 
-                          
+
                         </div>
 
-                      
+
                     </div>`,
                     },
 
@@ -2303,6 +2341,14 @@
 						console.log('0000 Layer clicked:', layer);
 						layer.data.visible = !layer.data.visible;
 						// Add your logic for handling layer click
+					},
+					spatialAnalysis() {
+						govmap.draw(govmap.drawType.Point).progress(function (response)
+                {
+									console.log('0000', response);
+                });
+
+						// govmap.intersectFeatures(params);
 					}
 				},
 				watch: {
@@ -2363,8 +2409,7 @@
 					govmap.createMap("map_div", {
 						token: my_token,
 						visibleLayers: [],
-                        layers: ["ILREGION","MMI_DISTRICTS","MINHALARBSETLBRDR","CONTOUR","REGIONALPEREFERIYA","REGIONALGALIL","REGIONALNEGEV","DISTRICTS_ADDITIONAL","REGIONALCOUNCIL","AGRIPARCELS","SOIL_SURVEY","FLOODPLAIN","DEAD_SEA_DELEK","RETZEFGVULOT","TOCHNIOTSHIVUK","TABAOT","TAZAR","MT_IL","SKARIM","TALAR_TABLE_TAVLAEI","GUSHIM_REZEF_ADDITONAL","PARCEL_REZEF_ADDITIONAL","ECONOMYLOTS_V2","MICHRAZIM_HALUKA","MICHRAZIM","RESIDENTIALSTOCKPLAN","SOIHISTORYPARCELS","ADD_RAIN_AREA_PLANNING_PROD","PLAN_REGION_STRATEGIC","ATAREI_RATAG","TAYARUT","HOTELS","FIELDSCHOOL","TRACKS","SHVIL_ISRAEL","RESERVE_NATURAL_PLAN","BASIN","INTERESTLAYERMEKOROT","PURIFIED_DRAINAGE_PONDS","TRAIN_TRACKS_STATUS","BL_LIN_P","ROUT3","EMERGANCY_HOSPITALS","TAMAT_DISTRICTS_POLYGONS"],
-						visibleLayers: [],
+						layers: ["ILREGION","MMI_DISTRICTS","MINHALARBSETLBRDR","CONTOUR","REGIONALPEREFERIYA","REGIONALGALIL","REGIONALNEGEV","DISTRICTS_ADDITIONAL","REGIONALCOUNCIL","AGRIPARCELS","SOIL_SURVEY","FLOODPLAIN","DEAD_SEA_DELEK","RETZEFGVULOT","TOCHNIOTSHIVUK","TABAOT","TAZAR","MT_IL","SKARIM","TALAR_TABLE_TAVLAEI","GUSHIM_REZEF_ADDITONAL","PARCEL_REZEF_ADDITIONAL","ECONOMYLOTS_V2","MICHRAZIM_HALUKA","MICHRAZIM","RESIDENTIALSTOCKPLAN","SOIHISTORYPARCELS","ADD_RAIN_AREA_PLANNING_PROD","PLAN_REGION_STRATEGIC","ATAREI_RATAG","TAYARUT","HOTELS","FIELDSCHOOL","TRACKS","SHVIL_ISRAEL","RESERVE_NATURAL_PLAN","BASIN","INTERESTLAYERMEKOROT","PURIFIED_DRAINAGE_PONDS","TRAIN_TRACKS_STATUS","BL_LIN_P","ROUT3","EMERGANCY_HOSPITALS","TAMAT_DISTRICTS_POLYGONS"],
 						showXY: false,
 						identifyOnClick: true,
 						background: 0,
@@ -2385,7 +2430,7 @@
 					// Update the browser's URL
 					window.history.replaceState({}, "", url.toString());
 
-                    
+
 					govmap.onEvent(govmap.events.EXTENT_CHANGE).progress(function (e) {
 						if (e.levelChange) {
 							appVue.map_z = e.lod.level;

@@ -491,9 +491,8 @@
 
 			.info-layers-container {
 				position: absolute;
-				top: 56px;
 				right: 400px;
-				/* top: 20px; */
+				top: 20px;
 				/* right: 20px; */
 
 				button {
@@ -603,6 +602,12 @@
 				}
 			}
 
+			.info-layers-card-list,
+			.info-layers-ledger-container {
+				max-height: 75vh;
+				overflow-y: auto;
+			}
+
 			.info-layers-card-list {
 				padding: 0;
 
@@ -650,6 +655,35 @@
 						color: #212121;
 
 					}
+				}
+			}
+
+			.info-layers-ledger-wrapper {
+				.info-layers-ledger-container {
+					gap: 5px;
+					display: flex;
+					flex-direction: column;
+					padding: 10px;
+					margin-top: 10px;
+
+					.simple-ledger-item-wrapper {
+						display: flex;
+						gap: 5px;
+					}
+
+					.unique-ledger-item-container {
+						.unique-ledger-item-wrapper {
+							display: flex;
+							gap: 5px;
+							margin-right: 5px;
+
+							.unique-ledger-item {
+								font-size: 14px;
+								color: #7b7b7b;
+							}
+						}
+					}
+
 				}
 			}
 
@@ -1288,12 +1322,12 @@
 					<button class="info-button" v-if="!isInfoLayersCardOpen" @click="toggleInfoLayersCard()">
 						<div>
 							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 512 512" fill="currentColor">
-								<rect x="0" y="64" width="320" height="48"/>
-								<rect x="0" y="224" width="320" height="48"/>
-								<rect x="0" y="384" width="320" height="48"/>
-								<circle cx="464" cy="96" r="48"/>
-								<circle cx="464" cy="256" r="48"/>
-								<circle cx="464" cy="416" r="48"/>
+								<rect x="0" y="64" width="320" height="48" />
+								<rect x="0" y="224" width="320" height="48" />
+								<rect x="0" y="384" width="320" height="48" />
+								<circle cx="464" cy="96" r="48" />
+								<circle cx="464" cy="256" r="48" />
+								<circle cx="464" cy="416" r="48" />
 							</svg>
 						</div>
 						<div>
@@ -1303,19 +1337,21 @@
 					<div class="info-layers-card" v-else>
 						<div class="info-layers-card-header">
 							<button aria-label="סגור" @click="toggleInfoLayersCard()">
-									x
+								x
 							</button>
 							<title class="info-layers-title">שכבות מידע</title>
 						</div>
 						<div class="info-layers-card-buttons">
-							<button aria-label="שכבות" :class="{active: activeInfoLayerTab === 'LAYERS'}" @click="changeInfoLayerTab('LAYERS')">
+							<button aria-label="שכבות" :class="{active: activeInfoLayerTab === 'LAYERS'}"
+								@click="changeInfoLayerTab('LAYERS')">
 								שכבות
 							</button>
-							<button aria-label="מקרא" :class="{active: activeInfoLayerTab === 'LEDGER'}" @click="changeInfoLayerTab('LEDGER')">
+							<button aria-label="מקרא" :class="{active: activeInfoLayerTab === 'LEDGER'}"
+								@click="changeInfoLayerTab('LEDGER')">
 								מקרא
 							</button>
 						</div>
-						<ul class="info-layers-card-list">
+						<ul class="info-layers-card-list" v-if="activeInfoLayerTab === 'LAYERS'">
 							<div v-for="(layer, index) in infoLayers" :key="layer.data.layerName" class="info-layer-button-container"
 								@click="infoLayerClicked(layer)">
 								<div class="info-layer-button">
@@ -1326,8 +1362,30 @@
 								</span>
 							</div>
 						</ul>
+						<ul v-else class="info-layers-ledger-wrapper">
+							<div v-if="infoLayersLedgerRenderer.length > 0" class="info-layers-ledger-container">
+
+								<div v-for="(layer, index) in infoLayersLedgerRenderer" :key="index">
+
+									<div v-if="layer.RendererType === 'simple'" class="simple-ledger-item-wrapper">
+										<img :src="layer.img" />
+										<span>{{layer.caption}}</span>
+									</div>
+
+									<div v-else class="unique-ledger-item-container">
+										<div>{{layer.caption}}</div>
+										<div v-for="(sublayer, j) in layer.RendererList" :key="j" class="unique-ledger-item-wrapper">
+											<img :src="sublayer.img" />
+											<span class="unique-ledger-item">{{sublayer.caption}}</span>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</ul>
 					</div>
 				</div>
+
 				<div class="info-card" v-show="fields.length > 0">
 					<div class="info-card-header">
 						<button class="close-button" @click="closeCard">×</button>
@@ -1928,6 +1986,8 @@
 					isInfoLayersCardOpen: false,
 					activeInfoLayerTab: 'LAYERS',
 					infoLayers: [],
+					infoLayersLedger: {},
+					infoLayersLedgerRenderer: [],
 				},
 				computed: {
                     scale() {
@@ -2303,13 +2363,18 @@
 					/**
 					 *  @param {'LAYER' | 'LEDGER'} tab - The tab to activate
 					 */
-					changeInfoLayerTab(tab) {
+					async changeInfoLayerTab(tab) {
 						this.activeInfoLayerTab = tab;
+
+						if (tab === "LEDGER") {
+							this.infoLayersLedgerRenderer = [];
+							await this.fetchLayers();
+							this.handleInfoLayersLedger();
+						}
 					},
 					infoLayerClicked(layer) {
-						console.log('0000 Layer clicked:', layer);
 						layer.data.visible = !layer.data.visible;
-						// Add your logic for handling layer click
+						this.infoLayersLedger[layer.data.layerName] = {...(this.infoLayersLedger[layer.data.layerName] ?? {}), isVisible: layer.data.visible, name: layer.data.layerName};
 					},
 					spatialAnalysis() {
 						govmap.draw(govmap.drawType.Point).progress(function (response)
@@ -2321,7 +2386,7 @@
 					},
 					async loadJson() {
 						try {
-							const response = await fetch("/info-layers.json"); // Path to the JSON file in the public folder
+							const response = await fetch("./info-layers.json"); // Path to the JSON file in the public folder
 							if (!response.ok) {
 								throw new Error("Network response was not ok");
 							}
@@ -2330,7 +2395,52 @@
 						} catch (error) {
 							console.error("Failed to load JSON:", error);
 						}
-					}
+					},
+					async fetchLayers() {
+						const newLayers = Object.values(this.infoLayersLedger).filter((layer) => !layer.img);
+
+						if (newLayers.length === 0) {
+							return;
+						}
+
+						try {
+							const response = await govmap.getLayerRenderer({ LayerNames: newLayers.map(l => l.name) });
+							const data = response?.data?.Renderers ?? response?.data?.SiteRenderer ?? false;
+
+							if (!data || response.errorCode !== 0) {
+								throw new Error("No data returned from getLayerRenderer");
+							}
+
+							this.populateInfoLayersLedger(data);
+						} catch (error) {
+							console.error('Error with getLayerRenderer:', error);
+						}
+					},
+					populateInfoLayersLedger(layers) {
+						for (lyr in layers) {
+							this.infoLayersLedger[lyr] = {
+								...this.infoLayersLedger[lyr],
+								RendererType: layers[lyr].RendererType,
+								caption: layers[lyr].LayerCaption
+							};
+
+							if (layers[lyr].RendererType === "simple") {
+								this.infoLayersLedger[lyr].img = layers[lyr].RendererList[""];
+							} else {
+								this.infoLayersLedger[lyr].RendererList = [];
+								Object.keys(layers[lyr].RendererList).forEach((l) => {
+									this.infoLayersLedger[lyr].RendererList.push({
+										caption: l,
+										img: layers[lyr].RendererList[l]
+									});
+								});
+							}
+						}
+
+					},
+					handleInfoLayersLedger() {
+						this.infoLayersLedgerRenderer = Object.values(this.infoLayersLedger).filter(lyr => lyr.isVisible);
+					},
 				},
 				watch: {
 					isModalVisible(){

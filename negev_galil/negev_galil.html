@@ -1927,38 +1927,7 @@
 					fields: [],
 					isInfoLayersCardOpen: false,
 					activeInfoLayerTab: 'LAYERS',
-					infoLayers: [
-						{
-							data: {
-								caption: "בתי מלון",
-								visible: false,  // Default visibility set to false
-								layerName: "HOTELS",
-								layerType: 0,
-								layerID: 68,  // Added layerID
-							},
-							isVisibleInScale: true,
-						},
-						{
-							data: {
-								caption: "מסעדות",
-								visible: false,  // Default visibility set to false
-								layerName: "RESTAURANTS",
-								layerType: 1,
-								layerID: 69,  // Added layerID
-							},
-							isVisibleInScale: false,
-						},
-						{
-							data: {
-								caption: "פארקים",
-								visible: false,  // Default visibility set to false
-								layerName: "PARKS",
-								layerType: 2,
-								layerID: 70,  // Added layerID
-							},
-							isVisibleInScale: true,
-						}
-					]
+					infoLayers: [],
 				},
 				computed: {
                     scale() {
@@ -2349,6 +2318,18 @@
                 });
 
 						// govmap.intersectFeatures(params);
+					},
+					async loadJson() {
+						try {
+							const response = await fetch("/info-layers.json"); // Path to the JSON file in the public folder
+							if (!response.ok) {
+								throw new Error("Network response was not ok");
+							}
+							const data = await response.json();
+							this.infoLayers = data;
+						} catch (error) {
+							console.error("Failed to load JSON:", error);
+						}
 					}
 				},
 				watch: {
@@ -2447,6 +2428,7 @@
 						// Update the browser's URL
 						window.history.replaceState({}, "", url.toString());
 					});
+					this.loadJson();
 				},
 			});
 		</script>

@@ -491,8 +491,9 @@
 
 			.info-layers-container {
 				position: absolute;
-				right: 400px;
-				top: 20px;
+				right: 318px;
+				/* right:20px; */
+				top: 15px;
 				/* right: 20px; */
 
 				button {
@@ -565,40 +566,34 @@
 				height: 40px;
 
 				button {
-					background-color: #fff;
-					border-color: #fff;
-					border-bottom: 1px solid #e9eaed;
+					background-color: transparent;
+					border-color: transparent;
 					font-size: 15px;
 					border-radius: 4px;
 					float: right;
-					height: 42px;
+					height: 40px;
 					padding-left: 15px;
 					padding-right: 15px;
 					color: #1a6eb7;
 
 					&:first-child {
-						border-left: 1px solid #e9eaed;
-					}
-
-					&:last-child {
-						border-right: 1px solid #e9eaed;
+						border-left: transparent;
 					}
 
 					&.active {
-						border: 1px solid #e9eaed;
+						background-color: white;
+						border: 1px solid #ccc;
 						border-bottom: transparent;
 						color: #747474;
 					}
 
 					&:first-child.active {
 						border-bottom-left-radius: 0;
-						border-left-color: transparent;
 					}
 
 					&:last-child.active {
-                        border-bottom-right-radius: 0;
-						border-right-color: transparent;
-                    }
+						border-bottom-right-radius: 0;
+					}
 				}
 			}
 
@@ -610,6 +605,7 @@
 
 			.info-layers-card-list {
 				padding: 0;
+ 			  max-height: calc(100vh - 207px);
 
 				.info-layer-button-container {
 					display: flex;
@@ -653,7 +649,10 @@
 					.info-layers-card-text {
 						font-size: 15px;
 						color: #212121;
-
+						text-overflow: ellipsis;
+						overflow: hidden;
+						white-space: nowrap;
+						display: inline-block;
 					}
 				}
 			}
@@ -711,6 +710,9 @@
 					bottom: 0;
 					left: 0;
 					z-index: 9999;
+				}
+				.info-layers-card-list {
+					max-height: calc(100vh - 300px);
 				}
 			}
 
@@ -1361,6 +1363,7 @@
 									{{ layer.data.caption }}
 								</span>
 							</div>
+
 						</ul>
 						<ul v-else class="info-layers-ledger-wrapper">
 							<div v-if="infoLayersLedgerRenderer.length > 0" class="info-layers-ledger-container">
@@ -2372,21 +2375,58 @@
 							this.handleInfoLayersLedger();
 						}
 					},
+					getLayerNames(isVisible, option = 'visible') {
+						if (option === 'all') {
+							const visibleLayers = [];
+							const hiddenLayers = [];
+
+							Object.values(this.infoLayersLedger).forEach(lyr => {
+								if (lyr.isVisible) {
+									visibleLayers.push(lyr.name);
+								} else {
+									hiddenLayers.push(lyr.name);
+								}
+							});
+
+							return { visibleLayers, hiddenLayers };
+						}
+
+						return Object.values(this.infoLayersLedger)
+							.filter(lyr => lyr.isVisible === isVisible)
+							.map(lyr => lyr.name);
+					},
 					infoLayerClicked(layer) {
 						layer.data.visible = !layer.data.visible;
-						this.infoLayersLedger[layer.data.layerName] = {...(this.infoLayersLedger[layer.data.layerName] ?? {}), isVisible: layer.data.visible, name: layer.data.layerName};
+						this.infoLayersLedger[layer.data.layerName] = { ...(this.infoLayersLedger[layer.data.layerName] ?? {}), isVisible: layer.data.visible, name: layer.data.layerName };
+						const { visibleLayers, hiddenLayers } = this.getLayerNames(null, 'all');
+
+						Object.values(this.infoLayersLedger).forEach(lyr => {
+							if (lyr.isVisible) {
+								visibleLayers.push(lyr.name);
+							} else {
+								hiddenLayers.push(lyr.name);
+							}
+						});
+
+						govmap.setVisibleLayers(visibleLayers, hiddenLayers);
 					},
 					spatialAnalysis() {
-						govmap.draw(govmap.drawType.Point).progress(function (response)
-                {
-									console.log('0000', response);
-                });
+						govmap.draw(govmap.drawType.Circle).progress((response) => {
+							if (response.radius > 3000) {
+								this.showModal({ title: 'חריגה ממגבלה', content: 'הבחירה אפשרית עד רדיוס של 1.5 ק"מ בלבד.' });
+								return;
+							}
 
-						// govmap.intersectFeatures(params);
+							const visibleLayers = this.getLayerNames(true);;
+							Promise.all(visibleLayers.map(layerName => govmap.intersectFeatures({layerName, radius: response.radius, wkt: `POINT(${response.x} ${response.y})`}))).then(response => {
+								console.log('0000response', response);
+							});
+						});
+
 					},
 					async loadJson() {
 						try {
-							const response = await fetch("./info-layers.json"); // Path to the JSON file in the public folder
+							const response = await fetch("./info-layers.json");
 							if (!response.ok) {
 								throw new Error("Network response was not ok");
 							}

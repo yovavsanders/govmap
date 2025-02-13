@@ -491,14 +491,26 @@
 
 			.info-layers-container {
 				position: absolute;
-				right: 318px;
-				/* right:20px; */
+				/* right: 318px; */
+				right:20px;
 				top: 15px;
-				/* right: 20px; */
 
 				button {
 					cursor: pointer;
 				}
+			}
+
+			.close-button {
+				left: 0;
+				width: 48px;
+				float: left;
+				background-color: transparent;
+				border: transparent;
+				position: absolute;
+				display: block;
+				font: 20px Alef;
+				font-family: Alef, sans-serif;
+				color: #888;
 			}
 
 			.info-button {
@@ -540,7 +552,7 @@
 				justify-content: center;
 				padding: 10px;
 
-				button {
+				/* button {
 					left: 0;
 					width: 48px;
 					float: left;
@@ -551,7 +563,7 @@
 					font: 20px Alef;
 					font-family: Alef, sans-serif;
 					color: #888;
-				}
+				} */
 
 				.info-layers-title {
 					display: block;
@@ -686,6 +698,31 @@
 				}
 			}
 
+			.spatial-query-container {
+				background-color: #fff;
+				border: 1px solid #ccc;
+    		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
+				position: absolute;
+				width: 812px;
+				right: 13px;
+				top: 70px;
+				z-index: 1;
+				font-family: Alef;
+
+				.spatial-query-body {
+					.th-tr-value {
+						max-width: 285px;
+						min-width: 15px;
+						width: 100px;
+						padding-left: 15px;
+						padding-right: 10px;
+						overflow: hidden;
+						display: inline-block;
+						white-space: nowrap;
+					}
+				}
+			}
+
 			.info-card {
 				position: absolute;
 				top: 20px;
@@ -699,6 +736,12 @@
 				border: 1px solid rgba(0, 0, 0, 0.1);
 				border-radius: 4px;
 				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			}
+
+			.caret-down {
+				width: 10px;
+				height: 17px;
+				fill: currentColor;
 			}
 
 			@media (max-width: 768px) {
@@ -1320,6 +1363,8 @@
 			</header>
 
 			<div name="form" id="mapForm" class="MapStyle" style="position: relative">
+
+				<!-- Spatial analysis and query -->
 				<div class="info-layers-container">
 					<button class="info-button" v-if="!isInfoLayersCardOpen" @click="toggleInfoLayersCard()">
 						<div>
@@ -1338,7 +1383,7 @@
 					</button>
 					<div class="info-layers-card" v-else>
 						<div class="info-layers-card-header">
-							<button aria-label="סגור" @click="toggleInfoLayersCard()">
+							<button class="close-button" aria-label="סגור" @click="toggleInfoLayersCard()">
 								x
 							</button>
 							<title class="info-layers-title">שכבות מידע</title>
@@ -1388,6 +1433,43 @@
 						</ul>
 					</div>
 				</div>
+
+				<div class="spatial-query-container" v-if="spatialAnalysisTable.length > 0">
+					<div class="spatial-query-header">
+						<button class="close-button" aria-label="סגור" @click="closeSpatialAnalysisTable()">
+							x
+						</button>
+						<div>
+							<div>
+								<span>LAYER NAME</span>
+								<span>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 17" class="caret-down">
+										<path d="M0.978 6.375h8.044c0.556 0 0.834 0.672 0.441 1.066L5.44 11.463c-0.244 0.244-0.641 0.244-0.885 0L0.537 7.441C0.144 7.047 0.422 6.375 0.978 6.375z"/>
+								</svg>
+								</span>
+							</div>
+							<div>NUMBER OF LAYERS</div>
+						</div>
+					</div>
+					<div class="spatial-query-body">
+						<div>Extras</div>
+						<table>
+							<thead>
+								<tr>
+									<th></th>
+									<th v-for="item in spatialAnalysisTable[0]" :key="item.FieldName" class="th-tr-value">{{item.FieldName}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="(row, index) in spatialAnalysisTable" :key="index">
+									<td>{{index + 1}}.</td>
+									<td v-for="(column, index) in row" :key="column.Value" class="th-tr-value">{{column.Value}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- End of Spatial analysis and query -->
 
 				<div class="info-card" v-show="fields.length > 0">
 					<div class="info-card-header">
@@ -1991,6 +2073,206 @@
 					infoLayers: [],
 					infoLayersLedger: {},
 					infoLayersLedgerRenderer: [],
+					spatialAnalysisTable: [
+						[
+							{
+								"FieldName": "שם",
+								"Value": "רויאל וויו"
+							},
+							{
+								"FieldName": "כתובת",
+								"Value": "שלומציון המלכה, ירושלים"
+							},
+							{
+								"FieldName": "יישוב",
+								"Value": "ירושלים"
+							},
+							{
+								"FieldName": "סוג לינה",
+								"Value": "מלון"
+							},
+							{
+								"FieldName": "מספר חדרים",
+								"Value": "-"
+							}
+						],
+						[
+							{
+								"FieldName": "שם",
+								"Value": "שלומצי הוטל"
+							},
+							{
+								"FieldName": "כתובת",
+								"Value": "שלומציון המלכה, ירושלים"
+							},
+							{
+								"FieldName": "יישוב",
+								"Value": "ירושלים"
+							},
+							{
+								"FieldName": "סוג לינה",
+								"Value": "מלון"
+							},
+							{
+								"FieldName": "מספר חדרים",
+								"Value": "-"
+							}
+						],
+						[
+							{
+								"FieldName": "שם",
+								"Value": "ממילא"
+							},
+							{
+								"FieldName": "כתובת",
+								"Value": "שלמה המלך 11, ירושלים"
+							},
+							{
+								"FieldName": "יישוב",
+								"Value": "ירושלים"
+							},
+							{
+								"FieldName": "סוג לינה",
+								"Value": " "
+							},
+							{
+								"FieldName": "מספר חדרים",
+								"Value": "194"
+							}
+						],
+						[
+							{
+								"FieldName": "שם",
+								"Value": "וולדורף אסטוריה"
+							},
+							{
+								"FieldName": "כתובת",
+								"Value": "אגרון 26, ירושלים"
+							},
+							{
+								"FieldName": "יישוב",
+								"Value": "ירושלים"
+							},
+							{
+								"FieldName": "סוג לינה",
+								"Value": " "
+							},
+							{
+								"FieldName": "מספר חדרים",
+								"Value": "226"
+							}
+						],
+						[
+							{
+								"FieldName": "שם",
+								"Value": "אכסנית נוער גשר"
+							},
+							{
+								"FieldName": "כתובת",
+								"Value": "המלך דוד 10, ירושלים"
+							},
+							{
+								"FieldName": "יישוב",
+								"Value": "ירושלים"
+							},
+							{
+								"FieldName": "סוג לינה",
+								"Value": "אכסניית נוער"
+							},
+							{
+								"FieldName": "מספר חדרים",
+								"Value": "-"
+							}
+						],
+						[
+							{
+								"FieldName": "שם",
+								"Value": "כורש"
+							},
+							{
+								"FieldName": "כתובת",
+								"Value": "כורש 3, ירושלים"
+							},
+							{
+								"FieldName": "יישוב",
+								"Value": "ירושלים"
+							},
+							{
+								"FieldName": "סוג לינה",
+								"Value": "0"
+							},
+							{
+								"FieldName": "מספר חדרים",
+								"Value": "27"
+							}
+						],
+						[
+							{
+								"FieldName": "שם",
+								"Value": "מצודת דוד"
+							},
+							{
+								"FieldName": "כתובת",
+								"Value": "דוד המלך 7, ירושלים"
+							},
+							{
+								"FieldName": "יישוב",
+								"Value": "ירושלים"
+							},
+							{
+								"FieldName": "סוג לינה",
+								"Value": "מלון"
+							},
+							{
+								"FieldName": "מספר חדרים",
+								"Value": "385"
+							}
+						],
+						[
+							{
+								"FieldName": "שם",
+								"Value": "בית שמואל"
+							},
+							{
+								"FieldName": "כתובת",
+								"Value": "שמאע אליהו 6, ירושלים"
+							},
+							{
+								"FieldName": "יישוב",
+								"Value": "ירושלים"
+							},
+							{
+								"FieldName": "סוג לינה",
+								"Value": "מלון"
+							},
+							{
+								"FieldName": "מספר חדרים",
+								"Value": "41"
+							}
+						],
+						[
+							{
+								"FieldName": "שם",
+								"Value": "דהפוסט הוסטל - כורש"
+							},
+							{
+								"FieldName": "כתובת",
+								"Value": "כורש 3, ירושלים"
+							},
+							{
+								"FieldName": "יישוב",
+								"Value": "ירושלים"
+							},
+							{
+								"FieldName": "סוג לינה",
+								"Value": "מלון"
+							},
+							{
+								"FieldName": "מספר חדרים",
+								"Value": "43"
+							}
+						]
+					],
 				},
 				computed: {
                     scale() {
@@ -2417,12 +2699,25 @@
 								return;
 							}
 
-							const visibleLayers = this.getLayerNames(true);;
-							Promise.all(visibleLayers.map(layerName => govmap.intersectFeatures({layerName, radius: response.radius, wkt: `POINT(${response.x} ${response.y})`}))).then(response => {
-								console.log('0000response', response);
-							});
+							const visibleLayers = this.getLayerNames(true);
+							try {
+								Promise.all(visibleLayers.map(LayerName => govmap.getLayerData({ LayerName, Radius: response.radius, Point: { x: response.x, y: response.y } }))).then(response => {
+									// console.log('0000response', response);
+									const sheets = response.map(lyr => lyr.data.map(l => l.Fields));
+									this.spatialAnalysisTable = sheets;
+									// this.populateSpatialAnalysisTable(sheets);
+								});
+							} catch (e) {
+								throw new Error(e);
+							}
 						});
-
+					},
+					// populateSpatialAnalysisTable(sheets) {
+					// 	console.log('0000sheets', sheets);
+					// 	this.spatialAnalysisTable = sheets;
+					// },
+					closeSpatialAnalysisTable() {
+						this.spatialAnalysisTable = [];
 					},
 					async loadJson() {
 						try {
@@ -2544,7 +2839,7 @@
 						showXY: false,
 						identifyOnClick: true,
 						background: 0,
-						layersMode: 2,
+						layersMode: 4,
 						bgButton: true,
 						level: appVue.map_z,
 						center: { x: appVue.map_x, y: appVue.map_y },

@@ -769,7 +769,7 @@
 						overflow-y: auto;
 						display: block;
 						max-width: 1885px;
-						max-height: 538px;
+						max-height: 67vh;
 					}
 
 					tr {
@@ -2754,6 +2754,7 @@
 							});
 						};
 
+						this.isInfoLayersCardOpen = false;
 						this.closeSpatialAnalysisTable();
 
 						govmap.draw(govmap.drawType.Circle).progress((coordinates) => {
@@ -2769,6 +2770,17 @@
 							fetchData(coordinates);
 						});
 					},
+
+
+					// var o;
+					// govmap.getLayerData({ LayerName: 'HOTELS', Radius: 250, Point: { x: 221755.46 , y: 631539.23 } }).then(response => {
+					// 	o = response.data.map(lyr => lyr.Fields);
+					// 	console.log(o)
+					// })
+					// populateSpatialAnalysisTable(sheets) {
+					// 	console.log('0000sheets', sheets);
+					// 	this.spatialAnalysisTable = sheets;
+					// },
 					closeSpatialAnalysisTable() {
 						this.spatialAnalysisTable = {selected: '', names: [], layers: {}};
 						this.isSpatialAnalysisDropdownOpen = false;

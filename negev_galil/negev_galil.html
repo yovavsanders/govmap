@@ -768,7 +768,6 @@
 						overflow-x: hidden;
 						overflow-y: auto;
 						display: block;
-						max-width: 1885px;
 						max-height: 67vh;
 					}
 
@@ -783,7 +782,6 @@
 					.th-tr-value {
 						max-width: 285px;
 						min-width: 15px;
-						width: 110px;
 						padding-left: 15px;
 						padding-right: 10px;
 						overflow: hidden;
@@ -811,11 +809,7 @@
 							overflow: hidden;
 
 							&:first-child {
-								width: 45px;
-							}
-
-							&:nth-child(2) {
-								width: 150px;
+								width: 60px;
 							}
 					}
 				}
@@ -880,7 +874,8 @@
 								overflow: hidden;
 								white-space: nowrap;
 								display: inline-block;
-								width: 200px;
+								width: 80vw;
+								text-align: center;
 							}
 
 							.dropdown-content {
@@ -2760,6 +2755,7 @@
 						govmap.draw(govmap.drawType.Circle).progress((coordinates) => {
 							setTimeout(function () {
 								govmap.clearDrawings();
+								govmap.setDefaultTool();
 							}, 2000);
 
 							if (coordinates.radius > 3000) {
@@ -2770,17 +2766,6 @@
 							fetchData(coordinates);
 						});
 					},
-
-
-					// var o;
-					// govmap.getLayerData({ LayerName: 'HOTELS', Radius: 250, Point: { x: 221755.46 , y: 631539.23 } }).then(response => {
-					// 	o = response.data.map(lyr => lyr.Fields);
-					// 	console.log(o)
-					// })
-					// populateSpatialAnalysisTable(sheets) {
-					// 	console.log('0000sheets', sheets);
-					// 	this.spatialAnalysisTable = sheets;
-					// },
 					closeSpatialAnalysisTable() {
 						this.spatialAnalysisTable = {selected: '', names: [], layers: {}};
 						this.isSpatialAnalysisDropdownOpen = false;

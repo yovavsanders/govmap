@@ -488,6 +488,352 @@
 				-webkit-text-stroke: 2.5px white;
 				text-shadow: 0px 0px 18px #ffffff;
 			}
+
+			.info-layers-container {
+				position: absolute;
+				right:20px;
+				top: 15px;
+
+				button {
+					cursor: pointer;
+				}
+			}
+
+			.close-button {
+				left: 0;
+				width: 48px;
+				float: left;
+				background-color: transparent;
+				border: transparent;
+				position: absolute;
+				display: block;
+				font: 20px Alef;
+				font-family: Alef, sans-serif;
+				color: #888;
+			}
+
+			.info-button {
+				display: flex;
+				align-items: center;
+				background: white;
+				border: 1px solid black;
+				gap: 10px;
+				padding: 5px 12px;
+				font-family: 'Alef Hebrew';
+				font-size: 16px;
+				box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+				height: 35px;
+				border: 1px solid #ccc;
+
+				&:hover {
+					svg {
+						fill: #2178da;
+					}
+				}
+
+				:first-child {
+					height: 18px;
+				}
+			}
+
+			.info-layers-card {
+				width: 300px;
+				display: flex;
+				flex-direction: column;
+				background-color: white;
+				text-align: right;
+				z-index: 2;
+			}
+
+			.info-layers-card-header {
+				border-bottom: 1px solid #e9eaed;
+				display: flex;
+				justify-content: center;
+				padding: 10px;
+
+				.info-layers-title {
+					display: block;
+					font: 20px Alef;
+					color: #000;
+				}
+
+			}
+
+			.info-layers-card-buttons {
+				border-bottom: 1px solid #e9eaed;
+				height: 40px;
+
+				button {
+					background-color: transparent;
+					border-color: transparent;
+					font-size: 15px;
+					border-radius: 4px;
+					float: right;
+					height: 40px;
+					padding-left: 15px;
+					padding-right: 15px;
+					color: #1a6eb7;
+
+					&:first-child {
+						border-left: transparent;
+					}
+
+					&.active {
+						background-color: white;
+						border: 1px solid #ccc;
+						border-bottom: transparent;
+						color: #747474;
+					}
+
+					&:first-child.active {
+						border-bottom-left-radius: 0;
+					}
+
+					&:last-child.active {
+						border-bottom-right-radius: 0;
+					}
+				}
+			}
+
+			.info-layers-card-list,
+			.info-layers-ledger-container {
+				max-height: 75vh;
+				overflow-y: auto;
+			}
+
+			.info-layers-card-list {
+				padding: 0;
+ 			  max-height: calc(100vh - 207px);
+
+				.info-layer-button-container {
+					display: flex;
+					gap: 20px;
+					border-bottom: 1px solid #e9eaed;
+					cursor: pointer;
+					padding: 7px 0;
+					min-height: 40px;
+					height: auto;
+
+					&:hover {
+						background-color: #f4f5f5;
+					}
+
+					.info-layer-button {
+						color: #ccc;
+						padding-right: 7px;
+						font-size: 18px;
+
+						.square {
+							width: 14px;
+							height: 14px;
+							border: 2px solid #ccc;
+							position: relative;
+							display: inline-block;
+							opacity: 0.8;
+						}
+
+						.square.checked::after {
+							content: '';
+							position: absolute;
+							top: 50%;
+							left: 50%;
+							width: 7px;
+							height: 7px;
+							background-color: #000;
+							transform: translate(-50%, -50%);
+						}
+
+					}
+
+					.info-layers-card-text {
+						font-size: 15px;
+						color: #212121;
+					}
+				}
+			}
+
+			.info-layers-ledger-wrapper {
+				.info-layers-ledger-container {
+					gap: 5px;
+					display: flex;
+					flex-direction: column;
+					padding: 10px;
+					margin-top: 10px;
+
+					.simple-ledger-item-wrapper {
+						display: flex;
+						gap: 5px;
+					}
+
+					.unique-ledger-item-container {
+						.unique-ledger-item-wrapper {
+							display: flex;
+							gap: 5px;
+							margin-right: 5px;
+
+							.unique-ledger-item {
+								font-size: 14px;
+								color: #7b7b7b;
+							}
+						}
+					}
+
+				}
+			}
+
+			.info-layers-draw-container {
+				background-color: white;
+				border: 1px solid #cccccc;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
+				width: 300px;
+
+				.header {
+					border-bottom: 1px solid #e9eaed;
+					display: flex;
+					align-items: center;
+					padding: 10px;
+
+				.text {
+					font: 20px alef;
+					color: #000000;
+					width: 100%;
+				}
+				}
+
+				.draw-options {
+					padding-right: 12px;
+
+					.sub-title {
+						line-height: 48px;
+					}
+
+					.icons-container {
+						display: flex;
+						padding-left: 12px;
+						padding-bottom: 20px;
+						justify-content: space-between;
+
+						.icon-wrapper {
+							cursor: pointer;
+
+							img {
+								width: 43px;
+								height: 43px;
+							}
+						}
+					}
+				}
+			}
+
+			.spatial-query-container {
+				background-color: #fff;
+				border: 1px solid #ccc;
+    		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
+				position: absolute;
+				width: 812px;
+				right: 13px;
+				overflow: hidden;
+				top: 10px;
+				z-index: 1;
+				font-family: Alef;
+
+				.spatial-query-header {
+					.top {
+						display: flex;
+						position: relative;
+						flex-direction: column;
+						align-items: center;
+						margin-top: 20px;
+
+						.title {
+							color: #000;
+							cursor: pointer;
+							font-size: 20px
+						}
+
+						.dropdown-content {
+							width: 300px;
+							background-color: #fff;
+							position: absolute;
+							top: 30px;
+
+							div {
+								border: 1px solid #ccc;
+								border-bottom: none;
+								cursor: pointer;
+								padding: 8px;
+								font-size: 16px;
+
+								&:hover {
+									color: #138EFA;
+								}
+
+								&:last-child {
+									border-bottom: 1px solid #ccc;
+								}
+							}
+						}
+
+						.results-length {
+							color: #989898;
+							font-size: 14px;
+						}
+					}
+				}
+
+				.spatial-query-body {
+					max-height: 67vh;
+					overflow: auto;
+
+					table {
+						border-collapse: collapse;
+					}
+
+					tbody {
+						overflow-x: hidden;
+						overflow-y: auto;
+						max-height: 67vh;
+					}
+
+					tr {
+						border-bottom: 1px solid #e9eaed;
+
+						td:first-child {
+							padding-right: 19px;
+						}
+					}
+
+					.th-tr-value {
+						min-width: 15px;
+						padding-left: 15px;
+						padding-right: 10px;
+						text-align: right;
+						height: 45px;
+						line-height: 42px;
+						vertical-align: bottom;
+						font-size: 15px;
+						color: #000000;
+					}
+
+					th, td {
+							width: 130px;
+							padding: 8px;
+							text-align: right;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+							overflow: hidden;
+
+							&:first-child {
+								width: 60px;
+							}
+					}
+				}
+			}
+
+			.spatial-query-body-mobile {
+				display: none;
+			}
+
 			.info-card {
 				position: absolute;
 				top: 20px;
@@ -503,6 +849,17 @@
 				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 			}
 
+			.caret-down {
+				width: 10px;
+				height: 17px;
+				fill: #989898;
+				transition: transform 0.5s ease;
+
+				&.rotate {
+					transform: rotate(180deg);
+				}
+			}
+
 			@media (max-width: 768px) {
 				.info-card {
 					width: 100%;
@@ -512,6 +869,90 @@
 					bottom: 0;
 					left: 0;
 					z-index: 9999;
+				}
+				.info-layers-card-list {
+					max-height: calc(100vh - 300px);
+				}
+
+				.spatial-query-container {
+					position: fixed;
+					top: 0;
+					right: 0;
+					width: 100%;
+
+					.spatial-query-header {
+						.top {
+							margin-bottom: 10px;
+
+							.title {
+								text-overflow: ellipsis;
+								overflow: hidden;
+								white-space: nowrap;
+								display: inline-block;
+								width: 80vw;
+								text-align: center;
+							}
+
+							.dropdown-content {
+								position: fixed;
+								top: 60px;
+							}
+						}
+					}
+
+					.spatial-query-body {
+						display: none;
+					}
+
+				}
+
+				.spatial-query-body-mobile {
+					background: #ececec;
+					top: 60px;
+					position: fixed;
+					width: 100%;
+    			height: 100%;
+					overflow-y: auto;
+					padding: 4px 0 100px;
+
+					&:not(:empty) {
+						display: block;
+					}
+
+					.item-container {
+						padding: 4px 16px;
+
+						&:first-child {
+							margin-top: 12px;
+						}
+
+						.card {
+							display: grid;
+    					grid-template-columns: 0.5fr 1fr;
+							padding: 8px;
+    					background: #ffffff;
+							margin-top: 8px;
+							border: 1px solid #cccccc;
+
+							.label, .value {
+								text-overflow: ellipsis;
+								white-space: nowrap;
+								overflow: hidden;
+							}
+
+							.label {
+								font-weight: bold;
+        				color: #888;
+								width: 25vw;
+							}
+
+							.value {
+								width: 58vw;
+								padding-right: 8px;
+							}
+						}
+					}
+
 				}
 			}
 
@@ -742,6 +1183,12 @@
 				.footer {
 					display: none;
 				}
+
+				.buttons-container {
+					display: flex;
+					overflow-x: auto
+				}
+
 				.mobile-action-button {
 					display: flex;
 					flex-direction: column;
@@ -772,6 +1219,10 @@
 				}
 				.header-content {
 					flex-wrap: wrap;
+				}
+
+				.header-content1 {
+					gap: 0;
 				}
 
 				.navbar-container {
@@ -900,10 +1351,23 @@
 							</svg>
 							<span>מדוד</span>
 						</button>
+						<button @click="toggleInfoLayersCard(INFO_LAYERS_CONTAINER_MODES.DRAW)" class="action-button">
+							<svg width="24" height="24" viewBox="0 0 40 26">
+								<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
+									<path
+										d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"
+									/>
+									<path
+										d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"
+									/>
+								</g>
+							</svg>
+							<span>ניתוח מרחבי</span>
+						</button>
                         <!-- <button @click="govmap.showExportMap()" class="action-button">
-                            <svg 
-                                xmlns="http://www.w3.org/2000/svg" 
-                                viewBox="0 0 24 24" 
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
                                 width="24" height="24"
                                 fill="#5f6368"
                             >
@@ -943,133 +1407,148 @@
 				<div class="header-content">
 					<!-- Hamburger button for mobile view -->
 					<div class="header-content1">
-						<button class="mobile-action-button" @click="showSearch">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								height="24px"
-								viewBox="0 -960 960 960"
-								width="24px"
-								fill="#5f6368"
-							>
-								<path
-									d="M781.69-136.92 530.46-388.16q-30 24.77-69 38.77-39 14-80.69 14-102.55 0-173.58-71.01-71.03-71.01-71.03-173.54 0-102.52 71.01-173.6 71.01-71.07 173.54-71.07 102.52 0 173.6 71.03 71.07 71.03 71.07 173.58 0 42.85-14.38 81.85-14.39 39-38.39 67.84l251.23 251.23-42.15 42.16ZM380.77-395.38q77.31 0 130.96-53.66 53.66-53.65 53.66-130.96t-53.66-130.96q-53.65-53.66-130.96-53.66t-130.96 53.66Q196.15-657.31 196.15-580t53.66 130.96q53.65 53.66 130.96 53.66Z"
-								/>
-							</svg>
-							<span>חיפוש</span>
-						</button>
-
-						<div class="search-container" v-if="isSearchVisible == true">
-							<div class="autocomplete">
-								<div class="search-input-container">
-									<input
-										type="text"
-										v-model="query"
-										@focus="showAllItems"
-										@input="filterList"
-										@keydown="handleKeyDown"
-										placeholder="חיפוש כתובת / גוש חלקה /נקודת עניין"
+						<div class="buttons-container">
+							<button class="mobile-action-button" @click="showSearch">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="24px"
+									viewBox="0 -960 960 960"
+									width="24px"
+									fill="#5f6368"
+								>
+									<path
+										d="M781.69-136.92 530.46-388.16q-30 24.77-69 38.77-39 14-80.69 14-102.55 0-173.58-71.01-71.03-71.01-71.03-173.54 0-102.52 71.01-173.6 71.01-71.07 173.54-71.07 102.52 0 173.6 71.03 71.07 71.03 71.07 173.58 0 42.85-14.38 81.85-14.39 39-38.39 67.84l251.23 251.23-42.15 42.16ZM380.77-395.38q77.31 0 130.96-53.66 53.66-53.65 53.66-130.96t-53.66-130.96q-53.65-53.66-130.96-53.66t-130.96 53.66Q196.15-657.31 196.15-580t53.66 130.96q53.65 53.66 130.96 53.66Z"
 									/>
-									<button
-										v-if="showClear"
-										class="clear-button"
-										@click="clearSearch"
-										type="button"
-										aria-label="נקה חיפוש"
-									>
-										✕
-									</button>
-								</div>
-								<div v-if="items.length" class="autocomplete-items">
-									<div
-										v-for="(item, index) in items"
-										:key="item.id"
-										@click="selectItem(item)"
-										:class="{ 'autocomplete-active': index === selectedIndex }"
-									>
-										<div>
-											{{ item.text }}
-											<input
-												type="hidden"
-												:value="item.text"
-												:data-key="item.id"
-												:data-lyr="item.type"
-											/>
-											<span class="autocomplete-badge">{{
-												types[item.type]
-											}}</span>
+								</svg>
+								<span>חיפוש</span>
+							</button>
+
+							<div class="search-container" v-if="isSearchVisible == true">
+								<div class="autocomplete">
+									<div class="search-input-container">
+										<input
+											type="text"
+											v-model="query"
+											@focus="showAllItems"
+											@input="filterList"
+											@keydown="handleKeyDown"
+											placeholder="חיפוש כתובת / גוש חלקה /נקודת עניין"
+										/>
+										<button
+											v-if="showClear"
+											class="clear-button"
+											@click="clearSearch"
+											type="button"
+											aria-label="נקה חיפוש"
+										>
+											✕
+										</button>
+									</div>
+									<div v-if="items.length" class="autocomplete-items">
+										<div
+											v-for="(item, index) in items"
+											:key="item.id"
+											@click="selectItem(item)"
+											:class="{ 'autocomplete-active': index === selectedIndex }"
+										>
+											<div>
+												{{ item.text }}
+												<input
+													type="hidden"
+													:value="item.text"
+													:data-key="item.id"
+													:data-lyr="item.type"
+												/>
+												<span class="autocomplete-badge">{{
+													types[item.type]
+												}}</span>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+
+
+							<!-- Hamburger button for mobile view -->
+							<button v-if="isSearchVisible != true"
+							class="mobile-action-button" @click="toggleDrawer()">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="24px"
+									viewBox="0 -960 960 960"
+									width="24px"
+									fill="#5f6368"
+								>
+									<path
+										d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+									/>
+								</svg>
+								<span>אודות</span>
+							</button>
+
+							<button
+								@click="showMeasure()"
+								class="mobile-action-button"
+								v-if="isSearchVisible != true"
+							>
+								<svg width="24" height="24" viewBox="0 0 40 26">
+									<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
+										<path
+											d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"
+										/>
+										<path
+											d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"
+										/>
+									</g>
+								</svg>
+								<span>מדוד</span>
+							</button>
+							<button @click="toggleInfoLayersCard(INFO_LAYERS_CONTAINER_MODES.DRAW)" class="mobile-action-button">
+								<svg width="24" height="24" viewBox="0 0 40 26">
+									<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
+										<path
+											d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"
+										/>
+										<path
+											d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"
+										/>
+									</g>
+								</svg>
+								<span>ניתוח מרחבי</span>
+							</button>
+													<!-- <button @click="govmap.showExportMap()" class="mobile-action-button"
+															style="margin-top: 5px"
+															v-if="isSearchVisible != true">
+															<svg
+																	xmlns="http://www.w3.org/2000/svg"
+																	viewBox="0 0 24 24"
+																	width="24" height="24"
+																	fill="#5f6368"
+															>
+																	<path d="M3 2a1 1 0 0 0-1 1v18a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6.828a2 2 0 0 0-.586-1.414L18.586 2H3zm14 2h2.414L21 5.586V20a1 1 0 0 1-1 1h-2V14a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v7H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12v4zm-8 16v-6h6v6H9zm7-14V4h2v4h-2z"/>
+															</svg>
+															<span>שמור מפה</span>
+													</button> -->
+							<button
+								@click="shareContent"
+								class="mobile-action-button"
+								style="margin-top: 5px"
+								v-if="isSearchVisible != true"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="18px"
+									width="18px"
+									viewBox="0 -960 960 960"
+									fill="#5f6368"
+								>
+									<path
+										d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"
+									/>
+								</svg>
+								<span>שיתוף</span>
+							</button>
 						</div>
-
-
-						<!-- Hamburger button for mobile view -->
-						<button v-if="isSearchVisible != true"
-						 class="mobile-action-button" @click="toggleDrawer()">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								height="24px"
-								viewBox="0 -960 960 960"
-								width="24px"
-								fill="#5f6368"
-							>
-								<path
-									d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
-								/>
-							</svg>
-							<span>אודות</span>
-						</button>
-
-						<button
-							@click="showMeasure()"
-							class="mobile-action-button"
-							v-if="isSearchVisible != true"
-						>
-							<svg width="24" height="24" viewBox="0 0 40 26">
-								<g transform="translate(0,26) scale(0.1,-0.1)" fill="#5f6368">
-									<path
-										d="M83 172 c-29 -30 -53 -58 -53 -62 0 -4 25 -30 55 -59 59 -56 69 -57 109 -12 19 21 19 22 -14 56 -18 19 -37 32 -42 29 -5 -4 2 -18 16 -33 25 -27 26 -28 8 -44 -17 -16 -21 -14 -60 26 l-42 43 42 41 c24 22 49 38 56 36 9 -4 13 1 10 13 -6 33 -32 23 -85 -34z"
-									/>
-									<path
-										d="M212 197 l-32 -33 34 -33 c21 -21 39 -30 47 -26 8 6 3 16 -20 34 -31 26 -32 27 -14 44 18 16 21 15 61 -26 l41 -42 -40 -43 c-22 -23 -44 -40 -49 -37 -16 10 -20 -13 -4 -26 13 -10 24 -4 75 47 l59 58 -57 58 c-32 32 -60 58 -63 58 -3 0 -20 -15 -38 -33z"
-									/>
-								</g>
-							</svg>
-							<span>מדוד</span>
-						</button>
-                        <!-- <button @click="govmap.showExportMap()" class="mobile-action-button"
-                            style="margin-top: 5px"
-                            v-if="isSearchVisible != true">
-                            <svg 
-                                xmlns="http://www.w3.org/2000/svg" 
-                                viewBox="0 0 24 24" 
-                                width="24" height="24"
-                                fill="#5f6368"
-                            >
-                                <path d="M3 2a1 1 0 0 0-1 1v18a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6.828a2 2 0 0 0-.586-1.414L18.586 2H3zm14 2h2.414L21 5.586V20a1 1 0 0 1-1 1h-2V14a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v7H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12v4zm-8 16v-6h6v6H9zm7-14V4h2v4h-2z"/>
-                            </svg>
-                            <span>שמור מפה</span>
-                        </button> -->
-						<button
-							@click="shareContent"
-							class="mobile-action-button"
-							style="margin-top: 5px"
-							v-if="isSearchVisible != true"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								height="18px"
-								width="18px"
-								viewBox="0 -960 960 960"
-								fill="#5f6368"
-							>
-								<path
-									d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"
-								/>
-							</svg>
-							<span>שיתוף</span>
-						</button>
 						<img
 							class="mobile-menu-logo"
 							src="Logo.jpg"
@@ -1081,6 +1560,162 @@
 			</header>
 
 			<div name="form" id="mapForm" class="MapStyle" style="position: relative">
+
+				<!-- Spatial analysis and query -->
+				<div class="info-layers-container">
+						<div class="info-layers-card" v-if="infoLayersContainerMode === INFO_LAYERS_CONTAINER_MODES.TABLE">
+							<div class="info-layers-card-header">
+								<button class="close-button" aria-label="סגור" @click="toggleInfoLayersCard(INFO_LAYERS_CONTAINER_MODES.BUTTON)">
+									x
+								</button>
+								<title class="info-layers-title">שכבות מידע</title>
+							</div>
+							<div class="info-layers-card-buttons">
+								<button aria-label="שכבות" :class="{active: activeInfoLayerTab === 'LAYERS'}"
+									@click="changeInfoLayerTab('LAYERS')">
+									שכבות
+								</button>
+								<button aria-label="מקרא" :class="{active: activeInfoLayerTab === 'LEDGER'}"
+									@click="changeInfoLayerTab('LEDGER')">
+									מקרא
+								</button>
+							</div>
+							<ul class="info-layers-card-list" v-if="activeInfoLayerTab === 'LAYERS'">
+								<div v-for="(layer, index) in infoLayers" :key="layer.data.layerName" class="info-layer-button-container"
+									@click="infoLayerClicked(layer)">
+									<div class="info-layer-button">
+										<div class="square" :class="{checked: layer.data.visible}"></div>
+									</div>
+									<span class="info-layers-card-text">
+										{{ layer.data.caption }}
+									</span>
+								</div>
+
+							</ul>
+							<ul v-else class="info-layers-ledger-wrapper">
+								<div v-if="infoLayersLedgerRenderer.length > 0" class="info-layers-ledger-container">
+
+									<div v-for="(layer, index) in infoLayersLedgerRenderer" :key="index">
+
+										<div v-if="layer.RendererType === 'simple'" class="simple-ledger-item-wrapper">
+											<img :src="layer.img" />
+											<span>{{layer.caption}}</span>
+										</div>
+
+										<div v-else class="unique-ledger-item-container">
+											<div>{{layer.caption}}</div>
+											<div v-for="(sublayer, j) in layer.RendererList" :key="j" class="unique-ledger-item-wrapper">
+												<img :src="sublayer.img" />
+												<span class="unique-ledger-item">{{sublayer.caption}}</span>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</ul>
+						</div>
+						<div v-else-if="infoLayersContainerMode === INFO_LAYERS_CONTAINER_MODES.DRAW" class="info-layers-draw-container">
+							<div class="header">
+								<span class="text">
+										ניתוח מרחבי
+								</span>
+								<button aria-label="סגור" class="close-button" @click="toggleInfoLayersCard(INFO_LAYERS_CONTAINER_MODES.BUTTON)">x</button>
+						</div>
+						<div class="draw-options">
+							<div class="sub-title">בחר כלי סימון:
+							</div>
+							<div class="icons-container" >
+								<div class="icon-wrapper" v-for="(option, index) in drawOptions" :key="index" @click="spatialAnalysis(option.drawType, true)">
+									<img :src="'./shapes/' + option.drawType + '.png'" :title="option.title"/>
+									{{option.title}}
+								</div>
+							</div>
+					</div>
+
+						</div>
+
+						<button v-else class="info-button" @click="toggleInfoLayersCard(INFO_LAYERS_CONTAINER_MODES.TABLE)">
+							<div>
+								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 512 512" fill="currentColor">
+									<rect x="0" y="64" width="320" height="48" />
+									<rect x="0" y="224" width="320" height="48" />
+									<rect x="0" y="384" width="320" height="48" />
+									<circle cx="464" cy="96" r="48" />
+									<circle cx="464" cy="256" r="48" />
+									<circle cx="464" cy="416" r="48" />
+								</svg>
+							</div>
+							<div>
+								שכבות מידע
+							</div>
+						</button>
+				</div>
+
+				<div class="spatial-query-container" v-if="spatialAnalysisTable.names.length > 0">
+					<div class="spatial-query-header">
+						<button class="close-button" style="z-index: 1;" aria-label="סגור" @click="closeSpatialAnalysisTable()">
+							x
+						</button>
+						<div class="top">
+							<div class="title" @click="toggleSpatialAnalysisDropdown()">
+								<span>טבלת יישויות – {{spatialAnalysisTable.selected}}</span>
+								<span>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 17" class="caret-down" :class="{'rotate': isSpatialAnalysisDropdownOpen}">
+										<path d="M0.978 6.375h8.044c0.556 0 0.834 0.672 0.441 1.066L5.44 11.463c-0.244 0.244-0.641 0.244-0.885 0L0.537 7.441C0.144 7.047 0.422 6.375 0.978 6.375z"/>
+								</svg>
+								</span>
+							</div>
+
+							<div class="dropdown-content" v-if="isSpatialAnalysisDropdownOpen">
+								<div
+								v-for="name in spatialAnalysisTable.names"
+								:key="name"
+								@click="selectSpatialAnalysisLayer(name)"
+								class="dropdown-item"
+								>
+								{{ name }}
+							</div>
+						</div>
+
+							<div class="results-length">{{spatialAnalysisTable.layers[spatialAnalysisTable.selected].length}} תוצאות</div>
+						</div>
+					</div>
+					<div class="spatial-query-body">
+						<table>
+							<thead>
+								<tr>
+									<th class=""></th>
+									<th v-for="item in spatialAnalysisTable.layers[spatialAnalysisTable.selected][0]" :key="item.name" class="th-tr-value">{{item.name}}</th>
+								</tr>
+							</thead>
+							<div>
+							<tbody>
+								<tr v-for="(row, index) in spatialAnalysisTable.layers[spatialAnalysisTable.selected]" :key="index">
+									<td>{{index + 1}}.</td>
+									<td v-for="column in row" :key="column.value" class="th-tr-value">{{column.value}}</td>
+									</tr>
+							</tbody>
+						</div>
+						</table>
+					</div>
+				</div>
+
+				<div class="spatial-query-body-mobile">
+					<div v-for="(card, index) in spatialAnalysisTable.layers[spatialAnalysisTable.selected]" :key="index" class="item-container">
+						<div class="card">
+							<div>
+								<div class="label" v-for="item in spatialAnalysisTable.layers[spatialAnalysisTable.selected][0]" :key="item.name">{{item.name}}:</div>
+							</div>
+							<div>
+								<div class="value" v-for="(row, j) in card" :key="j">
+									{{row.value}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End of Spatial analysis and query -->
+
 				<div class="info-card" v-show="fields.length > 0">
 					<div class="info-card-header">
 						<button class="close-button" @click="closeCard">×</button>
@@ -1213,7 +1848,7 @@
 						<i class="logo mapi-25"></i> <i class="logo mapi-23"></i>
 					</div>
 				</div>
-			
+
 				<!-- Footer -->
 
 				<div class="footer-text">
@@ -1245,8 +1880,8 @@
 					<a href="#" @click="showModal(accesebilityText)" class="footer-link"
 						>הצהרת נגישות</a
 					>
-				</div>			
-				
+				</div>
+
 			</div>
 
 
@@ -1565,7 +2200,7 @@
 							<p><strong>דוא"ל:</strong>noaml@png.gov.il</p>
 							<p><strong>נעם לסקר</strong></p>
 						</div>
-						
+
 						</div>`,
                     },
 
@@ -1574,7 +2209,7 @@
                         content: `<div ng-if="$root.isDefaultLanguage" class="" style="">
                         <!--Title Description-->
                         <div class="description-txt dark-gray-txt bold tbl-accesabilty tbl-responsive xs-mb-25 lg-mb-30  sub-links-permanent-underline">המרכז למיפוי ישראל רואה חשיבות רבה במתן הזדמנות שווה לכל גולשי האתר. לשם כך מושקעים מאמצים ומשאבים רבים בהנגשת האתר לשביעות רצון הגולשים.
-ההנגשה נועדה להתאים את האתר כך שיהיה זמין, נוח וידידותי לשימוש עבור אנשים עם מוגבלויות. 
+ההנגשה נועדה להתאים את האתר כך שיהיה זמין, נוח וידידותי לשימוש עבור אנשים עם מוגבלויות.
 המרכז למיפוי ישראל פועל בהתאם להנחיות הנגישות הקבועות בתקן ישראלי רשמי מספר 5568 שעניינו "קווים מנחים - לנגישות תכנים באינטרנט" לרמה AA (להלן- תקן הנגישות(.
 תקן ישראלי זה מתבסס על מסמך הקווים המנחים של הארגון הבינלאומי העוסק בתקינה ברשת - Web Content Accessibility Guidelines (WCAG) 2.0.
 </div>
@@ -1592,7 +2227,7 @@
 								</span>
                             </p>
 
-                           
+
 
                             <h3 dir="RTL">רכז נגישות (קבוע)</h3>
 
@@ -1622,10 +2257,10 @@
 
                             <p dir="RTL">מערכת Govmap מבוססת על רכיב מפה גיאוגרפי, אשר לא נמצא לו עדיין פתרון טכנולוגי להנגשה לפי התקן. המרכז למיפוי ישראל, פועל במרץ להנגשת יתר הרכיבים האפשריים באתר.</p>
 
-                          
+
                         </div>
 
-                      
+
                     </div>`,
                     },
 
@@ -1678,6 +2313,24 @@
 
 					isVisible: true,
 					fields: [],
+					INFO_LAYERS_CONTAINER_MODES: {
+						'TABLE': 'TABLE',
+						'DRAW': 'DRAW',
+						'BUTTON': 'BUTTON'
+					},
+					infoLayersContainerMode: 'BUTTON',
+					activeInfoLayerTab: 'LAYERS',
+					infoLayers: [],
+					infoLayersLedger: {},
+					infoLayersLedgerRenderer: [],
+					isSpatialAnalysisDropdownOpen: false,
+					drawOptions: [
+						{ drawType: govmap.drawType.Point, title: 'נקודה' },
+						{ drawType: govmap.drawType.Polygon, title: 'פוליגון' },
+						{ drawType: govmap.drawType.Circle, title: 'רדיוס' },
+						{ drawType: govmap.drawType.Rectangle, title: 'ריבוע' }
+					],
+					spatialAnalysisTable: {selected: '', names: [], layers: []},
 				},
 				computed: {
                     scale() {
@@ -2046,6 +2699,220 @@
 						this.selectedIndex = -1;
 						this.showClear = false;
 					},
+					toggleInfoLayersCard(mode) {
+						this.infoLayersContainerMode = mode;
+
+						if (mode !== this.INFO_LAYERS_CONTAINER_MODES.TABLE) {
+							this.closeSpatialAnalysisTable();
+						}
+					},
+
+					/**
+					 *  @param {'LAYER' | 'LEDGER'} tab - The tab to activate
+					 */
+					async changeInfoLayerTab(tab) {
+						this.activeInfoLayerTab = tab;
+
+						if (tab === "LEDGER") {
+							this.infoLayersLedgerRenderer = [];
+							await this.fetchLayers();
+							this.handleInfoLayersLedger();
+						}
+					},
+					getLayerNames(isVisible, option = 'visible') {
+						if (option === 'all') {
+							const visibleLayers = [];
+							const hiddenLayers = [];
+
+							Object.values(this.infoLayersLedger).forEach(lyr => {
+								if (lyr.isVisible) {
+									visibleLayers.push(lyr.name);
+								} else {
+									hiddenLayers.push(lyr.name);
+								}
+							});
+
+							return { visibleLayers, hiddenLayers };
+						}
+
+						return Object.values(this.infoLayersLedger)
+							.filter(lyr => lyr.isVisible === isVisible)
+							.map(lyr => lyr.name);
+					},
+					infoLayerClicked(layer) {
+						layer.data.visible = !layer.data.visible;
+						this.infoLayersLedger[layer.data.layerName] = { ...(this.infoLayersLedger[layer.data.layerName] ?? {}), isVisible: layer.data.visible, name: layer.data.layerName };
+						const { visibleLayers, hiddenLayers } = this.getLayerNames(null, 'all');
+
+						Object.values(this.infoLayersLedger).forEach(lyr => {
+							if (lyr.isVisible) {
+								visibleLayers.push(lyr.name);
+							} else {
+								hiddenLayers.push(lyr.name);
+							}
+						});
+
+						govmap.setVisibleLayers(visibleLayers, hiddenLayers);
+					},
+					spatialAnalysis(mode, isImmediatelyCloseDrawMenu = false) {
+						const fetchData = async (coordinates) => {
+							const visibleLayers = this.getLayerNames(true);
+							try {
+								const type = isCircle ? 'Radius' : 'Shape';
+								const body = {};
+
+								if (mode === govmap.drawType.Circle) {
+									body.Wkt =  `POINT(${coordinates.x} ${coordinates.y})`;
+									body.Radius = coordinates.radius;
+								} else if (mode === govmap.drawType.Point) {
+									body.Wkt = coordinates.wkt;
+									body.Radius = coordinates.tolerance;
+								} else {
+									body.Wkt = coordinates.wkt;
+								}
+
+								const layersRequest = visibleLayers.map(LayerName => {
+									const shallowCopy = { ...body };
+									shallowCopy.LayerName = LayerName;
+									return shallowCopy;
+								});
+
+								const responses = await Promise.all(
+									layersRequest.map(layer => fetch(`https://ags.govmap.gov.il/AdvancedSearch/QueryBy${type}`, {
+										method: 'POST',
+										headers: { 'Content-Type': 'application/json' },
+										body: JSON.stringify(layer)
+									})));
+
+								const layersList = await Promise.all(responses.map(async response => {
+									const json = await response.json();
+									return json.data.Data;
+								}));
+
+								processResults(layersList);
+							} catch (e) {
+								throw new Error(e);
+							}
+						}
+						const processResults = (layersList,) => {
+							if (layersList.every(layer => !layer)) {
+								this.showModal({ title: 'הודעת מערכת', content: 'לא נמצאו תוצאות. סמן מחדש' });
+								return;
+							}
+
+							layersList.filter(layer => layer).forEach(layer => {
+								this.spatialAnalysisTable.names.push(layer.Layer.caption);
+								this.spatialAnalysisTable.layers[layer.Layer.caption] = processLayer(layer);
+							});
+							this.spatialAnalysisTable.selected = this.spatialAnalysisTable.names[0];
+						}
+						const processLayer = (responseData) => {
+							const { Data: data, Settings: settings } = responseData;
+							const filteredSettings = settings.filter(s => s.fieldAlias !== "DONTSHOW");
+							const fieldNames = filteredSettings.map(s => s.fieldName);
+							const fieldAliases = filteredSettings.map(s => s.fieldAlias);
+							const processedData = data.map(item => {
+								let newItem = [];
+								fieldNames.forEach((fname, idx) => {
+									newItem.push({ name: fieldAliases[idx], value: item[fname] });
+								});
+
+								return newItem;
+							});
+
+							return processedData;
+						}
+
+						if (isImmediatelyCloseDrawMenu) {
+							this.toggleInfoLayersCard(this.INFO_LAYERS_CONTAINER_MODES.BUTTON);
+						}
+
+						this.infoLayersContainerMode === this.INFO_LAYERS_CONTAINER_MODES.BUTTON;
+						const isCircle = mode === govmap.drawType.Circle || mode === govmap.drawType.Point;
+
+						govmap.draw(mode).progress((coordinates) => {
+							setTimeout(function () {
+								govmap.clearDrawings();
+								govmap.setDefaultTool();
+							}, 2000);
+
+							if (isCircle && coordinates.radius > 3000) {
+								this.showModal({ title: 'חריגה ממגבלה', content: 'הבחירה אפשרית עד רדיוס של 1.5 ק"מ בלבד.' });
+								return;
+							}
+
+							this.toggleInfoLayersCard(this.INFO_LAYERS_CONTAINER_MODES.BUTTON);
+							fetchData(coordinates, isCircle);
+						});
+					},
+					closeSpatialAnalysisTable() {
+						this.spatialAnalysisTable = {selected: '', names: [], layers: {}};
+						this.isSpatialAnalysisDropdownOpen = false;
+					},
+					selectSpatialAnalysisLayer(name) {
+						this.spatialAnalysisTable.selected = name;
+						this.toggleSpatialAnalysisDropdown();
+					},
+					toggleSpatialAnalysisDropdown() {
+						this.isSpatialAnalysisDropdownOpen = !this.isSpatialAnalysisDropdownOpen;
+					},
+					async loadJson() {
+						try {
+							const response = await fetch("./info-layers.json");
+							if (!response.ok) {
+								throw new Error("Network response was not ok");
+							}
+							const data = await response.json();
+							this.infoLayers = data;
+						} catch (error) {
+							console.error("Failed to load JSON:", error);
+						}
+					},
+					async fetchLayers() {
+						const newLayers = Object.values(this.infoLayersLedger).filter((layer) => !layer.img);
+
+						if (newLayers.length === 0) {
+							return;
+						}
+
+						try {
+							const response = await govmap.getLayerRenderer({ LayerNames: newLayers.map(l => l.name) });
+							const data = response?.data?.Renderers ?? response?.data?.SiteRenderer ?? false;
+
+							if (!data || response.errorCode !== 0) {
+								throw new Error("No data returned from getLayerRenderer");
+							}
+
+							this.populateInfoLayersLedger(data);
+						} catch (error) {
+							console.error('Error with getLayerRenderer:', error);
+						}
+					},
+					populateInfoLayersLedger(layers) {
+						for (lyr in layers) {
+							this.infoLayersLedger[lyr] = {
+								...this.infoLayersLedger[lyr],
+								RendererType: layers[lyr].RendererType,
+								caption: layers[lyr].LayerCaption
+							};
+
+							if (layers[lyr].RendererType === "simple") {
+								this.infoLayersLedger[lyr].img = layers[lyr].RendererList[""];
+							} else {
+								this.infoLayersLedger[lyr].RendererList = [];
+								Object.keys(layers[lyr].RendererList).forEach((l) => {
+									this.infoLayersLedger[lyr].RendererList.push({
+										caption: l,
+										img: layers[lyr].RendererList[l]
+									});
+								});
+							}
+						}
+
+					},
+					handleInfoLayersLedger() {
+						this.infoLayersLedgerRenderer = Object.values(this.infoLayersLedger).filter(lyr => lyr.isVisible);
+					},
 				},
 				watch: {
 					isModalVisible(){
@@ -2105,12 +2972,11 @@
 					govmap.createMap("map_div", {
 						token: my_token,
 						visibleLayers: [],
-                        layers: ["ILREGION","MMI_DISTRICTS","MINHALARBSETLBRDR","CONTOUR","REGIONALPEREFERIYA","REGIONALGALIL","REGIONALNEGEV","DISTRICTS_ADDITIONAL","REGIONALCOUNCIL","AGRIPARCELS","SOIL_SURVEY","FLOODPLAIN","DEAD_SEA_DELEK","RETZEFGVULOT","TOCHNIOTSHIVUK","TABAOT","TAZAR","MT_IL","SKARIM","TALAR_TABLE_TAVLAEI","GUSHIM_REZEF_ADDITONAL","PARCEL_REZEF_ADDITIONAL","ECONOMYLOTS_V2","MICHRAZIM_HALUKA","MICHRAZIM","RESIDENTIALSTOCKPLAN","SOIHISTORYPARCELS","ADD_RAIN_AREA_PLANNING_PROD","PLAN_REGION_STRATEGIC","ATAREI_RATAG","TAYARUT","HOTELS","FIELDSCHOOL","TRACKS","SHVIL_ISRAEL","RESERVE_NATURAL_PLAN","BASIN","INTERESTLAYERMEKOROT","PURIFIED_DRAINAGE_PONDS","TRAIN_TRACKS_STATUS","BL_LIN_P","ROUT3","EMERGANCY_HOSPITALS","TAMAT_DISTRICTS_POLYGONS"],
-						visibleLayers: [],
+						layers: ["ILREGION","MMI_DISTRICTS","MINHALARBSETLBRDR","CONTOUR","REGIONALPEREFERIYA","REGIONALGALIL","REGIONALNEGEV","DISTRICTS_ADDITIONAL","REGIONALCOUNCIL","AGRIPARCELS","SOIL_SURVEY","FLOODPLAIN","DEAD_SEA_DELEK","RETZEFGVULOT","TOCHNIOTSHIVUK","TABAOT","TAZAR","MT_IL","SKARIM","TALAR_TABLE_TAVLAEI","GUSHIM_REZEF_ADDITONAL","PARCEL_REZEF_ADDITIONAL","ECONOMYLOTS_V2","MICHRAZIM_HALUKA","MICHRAZIM","RESIDENTIALSTOCKPLAN","SOIHISTORYPARCELS","ADD_RAIN_AREA_PLANNING_PROD","PLAN_REGION_STRATEGIC","ATAREI_RATAG","TAYARUT","HOTELS","FIELDSCHOOL","TRACKS","SHVIL_ISRAEL","RESERVE_NATURAL_PLAN","BASIN","INTERESTLAYERMEKOROT","PURIFIED_DRAINAGE_PONDS","TRAIN_TRACKS_STATUS","BL_LIN_P","ROUT3","EMERGANCY_HOSPITALS","TAMAT_DISTRICTS_POLYGONS"],
 						showXY: false,
 						identifyOnClick: true,
 						background: 0,
-						layersMode: 2,
+						layersMode: 4,
 						bgButton: true,
 						level: appVue.map_z,
 						center: { x: appVue.map_x, y: appVue.map_y },
@@ -2127,7 +2993,7 @@
 					// Update the browser's URL
 					window.history.replaceState({}, "", url.toString());
 
-                    
+
 					govmap.onEvent(govmap.events.EXTENT_CHANGE).progress(function (e) {
 						if (e.levelChange) {
 							appVue.map_z = e.lod.level;
@@ -2144,6 +3010,7 @@
 						// Update the browser's URL
 						window.history.replaceState({}, "", url.toString());
 					});
+					this.loadJson();
 				},
 			});
 		</script>

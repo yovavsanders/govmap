@@ -565,12 +565,12 @@
 
 			}
 
-			.info-layers-card-buttons {
+			.info-layers-card-buttons-container {
 				border-bottom: 1px solid #e9eaed;
 				height: 40px;
 			}
 
-			.info-layers-card-buttons button {
+			.info-layers-card-button {
 				background-color: transparent;
 				border-color: transparent;
 				font-size: 15px;
@@ -1603,12 +1603,12 @@
 								</button>
 								<title class="info-layers-title">שכבות מידע</title>
 							</div>
-							<div class="info-layers-card-buttons">
-								<button aria-label="שכבות" :class="{active: activeInfoLayerTab === 'LAYERS'}"
+							<div class="info-layers-card-buttons-container">
+								<button aria-label="שכבות" class="info-layers-card-button" :class="{active: activeInfoLayerTab === 'LAYERS'}"
 									@click="changeInfoLayerTab('LAYERS')">
 									שכבות
 								</button>
-								<button aria-label="מקרא" :class="{active: activeInfoLayerTab === 'LEDGER'}"
+								<button aria-label="מקרא" class="info-layers-card-button" :class="{active: activeInfoLayerTab === 'LEDGER'}"
 									@click="changeInfoLayerTab('LEDGER')">
 									מקרא
 								</button>
@@ -1687,7 +1687,7 @@
 
 					<div class="spatial-query-container" v-if="spatialAnalysisTable.names.length > 0 && infoLayersContainerMode === INFO_LAYERS_CONTAINER_MODES.TABLE">
 						<div class="spatial-query-header">
-							<button class="close-button" style="z-index: 1;" aria-label="סגור" @click="closeSpatialAnalysisTable()">
+							<button class="close-button" style="z-index: 1;" aria-label="סגור" @click="toggleInfoLayersCard(INFO_LAYERS_CONTAINER_MODES.BUTTON)">
 								x
 							</button>
 							<div class="top">
@@ -2891,7 +2891,6 @@
 							}
 
 							this.toggleInfoLayersCard(this.INFO_LAYERS_CONTAINER_MODES.TABLE);
-							// this.infoLayersContainerMode === this.INFO_LAYERS_CONTAINER_MODES.TABLE;
 							fetchData(coordinates, isCircle);
 						});
 					},

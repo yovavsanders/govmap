@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 Mixin Implementation Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .demo-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        
+        .api-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .options-api { background: #ff6b6b; color: white; }
+        .composition-api { background: #4ecdc4; color: white; }
+        
+        .feature-list {
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
+        .feature-list h4 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .feature-list ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .code-example {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 10px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .demo-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Vue 3 Mixin Implementation</h1>
+    <p>This implementation provides reusable functionality for both Vue 3's Options API and Composition API approaches.</p>
+    
+    <div class="highlight">
+        <strong>✅ Implementation Complete!</strong> The mixin includes:
+        <ul>
+            <li><strong>Computed Property:</strong> <code>currentTimestamp</code> - Real-time formatted timestamp</li>
+            <li><strong>Methods:</strong> <code>formatNumber()</code>, <code>validateEmail()</code>, counter management</li>
+            <li><strong>Lifecycle Hooks:</strong> <code>mounted()</code>, <code>beforeUnmount()</code> with proper cleanup</li>
+        </ul>
+    </div>
+    
+    <div class="demo-container">
+        <div class="demo-card">
+            <div class="api-badge options-api">Options API + Mixin</div>
+            <h3>Traditional Vue Mixin Approach</h3>
+            
+            <div class="feature-list">
+                <h4>Features:</h4>
+                <ul>
+                    <li>Drop-in mixin compatibility</li>
+                    <li>Familiar <code>this</code> syntax</li>
+                    <li>Easy migration from Vue 2</li>
+                    <li>Automatic method binding</li>
+                </ul>
+            </div>
+            
+            <div class="code-example">
+// Import and use the mixin
+import { sharedMixin } from './mixins/sharedMixin.js';
+
+export default {
+  mixins: [sharedMixin],
+  
+  computed: {
+    // Use mixin functionality
+    displayInfo() {
+      return `${this.currentTimestamp} - ${this.formattedCounter}`;
+    }
+  },
+  
+  methods: {
+    handleClick() {
+      this.incrementCounter();
+      const formatted = this.formatNumber(this.mixinCounter);
+      console.log('Counter:', formatted);
+    }
+  },
+  
+  template: `
+    &lt;div&gt;
+      &lt;p&gt;{{ currentTimestamp }}&lt;/p&gt;
+      &lt;p&gt;{{ formattedCounter }}&lt;/p&gt;
+      &lt;button @click="incrementCounter"&gt;Increment&lt;/button&gt;
+    &lt;/div&gt;
+  `
+};
+            </div>
+        </div>
+        
+        <div class="demo-card">
+            <div class="api-badge composition-api">Composition API + Composable</div>
+            <h3>Modern Vue Composable Approach</h3>
+            
+            <div class="feature-list">
+                <h4>Features:</h4>
+                <ul>
+                    <li>Better tree-shaking support</li>
+                    <li>TypeScript-friendly</li>
+                    <li>Explicit dependencies</li>
+                    <li>Configuration options</li>
+                </ul>
+            </div>
+            
+            <div class="code-example">
+// Import and use the composable
+import { useSharedFunctionality } from './composables/useSharedFunctionality.js';
+
+export default {
+  setup() {
+    const {
+      mixinCounter,
+      currentTimestamp,
+      formattedCounter,
+      formatNumber,
+      incrementCounter,
+      validateEmail
+    } = useSharedFunctionality({
+      enableTimestampUpdates: true,
+      componentName: 'MyComponent'
+    });
+    
+    // Component-specific logic
+    const doubleCounter = computed(() => mixinCounter.value * 2);
+    
+    const handleClick = () => {
+      incrementCounter();
+      const formatted = formatNumber(mixinCounter.value);
+      console.log('Counter:', formatted);
+    };
+    
+    return {
+      currentTimestamp,
+      formattedCounter,
+      doubleCounter,
+      handleClick
+    };
+  },
+  
+  template: `
+    &lt;div&gt;
+      &lt;p&gt;{{ currentTimestamp }}&lt;/p&gt;
+      &lt;p&gt;{{ formattedCounter }}&lt;/p&gt;
+      &lt;button @click="handleClick"&gt;Increment&lt;/button&gt;
+    &lt;/div&gt;
+  `
+};
+            </div>
+        </div>
+    </div>
+    
+    <div style="margin-top: 30px; padding: 20px; background: #e9f7ef; border-radius: 8px;">
+        <h3>🎯 Implementation Highlights</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+            <div>
+                <h4>📊 Computed Properties</h4>
+                <ul>
+                    <li><code>currentTimestamp</code> - Live updating timestamp</li>
+                    <li><code>formattedCounter</code> - Localized counter display</li>
+                    <li>Reactive updates with proper dependencies</li>
+                </ul>
+            </div>
+            <div>
+                <h4>🔧 Methods</h4>
+                <ul>
+                    <li><code>formatNumber()</code> - Intl.NumberFormat wrapper</li>
+                    <li><code>validateEmail()</code> - Email validation regex</li>
+                    <li><code>incrementCounter()</code> - State management</li>
+                </ul>
+            </div>
+            <div>
+                <h4>🔄 Lifecycle Hooks</h4>
+                <ul>
+                    <li><code>mounted()</code> - Component initialization</li>
+                    <li><code>beforeUnmount()</code> - Cleanup intervals</li>
+                    <li>Proper memory management</li>
+                </ul>
+            </div>
+            <div>
+                <h4>✅ Cross-API Compatibility</h4>
+                <ul>
+                    <li>Identical functionality both ways</li>
+                    <li>Same method signatures</li>
+                    <li>Consistent behavior patterns</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 8px;">
+        <h4>🧪 Testing & Validation</h4>
+        <p>Both implementations include comprehensive test suites covering:</p>
+        <ul>
+            <li><strong>Unit Tests:</strong> Individual methods and computed properties</li>
+            <li><strong>Integration Tests:</strong> Component interaction and user events</li>
+            <li><strong>Lifecycle Tests:</strong> Setup, cleanup, and memory management</li>
+            <li><strong>Error Handling:</strong> Invalid inputs and edge cases</li>
+        </ul>
+        <p><strong>Files:</strong> <code>tests/sharedMixin.test.js</code>, <code>tests/useSharedFunctionality.test.js</code></p>
+    </div>
+
+    <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+        <h4>📁 Project Structure</h4>
+        <div class="code-example">
+govmap/
+├── mixins/
+│   └── sharedMixin.js           # Options API mixin
+├── composables/
+│   └── useSharedFunctionality.js # Composition API composable
+├── examples/
+│   ├── OptionsAPIExample.vue    # Options API demo component
+│   └── CompositionAPIExample.vue # Composition API demo component
+├── tests/
+│   ├── sharedMixin.test.js      # Mixin tests
+│   └── useSharedFunctionality.test.js # Composable tests
+├── README.md                    # Project documentation
+├── IMPLEMENTATION.md            # Detailed implementation guide
+├── package.json                 # Dependencies and scripts
+└── vue3-mixin-demo.html        # Live demo page
+        </div>
+    </div>
+</body>
+</html>

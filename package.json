@@ -1,0 +1,51 @@
+{
+  "name": "govmap-vue3-mixins",
+  "version": "1.0.0",
+  "description": "Vue 3 mixin implementation with Options API and Composition API support",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "python -m http.server 8080",
+    "serve:node": "npx serve .",
+    "lint": "eslint . --ext .js,.vue",
+    "lint:fix": "eslint . --ext .js,.vue --fix"
+  },
+  "keywords": [
+    "vue3",
+    "mixin",
+    "composition-api",
+    "options-api",
+    "reusable",
+    "components"
+  ],
+  "author": "Vue 3 Mixin Implementation",
+  "license": "MIT",
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/test-utils": "^2.4.0", 
+    "vitest": "^0.34.0",
+    "jsdom": "^22.0.0",
+    "eslint": "^8.0.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "vite": "^4.0.0"
+  },
+  "dependencies": {
+    "vue": "^3.3.0"
+  },
+  "files": [
+    "mixins/",
+    "composables/",
+    "examples/",
+    "README.md"
+  ],
+  "exports": {
+    "./mixins/sharedMixin": "./mixins/sharedMixin.js",
+    "./composables/useSharedFunctionality": "./composables/useSharedFunctionality.js"
+  }
+}
